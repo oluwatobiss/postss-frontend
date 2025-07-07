@@ -97,7 +97,7 @@ export default function Login() {
             </div>
           )}
         </form>
-        <div className="mt-3 text-sm">
+        <div className="mt-3 text-sm text-center">
           <span>New to Postss? </span>
           <a className="text-blue-300 hover:text-blue-500" href="/sign-up">
             Join now

@@ -21,8 +21,6 @@ type FormEvent = React.FormEvent<HTMLFormElement>;
 type GetFetcherOptions = { url: string; userToken: string };
 type LoggedInUser = { id: number; username: string; status: string };
 type PostUserArg = {
-  firstName: string;
-  lastName: string;
   username: string;
   email: string;
   password: string;
