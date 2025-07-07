@@ -159,7 +159,7 @@ export default function SignUp() {
         </form>
         <div className="mt-3 text-sm text-center">
           <span>Already on Postss? </span>
-          <a className="text-blue-300 hover:text-blue-500" href="/sign-up">
+          <a className="text-blue-300 hover:text-blue-500" href="/login">
             Login
           </a>
         </div>

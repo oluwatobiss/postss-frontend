@@ -13,7 +13,7 @@ async function postUserAuthData(url: string, { arg }: PostUserAuthOption) {
   return await response.json();
 }
 
-export default function Login() {
+export default function LoginForm() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
