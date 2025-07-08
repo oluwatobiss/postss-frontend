@@ -1,3 +1,4 @@
+import { CSSProperties } from "react";
 import { DefaultChannelData } from "stream-chat-react";
 
 declare module "stream-chat" {
@@ -42,6 +43,11 @@ type SubscriptionOption = {
   };
 };
 type PostUserAuthOption = { arg: { email: string; password: string } };
+type SvgProps = {
+  ariaLabel: string;
+  viewBox: string;
+  style: CSSProperties;
+};
 type User = {
   id: number;
   firstName: string;
@@ -60,10 +66,11 @@ export type {
   FormEvent,
   GetFetcherOptions,
   LoggedInUser,
+  PostUserAuthOption,
   PostUserOption,
   PutUserOption,
-  UpsertFetcherOption,
-  PostUserAuthOption,
   SubscriptionOption,
+  SvgProps,
+  UpsertFetcherOption,
   User,
 };
