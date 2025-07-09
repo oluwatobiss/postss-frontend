@@ -4,16 +4,15 @@ export const svg = {
   boxArrowRight: (
     <Svg
       ariaLabel="Logout"
-      viewBox="0 0 16 16"
-      style={{ fill: "currentColor", height: "24px", width: "24px" }}
+      viewBox="0 0 24 24"
+      style={{ fill: "transparent", height: "31px", width: "31px" }}
     >
       <path
-        fillRule="evenodd"
-        d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"
-      />
-      <path
-        fillRule="evenodd"
-        d="M15.9 8.4a.5.5 0 0 0 0-.8l-3-3a.5.5 0 0 0-.8.8l2.2 2.1H5.5a.5.5 0 0 0 0 1h8.8L12 10.6a.5.5 0 0 0 .8.8z"
+        stroke="#4d4d4d"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M14 7.6V4.5c0-.3-.2-.5-.5-.5h-9c-.3 0-.5.2-.5.5v15c0 .3.2.5.5.5h9c.3 0 .5-.2.5-.5v-3.1M10 12h11m0 0-3-3.5m3 3.5-3 3.5"
       />
     </Svg>
   ),
@@ -48,18 +47,12 @@ export const svg = {
       viewBox="0 0 26 26"
       style={{ fill: "transparent", height: "24px", width: "24px" }}
     >
-      <circle
-        cx="13"
-        cy="7.25"
-        r="4"
-        stroke="currentColor"
-        strokeWidth="2.5"
-      ></circle>
+      <circle cx="13" cy="7.3" r="4" stroke="currentColor" strokeWidth="2.5" />
       <path
-        d="M6.26678 23.75H19.744C21.603 23.75 22.5 23.2186 22.5 22.0673C22.5 19.3712 18.8038 15.75 13 15.75C7.19625 15.75 3.5 19.3712 3.5 22.0673C3.5 23.2186 4.39704 23.75 6.26678 23.75Z"
         stroke="currentColor"
         strokeWidth="2.5"
-      ></path>
+        d="M6.3 23.8h13.4c1.9 0 2.8-.6 2.8-1.7 0-2.7-3.7-6.4-9.5-6.4s-9.5 3.7-9.5 6.4c0 1.1.9 1.6 2.8 1.6Z"
+      />
     </Svg>
   ),
   plus: (
