@@ -5,7 +5,7 @@ const mrBedfort = Mr_Bedfort({ weight: "400", subsets: ["latin"] });
 
 export default function Aside() {
   return (
-    <aside className="fixed bg-[rgba(10, 10, 10, 0.85)] backdrop-blur-lg h-full w-19 flex flex-col items-center">
+    <aside className="z-10 fixed bg-[rgba(10, 10, 10, 0.85)] backdrop-blur-lg h-full w-19 flex flex-col items-center">
       <div
         className={`${mrBedfort.className} text-[33px] hover:scale-110 cursor-pointer transition-scale duration-300 linear leading-[1.5] py-4`}
       >
