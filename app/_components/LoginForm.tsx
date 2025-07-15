@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Errors, FormEvent, PostUserAuthOption } from "@/app/_types";
+import Link from "next/link";
 import useSWRMutation from "swr/mutation";
 
 async function postUserAuthData(url: string, { arg }: PostUserAuthOption) {
@@ -99,9 +100,9 @@ export default function LoginForm() {
         </form>
         <div className="mt-3 text-sm text-center">
           <span>New to Postss? </span>
-          <a className="text-blue-300 hover:text-blue-500" href="/sign-up">
+          <Link className="text-blue-300 hover:text-blue-500" href="/sign-up">
             Join now
-          </a>
+          </Link>
         </div>
         <hr className="my-5 text-gray-500" />
         <button

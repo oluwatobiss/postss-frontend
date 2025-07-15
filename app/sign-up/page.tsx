@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, Errors, FormEvent, PostUserOption } from "@/app/_types";
+import Link from "next/link";
 import useSWRMutation from "swr/mutation";
 
 async function postUser(url: string, { arg }: PostUserOption) {
@@ -159,9 +160,9 @@ export default function SignUp() {
         </form>
         <div className="mt-3 text-sm text-center">
           <span>Already on Postss? </span>
-          <a className="text-blue-300 hover:text-blue-500" href="/login">
+          <Link className="text-blue-300 hover:text-blue-500" href="/login">
             Login
-          </a>
+          </Link>
         </div>
         <hr className="my-5 text-gray-500" />
         <button

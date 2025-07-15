@@ -1,5 +1,6 @@
 import { Mr_Bedfort } from "next/font/google";
 import { svg } from "../_svg";
+import Link from "next/link";
 
 const mrBedfort = Mr_Bedfort({ weight: "400", subsets: ["latin"] });
 
@@ -13,7 +14,9 @@ export default function Aside() {
       </div>
       <div className="grow flex items-center">
         <div className="grid gap-y-4 [&_div]:size-15 [&_div]:rounded-xl [&_div]:flex [&_div]:items-center [&_div]:justify-center [&_div]:cursor-pointer [&_div]:hover:bg-[rgba(255,255,255,0.08)] [&_svg]:text-[rgb(77,77,77)]">
-          <div>{svg.person}</div>
+          <Link href="/profile">
+            <div>{svg.person}</div>
+          </Link>
           <div className="bg-[rgba(255,255,255,0.08)] group [&_svg]:group-hover:text-white">
             {svg.plus}
           </div>
