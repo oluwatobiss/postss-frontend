@@ -42,15 +42,15 @@ export const svg = {
         r="9.3"
         fill="none"
         stroke="currentColor"
-        stroke-width="1.5"
+        strokeWidth="1.5"
       />
       <circle cx="16" cy="12" r="1" fill="currentColor" />
       <circle cx="8" cy="12" r="1" fill="currentColor" />
       <path
         fill="none"
         stroke="currentColor"
-        stroke-linecap="round"
-        stroke-width="1.5"
+        strokeLinecap="round"
+        strokeWidth="1.5"
         d="M9 15v0a3.5 3.5 0 0 0 6 0v0"
       />
     </Svg>
@@ -76,11 +76,11 @@ export const svg = {
     >
       <path
         fill="currentColor"
-        fill-rule="evenodd"
+        fillRule="evenodd"
         d="M2 9.5c-.3-2.5-.5-3.7-.2-4.8.3-.9 1-1.6 1.7-2.2.9-.6 2.1-.8 4.6-1.1l2.6-.4c2.5-.3 3.7-.5 4.8-.2.9.3 1.6 1 2.2 1.7l.5 1.2h-1.6l-.1-.3A3 3 0 0 0 15 2.2c-.7-.2-1.5 0-3.2.2L7.4 3c-1.6.2-2.4.3-3 .7a3 3 0 0 0-1.2 1.5c-.2.7 0 1.5.2 3.2l.6 4.4.5 2.6v2.3c-.4-.2-.7-.6-1-1-.6-.9-.8-2.1-1.1-4.6L2 9.5Z"
-        clip-rule="evenodd"
+        clipRule="evenodd"
       />
-      <g clip-path="url(#a)">
+      <g clipPath="url(#a)">
         <rect
           width="15.5"
           height="15.5"
@@ -88,14 +88,14 @@ export const svg = {
           y="5.9"
           fill="none"
           stroke="currentColor"
-          stroke-width="1.5"
+          strokeWidth="1.5"
           rx="3.8"
         />
         <path
           fill="none"
           stroke="currentColor"
-          stroke-linejoin="round"
-          stroke-width="1.5"
+          strokeLinejoin="round"
+          strokeWidth="1.5"
           d="m6.7 17.9 1.9-2c.6-.5 1.5-.5 2 0l2 1.7c.3.4 1 .3 1.3 0l4-4c.5-.5 1.5-.5 2 0l2.2 2.2"
         />
         <circle cx="10.8" cy="9.9" r="1.3" fill="currentColor" />
