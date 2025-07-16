@@ -4,7 +4,11 @@ import Link from "next/link";
 
 const mrBedfort = Mr_Bedfort({ weight: "400", subsets: ["latin"] });
 
-export default function Aside() {
+export default function Aside({
+  openPostDialog,
+}: {
+  openPostDialog: VoidFunction;
+}) {
   return (
     <aside className="z-10 fixed bg-[rgba(10, 10, 10, 0.85)] backdrop-blur-lg h-full w-19 flex flex-col items-center">
       <div
@@ -17,7 +21,10 @@ export default function Aside() {
           <Link href="/profile">
             <div>{svg.person}</div>
           </Link>
-          <div className="bg-[rgba(255,255,255,0.08)] group [&_svg]:group-hover:text-white">
+          <div
+            className="bg-[rgba(255,255,255,0.08)] group [&_svg]:group-hover:text-white"
+            onClick={openPostDialog}
+          >
             {svg.plus}
           </div>
           <div>{svg.boxArrowRight}</div>

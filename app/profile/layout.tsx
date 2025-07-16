@@ -1,20 +1,24 @@
-import type { Metadata } from "next";
+"use client";
+import { useRef } from "react";
 import Image from "next/image";
 import Aside from "../_components/Aside";
-
-export const metadata: Metadata = {
-  title: "CodeSweetly (@codesweetly)",
-  description: "Profile page",
-};
+import PostDialog from "../_components/PostDialog";
 
 export default function ProfileLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const dialogRef = useRef<HTMLDialogElement | null>(null);
+
+  function openPostDialog() {
+    dialogRef.current?.showModal();
+  }
+
   return (
     <article>
-      <Aside />
+      <PostDialog dialogRef={dialogRef} />
+      <Aside openPostDialog={openPostDialog} />
       <main className="w-full fixed min-h-screen">
         <h1 className="text-center h-15 leading-15">Profile</h1>
         <div className="w-full fixed top-15 bottom-0 overflow-y-scroll">

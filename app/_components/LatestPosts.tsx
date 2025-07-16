@@ -1,10 +1,10 @@
-import Aside from "./Aside";
+// import Aside from "./Aside";
 import PostCard from "./PostCard";
 
 export default function LatestPosts() {
   return (
     <article>
-      <Aside />
+      {/* <Aside /> */}
       <main className="w-full fixed min-h-screen">
         <h1 className="text-center h-15 leading-15">Latest</h1>
         <div className="w-full fixed top-15 bottom-0 overflow-y-scroll">
