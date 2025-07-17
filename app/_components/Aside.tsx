@@ -20,7 +20,7 @@ export default function Aside({
       </Link>
       <div className="grow flex items-center">
         <div className="grid gap-y-4 [&_div]:size-15 [&_div]:rounded-xl [&_div]:flex [&_div]:items-center [&_div]:justify-center [&_div]:cursor-pointer [&_div]:hover:bg-[rgba(255,255,255,0.08)] [&_svg]:text-[rgb(77,77,77)]">
-          <Link href="/profile">
+          <Link href="/profile/@oluwatobiss">
             <div>{svg.person}</div>
           </Link>
           <div

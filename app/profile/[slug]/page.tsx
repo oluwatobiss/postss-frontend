@@ -1,13 +1,19 @@
 import Image from "next/image";
-import PostCard from "../_components/PostCard";
+import PostCard from "../../_components/PostCard";
 
-export default function Profile() {
+export default async function Profile({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+
   return (
     <>
       <div className="px-6 py-4 flex">
         <Image
           src="https://avatar.iran.liara.run/public"
-          alt="codesweetly"
+          alt={slug}
           width={36}
           height={36}
           className="object-cover outline-offset-[-.5px] outline-[.5px] outline-solid outline-[rgba(243,245,247,.15)] rounded-full touch-manipulation select-none"
