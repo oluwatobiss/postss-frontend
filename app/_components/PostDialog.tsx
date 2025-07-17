@@ -6,7 +6,7 @@ export default function PostDialog({
 }: {
   dialogRef: React.RefObject<HTMLDialogElement | null>;
 }) {
-  function closePostDialog(e: React.MouseEvent<HTMLDialogElement>) {
+  function closePostDialog(e: React.MouseEvent<HTMLDialogElement, MouseEvent>) {
     const dialogRect = dialogRef.current?.getBoundingClientRect();
     console.log(dialogRect);
     if (dialogRect) {
