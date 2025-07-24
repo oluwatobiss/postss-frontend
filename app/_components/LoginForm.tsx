@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Errors, FormEvent, PostUserAuthOption } from "@/app/_types";
 import Link from "next/link";
 import useSWRMutation from "swr/mutation";
@@ -15,6 +15,7 @@ async function postUserAuthData(url: string, { arg }: PostUserAuthOption) {
 }
 
 export default function LoginForm() {
+  const pathname = usePathname();
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,10 +30,9 @@ export default function LoginForm() {
     try {
       const result = await trigger({ email, password });
       if (result.errors?.length) return setErrors(result.errors);
-      localStorage.setItem("gistToken", result.token);
-      localStorage.setItem("streamToken", result.streamToken);
-      localStorage.setItem("gistUserData", JSON.stringify(result.payload));
-      router.push("/");
+      localStorage.setItem("postssToken", result.token);
+      localStorage.setItem("postssUserData", JSON.stringify(result.payload));
+      pathname === "/login" ? router.push("/") : window.location.reload();
     } catch (error) {
       if (error instanceof Error) console.error(error.message);
     }

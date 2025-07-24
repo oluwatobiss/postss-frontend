@@ -1,21 +1,6 @@
 import { CSSProperties } from "react";
-import { DefaultChannelData } from "stream-chat-react";
-
-declare module "stream-chat" {
-  interface CustomChannelData extends DefaultChannelData {
-    image?: string;
-  }
-}
 
 type ChangeEvent = React.ChangeEvent<HTMLInputElement>;
-type Channel = {
-  id: number;
-  name: string;
-  imageUrl: string;
-  creatorId: string;
-  streamId: string;
-  members: User[];
-};
 type DeleteFetcherOptions = { id: string; userToken: string | false | null };
 type Errors = { msg: string; path: string };
 type FormEvent = React.FormEvent<HTMLFormElement>;
@@ -35,13 +20,6 @@ type PutUserOption = {
   };
 };
 type UpsertFetcherOption = { arg: { name: string; imageUrl: string } };
-type SubscriptionOption = {
-  arg: {
-    channelId: string;
-    username: string;
-    userToken: string | false | null;
-  };
-};
 type PostUserAuthOption = { arg: { email: string; password: string } };
 type SvgProps = {
   ariaLabel: string;
@@ -60,7 +38,6 @@ type User = {
 
 export type {
   ChangeEvent,
-  Channel,
   DeleteFetcherOptions,
   Errors,
   FormEvent,
@@ -69,7 +46,6 @@ export type {
   PostUserAuthOption,
   PostUserOption,
   PutUserOption,
-  SubscriptionOption,
   SvgProps,
   UpsertFetcherOption,
   User,
