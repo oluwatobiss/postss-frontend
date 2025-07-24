@@ -5,6 +5,12 @@ import Link from "next/link";
 
 const mrBedfort = Mr_Bedfort({ weight: "400", subsets: ["latin"] });
 
+function logout() {
+  localStorage.removeItem("postssToken");
+  localStorage.removeItem("postssUserData");
+  window.location.reload();
+}
+
 export default function Aside({
   openPostDialog,
 }: {
@@ -38,7 +44,13 @@ export default function Aside({
             >
               {svg.plus}
             </div>
-            <div>{svg.boxArrowRight}</div>
+            <button
+              type="button"
+              onClick={logout}
+              className="size-15 rounded-xl flex items-center justify-center cursor-pointer hover:bg-[rgba(255,255,255,0.08)]"
+            >
+              {svg.boxArrowRight}
+            </button>
           </div>
         </div>
       )}
