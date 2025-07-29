@@ -224,7 +224,7 @@ export default function EditProfile() {
           Update
         </button>
       </form>
-      {admin && (
+      {!admin && (
         <>
           <hr className="my-5 text-gray-600" />
           <p className="text-sm text-red-500">Danger Zone</p>
