@@ -1,3 +1,5 @@
+"use client";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 export default function ProfileLayout({
@@ -5,6 +7,18 @@ export default function ProfileLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    const userDataJson = localStorage.getItem("postssUserData");
+    const userData = userDataJson && JSON.parse(userDataJson);
+    setFirstName(userData.firstName || "");
+    setLastName(userData.lastName || "");
+    setUsername(userData.username);
+  }, []);
+
   return (
     <>
       <section>
@@ -12,10 +26,10 @@ export default function ProfileLayout({
           <div className="grid grid-cols-[minmax(0,1fr)_max-content] items-center gap-x-4">
             <div>
               <h1 className="font-bold text-2xl wrap-break-word">
-                Oluwatobi Sofela
+                {firstName || lastName ? `${firstName} ${lastName}` : username}
               </h1>
               <div className="overflow-hidden whitespace-nowrap text-ellipsis">
-                oluwatobiss
+                {username}
               </div>
             </div>
             <div>
