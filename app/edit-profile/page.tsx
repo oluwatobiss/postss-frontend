@@ -103,7 +103,6 @@ export default function EditProfile() {
           throw new Error(result.message);
         }
         localStorage.removeItem("postssToken");
-        localStorage.removeItem("streamToken");
         localStorage.removeItem("postssUserData");
         router.push("/");
       }
@@ -263,7 +262,7 @@ export default function EditProfile() {
           <button
             type="button"
             disabled={isDeleting}
-            onClick={() => deleteAccount(username)}
+            onClick={() => deleteAccount(userId)}
             className="cursor-pointer rounded-lg border border-solid border-transparent transition-colors bg-foreground text-background hover:bg-red-500 dark:hover:bg-red-500 font-medium text-sm sm:text-base h-10 sm:h-12 mt-3 px-4 sm:px-5"
           >
             Delete Account
