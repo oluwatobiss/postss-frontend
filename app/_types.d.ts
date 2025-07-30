@@ -19,6 +19,7 @@ type PutUserOption = {
     firstName: string;
     lastName: string;
     bio: string;
+    website: string;
     userToken: string | false | null;
   };
 };

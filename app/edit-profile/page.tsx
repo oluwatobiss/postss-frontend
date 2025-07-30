@@ -40,6 +40,7 @@ export default function EditProfile() {
   const [username, setUsername] = useState("");
   const [bio, setBio] = useState("");
   const [email, setEmail] = useState("");
+  const [website, setWebsite] = useState("");
   const [admin, setAdmin] = useState(false);
   const [adminCode, setAdminCode] = useState("");
   const [errors, setErrors] = useState<Errors[]>([]);
@@ -61,6 +62,7 @@ export default function EditProfile() {
         username,
         bio,
         email,
+        website,
         admin,
         adminCode,
         userToken,
@@ -119,7 +121,9 @@ export default function EditProfile() {
     setFirstName(userData.firstName || "");
     setLastName(userData.lastName || "");
     setUsername(userData.username);
+    setBio(userData.bio || "");
     setEmail(userData.email);
+    setWebsite(userData.website || "");
     setAdmin(userData.status === "ADMIN");
   }, []);
 
@@ -140,7 +144,6 @@ export default function EditProfile() {
             id="firstName"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            required
           />
           {showErrorFor("firstName")}
         </div>
@@ -155,7 +158,6 @@ export default function EditProfile() {
             id="lastName"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
-            required
           />
           {showErrorFor("lastName")}
         </div>
@@ -185,7 +187,6 @@ export default function EditProfile() {
             id="bio"
             value={bio}
             onChange={(e) => setBio(e.target.value)}
-            required
           />
           {showErrorFor("bio")}
         </div>
@@ -203,6 +204,20 @@ export default function EditProfile() {
             required
           />
           {showErrorFor("email")}
+        </div>
+        <div>
+          <label className="text-input-label" htmlFor="website">
+            Website
+          </label>
+          <input
+            className="text-input"
+            type="url"
+            name="website"
+            id="website"
+            value={website}
+            onChange={(e) => setWebsite(e.target.value)}
+          />
+          {showErrorFor("website")}
         </div>
         <div className="mt-3 flex items-center gap-3">
           <label htmlFor="adminCheckbox">Admin?</label>

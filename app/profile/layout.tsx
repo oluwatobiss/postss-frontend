@@ -11,6 +11,7 @@ export default function ProfileLayout({
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
   const [bio, setBio] = useState("");
+  const [website, setWebsite] = useState("");
 
   useEffect(() => {
     const userDataJson = localStorage.getItem("postssUserData");
@@ -18,7 +19,8 @@ export default function ProfileLayout({
     setFirstName(userData.firstName || "");
     setLastName(userData.lastName || "");
     setUsername(userData.username);
-    setUsername(userData.bio);
+    setBio(userData.bio || "");
+    setWebsite(userData.website || "");
   }, []);
 
   return (
@@ -48,8 +50,17 @@ export default function ProfileLayout({
             <div>{bio}</div>
             <div className="mt-3 min-h-9 text-[rgb(119,119,119)]">
               <span>🔎 Explore</span>
-              <span className="px-2">•</span>
-              <span>codesweetly.com</span>
+              {website && (
+                <>
+                  <span className="px-2">•</span>
+                  <span>
+                    {website.replace(
+                      /^https|^http|\:\/\/www\.|^www\.|\:\/\//g,
+                      ""
+                    )}
+                  </span>
+                </>
+              )}
             </div>
           </div>
         </section>
