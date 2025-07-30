@@ -38,6 +38,7 @@ export default function EditProfile() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
+  const [bio, setBio] = useState("");
   const [email, setEmail] = useState("");
   const [admin, setAdmin] = useState(false);
   const [adminCode, setAdminCode] = useState("");
@@ -58,6 +59,7 @@ export default function EditProfile() {
         firstName,
         lastName,
         username,
+        bio,
         email,
         admin,
         adminCode,
@@ -171,6 +173,21 @@ export default function EditProfile() {
             required
           />
           {showErrorFor("username")}
+        </div>
+        <div>
+          <label className="text-input-label" htmlFor="bio">
+            Bio
+          </label>
+          <input
+            className="text-input"
+            type="text"
+            name="bio"
+            id="bio"
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+            required
+          />
+          {showErrorFor("bio")}
         </div>
         <div>
           <label className="text-input-label" htmlFor="email">

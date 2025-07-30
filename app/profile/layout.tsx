@@ -10,6 +10,7 @@ export default function ProfileLayout({
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
+  const [bio, setBio] = useState("");
 
   useEffect(() => {
     const userDataJson = localStorage.getItem("postssUserData");
@@ -17,6 +18,7 @@ export default function ProfileLayout({
     setFirstName(userData.firstName || "");
     setLastName(userData.lastName || "");
     setUsername(userData.username);
+    setUsername(userData.bio);
   }, []);
 
   return (
@@ -43,7 +45,7 @@ export default function ProfileLayout({
             </div>
           </div>
           <div className="mt-4">
-            <div>👋 CodeSweetly makes learning to code so easy and fun.</div>
+            <div>{bio}</div>
             <div className="mt-3 min-h-9 text-[rgb(119,119,119)]">
               <span>🔎 Explore</span>
               <span className="px-2">•</span>

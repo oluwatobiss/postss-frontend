@@ -18,6 +18,7 @@ type PutUserOption = {
   arg: Omit<PostUserArg, "password"> & {
     firstName: string;
     lastName: string;
+    bio: string;
     userToken: string | false | null;
   };
 };
