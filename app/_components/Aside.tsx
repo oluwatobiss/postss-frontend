@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Mr_Bedfort } from "next/font/google";
 import { svg } from "../_svg";
+import { AsideProps } from "@/app/_types";
 import Link from "next/link";
 
 const mrBedfort = Mr_Bedfort({ weight: "400", subsets: ["latin"] });
@@ -11,11 +12,7 @@ function logout() {
   window.location.reload();
 }
 
-export default function Aside({
-  openPostDialog,
-}: {
-  openPostDialog: VoidFunction;
-}) {
+export default function Aside({ openPostDialog }: AsideProps) {
   const [userToken, setUserToken] = useState("");
 
   useEffect(() => {
@@ -40,7 +37,7 @@ export default function Aside({
             </Link>
             <div
               className="bg-[rgba(255,255,255,0.08)] group [&_svg]:group-hover:text-white"
-              onClick={openPostDialog}
+              onClick={() => openPostDialog(true)}
             >
               {svg.plus}
             </div>

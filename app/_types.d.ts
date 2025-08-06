@@ -6,6 +6,11 @@ type Errors = { msg: string; path: string };
 type FormEvent = React.FormEvent<HTMLFormElement>;
 type GetFetcherOptions = { url: string; userToken: string };
 type LoggedInUser = { id: number; username: string; status: string };
+type AsideProps = { openPostDialog: (isNewPost: boolean) => void };
+type PostDialogProps = {
+  dialogRef: React.RefObject<HTMLDialogElement | null>;
+  isNewPost: boolean;
+};
 type PostUserArg = {
   username: string;
   email: string;
@@ -23,6 +28,7 @@ type PutUserOption = {
     userToken: string | false | null;
   };
 };
+type RootElementsProps = Readonly<{ children: React.ReactNode }>;
 type UpsertFetcherOption = { arg: { name: string; imageUrl: string } };
 type PostUserAuthOption = { arg: { email: string; password: string } };
 type SvgProps = {
@@ -47,9 +53,12 @@ export type {
   FormEvent,
   GetFetcherOptions,
   LoggedInUser,
+  AsideProps,
+  PostDialogProps,
   PostUserAuthOption,
   PostUserOption,
   PutUserOption,
+  RootElementsProps,
   SvgProps,
   UpsertFetcherOption,
   User,

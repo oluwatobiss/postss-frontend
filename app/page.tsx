@@ -40,21 +40,9 @@ export default function Home() {
 
   return (
     <div>
-      {userToken ? (
-        <>
-          {console.log(isConnected)}
-          <p>Status: {isConnected ? "connected" : "disconnected"}</p>
-          <p>Transport: {transport}</p>
-          <LatestPosts />
-        </>
-      ) : (
-        <>
-          {console.log(isConnected)}
-          <p>Status: {isConnected ? "connected" : "disconnected"}</p>
-          <p>Transport: {transport}</p>
-          <LoginForm />
-        </>
-      )}
+      <p>Status: {isConnected ? "connected" : "disconnected"}</p>
+      <p>Transport: {transport}</p>
+      {userToken ? <LatestPosts /> : <LoginForm />}
     </div>
   );
 }

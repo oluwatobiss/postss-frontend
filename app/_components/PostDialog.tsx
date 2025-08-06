@@ -1,11 +1,8 @@
 import Image from "next/image";
 import { svg } from "../_svg";
+import { PostDialogProps } from "@/app/_types";
 
-export default function PostDialog({
-  dialogRef,
-}: {
-  dialogRef: React.RefObject<HTMLDialogElement | null>;
-}) {
+export default function PostDialog({ dialogRef, isNewPost }: PostDialogProps) {
   function closePostDialog(e: React.MouseEvent<HTMLDialogElement, MouseEvent>) {
     const dialogRect = dialogRef.current?.getBoundingClientRect();
     if (dialogRect) {
@@ -27,7 +24,7 @@ export default function PostDialog({
       onClick={(e) => closePostDialog(e)}
     >
       <form>
-        <div className="border-b-[.5px] border-b-[rgba(243,245,247,0.15)] h-14 grid grid-cols-[minmax(64px,100px)_minmax(0,1fr)_minmax(64px,100px)] items-center">
+        <section className="border-b-[.5px] border-b-[rgba(243,245,247,0.15)] h-14 grid grid-cols-[minmax(64px,100px)_minmax(0,1fr)_minmax(64px,100px)] items-center">
           <button
             type="submit"
             value="Cancel"
@@ -37,29 +34,31 @@ export default function PostDialog({
             Cancel
           </button>
           <span className="justify-self-center font-bold">New post</span>
-        </div>
-        <div className="w-full px-6 pt-4 pb-1.5 grid grid-cols-[48px_minmax(0,1fr)]">
-          <span className="select-none pt-1 size-9 bg-[rgb(30,30,30)] rounded-full">
-            <Image
-              src="https://avatar.iran.liara.run/public"
-              alt="codesweetly"
-              width={500}
-              height={500}
-              className="object-cover outline-offset-[-.5px] outline-[.5px] outline-solid outline-[rgba(243,245,247,.15)] rounded-full touch-manipulation"
-            />
-          </span>
-          <span>
-            <div className="overflow-y-hidden whitespace-nowrap font-semibold text-ellipsis leading-5">
-              codesweetly
-            </div>
-            <div className="mt-1 overflow-hidden wrap-anywhere text-[.9375rem] leading-[140%] whitespace-pre-wrap">
-              dolorem debitis, vel provident consectetur veniam, ab unde aperiam
-              praesentium molestiae maiores est voluptates itaque explicabo
-              magni voluptatem voluptatibus? Quidem, officiis.
-            </div>
-          </span>
-        </div>
-        <div className="w-full px-6 pt-4 pb-1.5 grid grid-cols-[48px_minmax(0,1fr)]">
+        </section>
+        {!isNewPost && (
+          <section className="w-full px-6 pt-4 pb-1.5 grid grid-cols-[48px_minmax(0,1fr)]">
+            <span className="select-none pt-1 size-9 bg-[rgb(30,30,30)] rounded-full">
+              <Image
+                src="https://avatar.iran.liara.run/public"
+                alt="codesweetly"
+                width={500}
+                height={500}
+                className="object-cover outline-offset-[-.5px] outline-[.5px] outline-solid outline-[rgba(243,245,247,.15)] rounded-full touch-manipulation"
+              />
+            </span>
+            <span>
+              <div className="overflow-y-hidden whitespace-nowrap font-semibold text-ellipsis leading-5">
+                codesweetly
+              </div>
+              <div className="mt-1 overflow-hidden wrap-anywhere text-[.9375rem] leading-[140%] whitespace-pre-wrap">
+                dolorem debitis, vel provident consectetur veniam, ab unde
+                aperiam praesentium molestiae maiores est voluptates itaque
+                explicabo magni voluptatem voluptatibus? Quidem, officiis.
+              </div>
+            </span>
+          </section>
+        )}
+        <section className="w-full px-6 pt-4 pb-1.5 grid grid-cols-[48px_minmax(0,1fr)]">
           <span className="select-none pt-1 size-9 bg-[rgb(30,30,30)] rounded-full">
             <Image
               src="https://avatar.iran.liara.run/public"
@@ -86,15 +85,15 @@ export default function PostDialog({
               <div>{svg.emoji}</div>
             </div>
           </span>
-        </div>
-        <div className="p-6 text-right">
+        </section>
+        <section className="p-6 text-right">
           <button
             type="button"
             className="border border-[rgba(243,245,247,0.15)] rounded-xl font-semibold text-[rgb(243,245,247)] cursor-pointer px-4 py-2"
           >
             Post
           </button>
-        </div>
+        </section>
       </form>
     </dialog>
   );

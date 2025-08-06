@@ -1,7 +1,8 @@
 "use client";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Geist, Geist_Mono } from "next/font/google";
+import { RootElementsProps } from "@/app/_types";
 import Aside from "../_components/Aside";
 import PostDialog from "../_components/PostDialog";
 
@@ -15,16 +16,14 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export default function RootElements({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootElements({ children }: RootElementsProps) {
+  const [isNewPost, setIsNewPost] = useState(false);
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const pathname = usePathname();
   const heading = pathname === "/" ? "Latest" : "Profile";
 
-  function openPostDialog() {
+  function openPostDialog(isNewPost: boolean) {
+    setIsNewPost(isNewPost);
     dialogRef.current?.showModal();
   }
 
@@ -34,7 +33,7 @@ export default function RootElements({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <article>
-          <PostDialog dialogRef={dialogRef} />
+          <PostDialog dialogRef={dialogRef} isNewPost={isNewPost} />
           <Aside openPostDialog={openPostDialog} />
           <main className="w-full fixed min-h-screen">
             <h1 className="text-center h-15 leading-15">{heading}</h1>
