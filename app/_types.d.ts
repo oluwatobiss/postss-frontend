@@ -2,6 +2,7 @@ import { CSSProperties } from "react";
 
 type ChangeEvent = React.ChangeEvent<HTMLInputElement>;
 type DeleteFetcherOptions = { id: string; userToken: string | false | null };
+type DivInputRef = { divInputRef: React.RefObject<HTMLDivElement | null> };
 type Errors = { msg: string; path: string };
 type FormEvent = React.FormEvent<HTMLFormElement>;
 type GetFetcherOptions = { url: string; userToken: string };
@@ -49,6 +50,7 @@ type User = {
 export type {
   ChangeEvent,
   DeleteFetcherOptions,
+  DivInputRef,
   Errors,
   FormEvent,
   GetFetcherOptions,
