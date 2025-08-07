@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { svg } from "../_svg";
 import { DivInputRef, PostDialogProps } from "@/app/_types";
 import Image from "next/image";
+import useSWRMutation from "swr/mutation";
 
 function DialogHeader({ dialogRef }: Omit<PostDialogProps, "isNewPost">) {
   return (
@@ -78,10 +79,37 @@ function DialogReply({ divInputRef }: DivInputRef) {
   );
 }
 
+async function postMessage(
+  url: string,
+  { arg }: { arg: { post: string; authorId: string } }
+) {
+  const response = await fetch(url, {
+    method: "POST",
+    body: JSON.stringify(arg),
+    headers: { "Content-type": "application/json; charset=UTF-8" },
+  });
+  return await response.json();
+}
+
 function DialogSubmission({ divInputRef }: DivInputRef) {
-  function submitPost() {
-    console.log("submitPost");
-    console.log(divInputRef.current?.innerText);
+  const { trigger, isMutating, error } = useSWRMutation(
+    `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts`,
+    postMessage
+  );
+
+  async function submitPost() {
+    const post = divInputRef.current?.innerText || "";
+    const userDataJson = localStorage.getItem("postssUserData");
+    const userData = userDataJson && JSON.parse(userDataJson);
+    const authorId = userData.id;
+    console.log("=== submitPost ===");
+
+    try {
+      const result = await trigger({ post, authorId });
+      result.errors?.length && console.log(result.errors);
+    } catch (error) {
+      if (error instanceof Error) console.error(error.message);
+    }
     if (divInputRef.current && divInputRef.current.innerText)
       divInputRef.current.innerText = "";
   }
