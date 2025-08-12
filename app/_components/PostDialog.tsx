@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { svg } from "../_svg";
 import { DivInputRef, PostDialogProps } from "@/app/_types";
+import { socket } from "../_socket";
 import Image from "next/image";
 import useSWRMutation from "swr/mutation";
 
@@ -106,7 +107,14 @@ function DialogSubmission({ divInputRef }: DivInputRef) {
 
     try {
       const result = await trigger({ post, authorId });
-      result.errors?.length && console.log(result.errors);
+
+      console.log("=== submitPost try result ===");
+      console.log(result);
+
+      if (result.content) {
+        // Re-send user's chat message to the server for brocasting to all sockets
+        socket.emit("submitPost", result.content);
+      }
     } catch (error) {
       if (error instanceof Error) console.error(error.message);
     }

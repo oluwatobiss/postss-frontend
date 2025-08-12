@@ -23,17 +23,31 @@ export default function Home() {
           setTransport(transport.name);
         });
       }
+
       function onDisconnect() {
         setIsConnected(false);
         setTransport("N/A");
       }
+
+      function onSubmiPost(msg: string) {
+        console.log("=== onSubmitPost Homepage socket.on ===");
+        console.log(msg);
+      }
+
       socket.connect();
+
       if (socket.connected) onConnect();
+
       socket.on("connect", onConnect);
       socket.on("disconnect", onDisconnect);
+
+      // On getting a submitPost event from the server, process the post sent
+      socket.on("submitPost", onSubmiPost);
+
       return () => {
         socket.off("connect", onConnect);
         socket.off("disconnect", onDisconnect);
+        socket.off("submitPost", onSubmiPost);
       };
     }
   }, [userToken]);
