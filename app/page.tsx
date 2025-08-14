@@ -7,7 +7,6 @@ import LoginForm from "./_components/LoginForm";
 export default function Home() {
   const [userToken, setUserToken] = useState("");
   const [isConnected, setIsConnected] = useState(false);
-  const [transport, setTransport] = useState("N/A");
 
   useEffect(() => {
     const token = localStorage.getItem("postssToken");
@@ -17,17 +16,8 @@ export default function Home() {
   useEffect(() => {
     if (userToken) {
       socket.connect();
-      function onConnect() {
-        setIsConnected(true);
-        setTransport(socket.io.engine.transport.name);
-        socket.io.engine.on("upgrade", (transport) => {
-          setTransport(transport.name);
-        });
-      }
-      function onDisconnect() {
-        setIsConnected(false);
-        setTransport("N/A");
-      }
+      const onConnect = () => setIsConnected(true);
+      const onDisconnect = () => setIsConnected(false);
       if (socket.connected) onConnect();
       socket.on("connect", onConnect);
       socket.on("disconnect", onDisconnect);
@@ -39,10 +29,6 @@ export default function Home() {
   }, [userToken]);
 
   return (
-    <div>
-      <p>Status: {isConnected ? "connected" : "disconnected"}</p>
-      <p>Transport: {transport}</p>
-      {userToken && isConnected ? <LatestPosts /> : <LoginForm />}
-    </div>
+    <div>{userToken && isConnected ? <LatestPosts /> : <LoginForm />}</div>
   );
 }
