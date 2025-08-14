@@ -2,6 +2,7 @@ import { svg } from "../_svg";
 import { PostProps } from "@/app/_types";
 import Image from "next/image";
 import Link from "next/link";
+import Date from "./Date";
 
 export default function PostCard({ post }: { post: PostProps }) {
   return (
@@ -19,7 +20,7 @@ export default function PostCard({ post }: { post: PostProps }) {
         <span>
           <div className="flex gap-x-2 overflow-y-hidden whitespace-nowrap text-ellipsis leading-5">
             <span className="font-semibold">codesweetly</span>
-            <span className="text-[rgb(119,119,119)]">20m</span>
+            <Date styles="text-[rgb(119,119,119)]" date={`${post.createdAt}`} />
           </div>
           <div className="mt-1 overflow-hidden wrap-anywhere text-[.9375rem] leading-[140%] whitespace-pre-wrap">
             {post.content}

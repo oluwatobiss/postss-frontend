@@ -1,6 +1,7 @@
 import { CSSProperties } from "react";
 
 type ChangeEvent = React.ChangeEvent<HTMLInputElement>;
+type DateProps = { date: string; styles: string };
 type DeleteFetcherOptions = { id: string; userToken: string | false | null };
 type DivInputRef = { divInputRef: React.RefObject<HTMLDivElement | null> };
 type Errors = { msg: string; path: string };
@@ -59,6 +60,7 @@ type User = {
 
 export type {
   ChangeEvent,
+  DateProps,
   DeleteFetcherOptions,
   DivInputRef,
   Errors,
