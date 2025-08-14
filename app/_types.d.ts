@@ -22,6 +22,8 @@ type PostProps = {
   authorId: number;
   views: number;
   likes: number;
+  author: string;
+  comments: number;
 };
 type PostUserArg = {
   username: string;

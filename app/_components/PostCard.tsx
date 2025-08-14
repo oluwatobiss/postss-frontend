@@ -19,7 +19,7 @@ export default function PostCard({ post }: { post: PostProps }) {
         </span>
         <span>
           <div className="flex gap-x-2 overflow-y-hidden whitespace-nowrap text-ellipsis leading-5">
-            <span className="font-semibold">codesweetly</span>
+            <span className="font-semibold">{post.author}</span>
             <Date styles="text-[rgb(119,119,119)]" date={`${post.createdAt}`} />
           </div>
           <div className="mt-1 overflow-hidden wrap-anywhere text-[.9375rem] leading-[140%] whitespace-pre-wrap">
@@ -27,12 +27,12 @@ export default function PostCard({ post }: { post: PostProps }) {
           </div>
           <div className="mt-2 h-9 flex text-[#ccc]">
             <span className="flex pr-3 gap-x-1">
-              <span>{svg.heart}</span>
-              <span>332</span>
+              {svg.heart}
+              {!!post.likes && <span>{post.likes}</span>}
             </span>
             <span className="flex pr-3 gap-x-1">
-              <span>{svg.chat}</span>
-              <span>14</span>
+              {svg.chat}
+              {!!post.comments && <span>{post.comments}</span>}
             </span>
           </div>
         </span>
