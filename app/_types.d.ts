@@ -12,6 +12,16 @@ type PostDialogProps = {
   dialogRef: React.RefObject<HTMLDialogElement | null>;
   isNewPost: boolean;
 };
+type PostProps = {
+  id: number;
+  createdAt: Date;
+  updatedAt: Date;
+  content: string;
+  published: boolean;
+  authorId: number;
+  views: number;
+  likes: number;
+};
 type PostUserArg = {
   username: string;
   email: string;
@@ -57,6 +67,7 @@ export type {
   LoggedInUser,
   AsideProps,
   PostDialogProps,
+  PostProps,
   PostUserAuthOption,
   PostUserOption,
   PutUserOption,

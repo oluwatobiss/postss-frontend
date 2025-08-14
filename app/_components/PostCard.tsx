@@ -1,8 +1,9 @@
 import { svg } from "../_svg";
+import { PostProps } from "@/app/_types";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function PostCard() {
+export default function PostCard({ post }: { post: PostProps }) {
   return (
     <Link href="/post/testing123">
       <div className="w-full px-6 py-3 grid grid-cols-[48px_minmax(0,1fr)] not-first:border-t-[.5px] not-first:border-t-[rgba(243,245,247,.15)]">
@@ -21,10 +22,7 @@ export default function PostCard() {
             <span className="text-[rgb(119,119,119)]">20m</span>
           </div>
           <div className="mt-1 overflow-hidden wrap-anywhere text-[.9375rem] leading-[140%] whitespace-pre-wrap">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolore
-            dolorem debitis, vel provident consectetur veniam, ab unde aperiam
-            praesentium molestiae maiores est voluptates itaque explicabo magni
-            voluptatem voluptatibus? Quidem, officiis.
+            {post.content}
           </div>
           <div className="mt-2 h-9 flex text-[#ccc]">
             <span className="flex pr-3 gap-x-1">
