@@ -1,5 +1,10 @@
 import { CSSProperties } from "react";
 
+interface LikeBtnCSS extends CSSProperties {
+  "--fill-color": string;
+  "--stroke-color": string;
+}
+
 type ChangeEvent = React.ChangeEvent<HTMLInputElement>;
 type DateProps = { date: string; styles: string };
 type DeleteFetcherOptions = { id: string; userToken: string | false | null };
@@ -68,6 +73,7 @@ export type {
   Errors,
   FormEvent,
   GetFetcherOptions,
+  LikeBtnCSS,
   LoggedInUser,
   AsideProps,
   PostDialogProps,
