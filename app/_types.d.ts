@@ -47,6 +47,13 @@ type PutUserOption = {
     userToken: string | false | null;
   };
 };
+type PutPostOption = {
+  arg: {
+    userId: string;
+    userToken: string | false | null;
+    likePost: boolean;
+  };
+};
 type RootElementsProps = Readonly<{ children: React.ReactNode }>;
 type UpsertFetcherOption = { arg: { name: string; imageUrl: string } };
 type PostUserAuthOption = { arg: { email: string; password: string } };
@@ -81,6 +88,7 @@ export type {
   PostUserAuthOption,
   PostUserOption,
   PutUserOption,
+  PutPostOption,
   RootElementsProps,
   SvgProps,
   UpsertFetcherOption,

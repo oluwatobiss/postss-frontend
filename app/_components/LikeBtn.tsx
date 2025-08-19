@@ -1,29 +1,68 @@
-import { LikeBtnCSS } from "@/app/_types";
+import { useEffect, useState } from "react";
+import { LikeBtnCSS, PutPostOption } from "@/app/_types";
 import { svg } from "../_svg";
-import { useState } from "react";
+import useSWRMutation from "swr/mutation";
 
-export default function LikeBtn() {
+async function putPost(url: string, { arg }: PutPostOption) {
+  const response = await fetch(url, {
+    method: "PUT",
+    body: JSON.stringify(arg),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+      Authorization: `Bearer ${arg.userToken}`,
+    },
+  });
+  return await response.json();
+}
+
+export default function LikeBtn({ postId }: { postId: number }) {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts`;
+  const [userId, setUserId] = useState("");
+  const [userToken, setUserToken] = useState("");
   const [likePost, setLikePost] = useState(false);
+  const [totalLikes, setTotalLikes] = useState(0);
+  const { trigger } = useSWRMutation(`${url}/${postId}`, putPost);
   const fillColor = likePost ? "#ff0034" : "";
   const strokeColor = likePost ? "" : "#ccc";
   const cssVariable = {
     "--fill-color": fillColor,
     "--stroke-color": strokeColor,
   };
+
+  async function togglePostLike(e: React.MouseEvent<HTMLButtonElement>) {
+    try {
+      const result = await trigger({ userId, userToken, likePost: !likePost });
+
+      console.log("=== togglePostLike ===");
+      console.log(result);
+
+      if (result.message) {
+        alert("Error: Invalid edit credentials");
+        throw new Error(result.message);
+      }
+      setLikePost(!likePost);
+      setTotalLikes(result.likes);
+    } catch (error) {
+      if (error instanceof Error) console.error(error.message);
+    }
+  }
+
+  useEffect(() => {
+    const userDataJson = localStorage.getItem("postssUserData");
+    const userData = userDataJson && JSON.parse(userDataJson);
+    const userToken = localStorage.getItem("postssToken") || "";
+    setUserId(userData.id);
+    setUserToken(userToken);
+  }, []);
+
   return (
-    <button
-      type="button"
-      className="likeBtn"
-      onClick={() => setLikePost(!likePost)}
-    >
-      {console.log(likePost)!}
+    <button type="button" className="likeBtn" onClick={togglePostLike}>
       <div
         className={`flex gap-x-1 text-[var(--fill-color)] [&_svg]:fill-[var(--fill-color)] [&_svg]:stroke-[var(--stroke-color)]`}
         style={cssVariable as LikeBtnCSS}
       >
         {svg.heart}
-        {<span>11</span>}
-        {/* {!!post.likes && <span>{post.likes}</span>} */}
+        {!!totalLikes && <span>{totalLikes}</span>}
       </div>
     </button>
   );

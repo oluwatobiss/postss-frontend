@@ -42,7 +42,7 @@ export default function PostCard({ post }: { post: PostProps }) {
           {post.content}
         </div>
         <div className="mt-2 h-9 flex text-[#ccc] [&_button]:mr-3 [&_button]:flex [&_button]:items-center [&_button]:justify-center [&_button]:cursor-pointer [&_button]:px-3 [&_button]:rounded-3xl [&_button]:hover:bg-[rgba(255,255,255,0.08)]">
-          <LikeBtn />
+          <LikeBtn postId={post.id} />
           <button>
             <div className="flex gap-x-1">
               {svg.chat}
