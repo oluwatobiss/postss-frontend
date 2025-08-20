@@ -12,6 +12,7 @@ type DivInputRef = { divInputRef: React.RefObject<HTMLDivElement | null> };
 type Errors = { msg: string; path: string };
 type FormEvent = React.FormEvent<HTMLFormElement>;
 type GetFetcherOptions = { url: string; userToken: string };
+type LikeBtnProps = { postId: number; likes: number[] };
 type LoggedInUser = { id: number; username: string; status: string };
 type AsideProps = { openPostDialog: (isNewPost: boolean) => void };
 type PostDialogProps = {
@@ -26,7 +27,7 @@ type PostProps = {
   published: boolean;
   authorId: number;
   views: number;
-  likes: number;
+  likes: number[];
   author: string;
   comments: number;
 };
@@ -81,6 +82,7 @@ export type {
   FormEvent,
   GetFetcherOptions,
   LikeBtnCSS,
+  LikeBtnProps,
   LoggedInUser,
   AsideProps,
   PostDialogProps,

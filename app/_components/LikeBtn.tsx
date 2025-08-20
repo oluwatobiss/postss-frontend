@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { LikeBtnCSS, PutPostOption } from "@/app/_types";
+import { LikeBtnCSS, LikeBtnProps, PutPostOption } from "@/app/_types";
 import { svg } from "../_svg";
 import useSWRMutation from "swr/mutation";
 
@@ -15,7 +15,7 @@ async function putPost(url: string, { arg }: PutPostOption) {
   return await response.json();
 }
 
-export default function LikeBtn({ postId }: { postId: number }) {
+export default function LikeBtn({ postId, likes }: LikeBtnProps) {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts`;
   const [userId, setUserId] = useState("");
   const [userToken, setUserToken] = useState("");
@@ -32,14 +32,6 @@ export default function LikeBtn({ postId }: { postId: number }) {
   async function togglePostLike(e: React.MouseEvent<HTMLButtonElement>) {
     try {
       const result = await trigger({ userId, userToken, likePost: !likePost });
-
-      console.log("=== togglePostLike ===");
-      console.log(result);
-
-      if (result.message) {
-        alert("Error: Invalid edit credentials");
-        throw new Error(result.message);
-      }
       setLikePost(!likePost);
       setTotalLikes(result.likes);
     } catch (error) {
@@ -53,6 +45,8 @@ export default function LikeBtn({ postId }: { postId: number }) {
     const userToken = localStorage.getItem("postssToken") || "";
     setUserId(userData.id);
     setUserToken(userToken);
+    setTotalLikes(likes.length);
+    likes.includes(userData.id) && setLikePost(true);
   }, []);
 
   return (

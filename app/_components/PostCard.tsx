@@ -1,13 +1,16 @@
 "use client";
 import { svg } from "../_svg";
 import { PostProps } from "@/app/_types";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Date from "./Date";
 import LikeBtn from "./LikeBtn";
 
 export default function PostCard({ post }: { post: PostProps }) {
-  const router = useRouter();
+  // const router = useRouter();
+
+  console.log("=== PostCard ===");
+  console.log(post);
 
   function handlePostCardClick(e: React.MouseEvent<HTMLElement>) {
     console.log("=== Toggle Like ===");
@@ -42,7 +45,7 @@ export default function PostCard({ post }: { post: PostProps }) {
           {post.content}
         </div>
         <div className="mt-2 h-9 flex text-[#ccc] [&_button]:mr-3 [&_button]:flex [&_button]:items-center [&_button]:justify-center [&_button]:cursor-pointer [&_button]:px-3 [&_button]:rounded-3xl [&_button]:hover:bg-[rgba(255,255,255,0.08)]">
-          <LikeBtn postId={post.id} />
+          <LikeBtn postId={post.id} likes={post.likes} />
           <button>
             <div className="flex gap-x-1">
               {svg.chat}
