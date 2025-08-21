@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { UserDataContext } from "./Contexts";
 import { LikeBtnCSS, LikeBtnProps, PutPostOption } from "@/app/_types";
 import { socket } from "../_socket";
 import { svg } from "../_svg";
@@ -18,8 +19,16 @@ async function putPost(url: string, { arg }: PutPostOption) {
 
 export default function LikeBtn({ postId, likes }: LikeBtnProps) {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts`;
-  const [userId, setUserId] = useState("");
-  const [userToken, setUserToken] = useState("");
+  const userDataContext = useContext(UserDataContext);
+  if (!userDataContext) {
+    throw new Error(
+      "LikeBtn Error: LikeBtn component must be used within the UserDataContext provider"
+    );
+  }
+  const userToken = userDataContext.userToken;
+  const userId = userDataContext.userData.id;
+  // const [userId, setUserId] = useState("");
+  // const [userToken, setUserToken] = useState("");
   const [likePost, setLikePost] = useState(false);
   const [totalLikes, setTotalLikes] = useState({ postId, likes: likes.length });
   const { trigger } = useSWRMutation(`${url}/${postId}`, putPost);
@@ -40,12 +49,13 @@ export default function LikeBtn({ postId, likes }: LikeBtnProps) {
   }
 
   useEffect(() => {
-    const userDataJson = localStorage.getItem("postssUserData");
-    const userData = userDataJson && JSON.parse(userDataJson);
-    const userToken = localStorage.getItem("postssToken") || "";
-    setUserId(userData.id);
-    setUserToken(userToken);
-    likes.includes(userData.id) && setLikePost(true);
+    // const userDataJson = localStorage.getItem("postssUserData");
+    // const userData = userDataJson && JSON.parse(userDataJson);
+    // const userToken = localStorage.getItem("postssToken") || "";
+    // setUserId(userData.id);
+    // setUserToken(userToken);
+    // likes.includes(userData.id) && setLikePost(true);
+    likes.includes(userId) && setLikePost(true);
   }, []);
 
   useEffect(() => {

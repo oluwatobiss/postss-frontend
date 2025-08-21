@@ -1,4 +1,4 @@
-import { CSSProperties } from "react";
+import { CSSProperties, Dispatch, SetStateAction } from "react";
 
 interface LikeBtnCSS extends CSSProperties {
   "--fill-color": string;
@@ -7,7 +7,7 @@ interface LikeBtnCSS extends CSSProperties {
 
 type ChangeEvent = React.ChangeEvent<HTMLInputElement>;
 type DateProps = { date: string; styles: string };
-type DeleteFetcherOptions = { id: string; userToken: string | false | null };
+type DeleteFetcherOptions = { id: number; userToken: string };
 type DivInputRef = { divInputRef: React.RefObject<HTMLDivElement | null> };
 type Errors = { msg: string; path: string };
 type FormEvent = React.FormEvent<HTMLFormElement>;
@@ -50,13 +50,32 @@ type PutUserOption = {
 };
 type PutPostOption = {
   arg: {
-    userId: string;
-    userToken: string | false | null;
+    userId: number;
+    userToken: string;
     likePost: boolean;
   };
 };
 type RootElementsProps = Readonly<{ children: React.ReactNode }>;
 type UpsertFetcherOption = { arg: { name: string; imageUrl: string } };
+type UserDataType = {
+  userToken: string;
+  userData: {
+    id: number;
+    firstName: string;
+    lastName: string;
+    username: string;
+    bio: string;
+    email: string;
+    website: string;
+    password: string;
+    status: string;
+  };
+};
+
+type UserDataContextType = {
+  userData: UserDataType;
+  updateUserData: (userData: UserDataType) => void;
+};
 type PostUserAuthOption = { arg: { email: string; password: string } };
 type SvgProps = {
   ariaLabel: string;
@@ -95,4 +114,6 @@ export type {
   SvgProps,
   UpsertFetcherOption,
   User,
+  UserDataType,
+  UserDataContextType,
 };

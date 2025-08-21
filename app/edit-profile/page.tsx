@@ -1,6 +1,7 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { UserDataContext } from "@/app/_components/Contexts";
 import {
   ChangeEvent,
   DeleteFetcherOptions,
@@ -31,19 +32,23 @@ async function deleteUser(url: string, { arg }: { arg: DeleteFetcherOptions }) {
 }
 
 export default function EditProfile() {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/users`;
   const router = useRouter();
-  const [userToken, setUserToken] = useState("");
-  const [userId, setUserId] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [username, setUsername] = useState("");
-  const [bio, setBio] = useState("");
-  const [email, setEmail] = useState("");
-  const [website, setWebsite] = useState("");
-  const [admin, setAdmin] = useState(false);
+  const userDataContext = useContext(UserDataContext);
+  const { userToken, userData } = userDataContext;
+
+  const [firstName, setFirstName] = useState(userData.firstName);
+  const [lastName, setLastName] = useState(userData.lastName);
+  const [username, setUsername] = useState(userData.username);
+  const [bio, setBio] = useState(userData.bio);
+  const [email, setEmail] = useState(userData.email);
+  const [website, setWebsite] = useState(userData.website);
+  const [admin, setAdmin] = useState(userData.status === "ADMIN");
   const [adminCode, setAdminCode] = useState("");
   const [errors, setErrors] = useState<Errors[]>([]);
+
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/users`;
+  const userId = userData.id;
+
   const { trigger, isMutating, error } = useSWRMutation(
     `${url}/${userId}`,
     putUser
@@ -94,7 +99,7 @@ export default function EditProfile() {
     );
   }
 
-  async function deleteAccount(id: string) {
+  async function deleteAccount(id: number) {
     try {
       if (confirm("Delete your account permanently?")) {
         const result = await removeUser({ id, userToken });
@@ -111,20 +116,20 @@ export default function EditProfile() {
     }
   }
 
-  useEffect(() => {
-    const userToken = localStorage.getItem("postssToken") || "";
-    const userDataJson = localStorage.getItem("postssUserData");
-    const userData = userDataJson && JSON.parse(userDataJson);
-    setUserToken(userToken);
-    setUserId(userData.id);
-    setFirstName(userData.firstName || "");
-    setLastName(userData.lastName || "");
-    setUsername(userData.username);
-    setBio(userData.bio || "");
-    setEmail(userData.email);
-    setWebsite(userData.website || "");
-    setAdmin(userData.status === "ADMIN");
-  }, []);
+  // useEffect(() => {
+  //   const userToken = localStorage.getItem("postssToken") || "";
+  //   const userDataJson = localStorage.getItem("postssUserData");
+  //   const userData = userDataJson && JSON.parse(userDataJson);
+  //   setUserToken(userToken);
+  //   setUserId(userData.id);
+  //   setFirstName(userData.firstName || "");
+  //   setLastName(userData.lastName || "");
+  //   setUsername(userData.username);
+  //   setBio(userData.bio || "");
+  //   setEmail(userData.email);
+  //   setWebsite(userData.website || "");
+  //   setAdmin(userData.status === "ADMIN");
+  // }, []);
 
   return (
     <main className="sm:px-[30%] sm:py-20 min-h-screen font-[family-name:var(--font-geist-sans)]">

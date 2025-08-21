@@ -1,7 +1,8 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import { svg } from "../_svg";
 import { DivInputRef, PostDialogProps } from "@/app/_types";
 import { socket } from "../_socket";
+import { UserDataContext } from "./Contexts";
 import Image from "next/image";
 import useSWRMutation from "swr/mutation";
 
@@ -82,7 +83,7 @@ function DialogReply({ divInputRef }: DivInputRef) {
 
 async function postMessage(
   url: string,
-  { arg }: { arg: { post: string; authorId: string } }
+  { arg }: { arg: { post: string; authorId: number } }
 ) {
   const response = await fetch(url, {
     method: "POST",
@@ -93,16 +94,17 @@ async function postMessage(
 }
 
 function DialogSubmission({ divInputRef }: DivInputRef) {
-  const { trigger, isMutating, error } = useSWRMutation(
+  const userDataContext = useContext(UserDataContext);
+  const { trigger } = useSWRMutation(
     `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts`,
     postMessage
   );
 
   async function submitPost() {
     const post = divInputRef.current?.innerText || "";
-    const userDataJson = localStorage.getItem("postssUserData");
-    const userData = userDataJson && JSON.parse(userDataJson);
-    const authorId = userData.id;
+    // const userDataJson = localStorage.getItem("postssUserData");
+    // const userData = userDataJson && JSON.parse(userDataJson);
+    const authorId = userDataContext.userData.id;
     console.log("=== submitPost ===");
 
     try {

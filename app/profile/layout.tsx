@@ -1,5 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { UserDataContext } from "@/app/_components/Contexts";
 import Image from "next/image";
 
 export default function ProfileLayout({
@@ -7,21 +8,23 @@ export default function ProfileLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [username, setUsername] = useState("");
-  const [bio, setBio] = useState("");
-  const [website, setWebsite] = useState("");
+  const userDataContext = useContext(UserDataContext);
+  const { userData } = userDataContext;
+  const firstName = userData.firstName;
+  const lastName = userData.lastName;
+  const username = userData.username;
+  const bio = userData.bio;
+  const website = userData.website;
 
-  useEffect(() => {
-    const userDataJson = localStorage.getItem("postssUserData");
-    const userData = userDataJson && JSON.parse(userDataJson);
-    setFirstName(userData.firstName || "");
-    setLastName(userData.lastName || "");
-    setUsername(userData.username);
-    setBio(userData.bio || "");
-    setWebsite(userData.website || "");
-  }, []);
+  // useEffect(() => {
+  //   const userDataJson = localStorage.getItem("postssUserData");
+  //   const userData = userDataJson && JSON.parse(userDataJson);
+  //   setFirstName(userData.firstName || "");
+  //   setLastName(userData.lastName || "");
+  //   setUsername(userData.username);
+  //   setBio(userData.bio || "");
+  //   setWebsite(userData.website || "");
+  // }, []);
 
   return (
     <>

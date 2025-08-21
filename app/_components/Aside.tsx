@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Mr_Bedfort } from "next/font/google";
 import { svg } from "../_svg";
 import { AsideProps } from "@/app/_types";
+import { UserDataContext } from "./Contexts";
 import Link from "next/link";
 
 const mrBedfort = Mr_Bedfort({ weight: "400", subsets: ["latin"] });
@@ -13,12 +14,24 @@ function logout() {
 }
 
 export default function Aside({ openPostDialog }: AsideProps) {
-  const [userToken, setUserToken] = useState("");
+  console.log("=== Aside ===");
+  const userDataContext = useContext(UserDataContext);
+  console.log(userDataContext);
 
-  useEffect(() => {
-    const token = localStorage.getItem("postssToken");
-    token && setUserToken(token);
-  }, []);
+  if (!userDataContext) {
+    throw new Error(
+      "Aside Error: Aside component must be used within the UserDataContext provider"
+    );
+  }
+  const userToken = userDataContext.userToken;
+  // const [userToken, setUserToken] = useState("");
+
+  console.log(userToken);
+
+  // useEffect(() => {
+  //   const token = localStorage.getItem("postssToken");
+  //   token && setUserToken(token);
+  // }, []);
 
   return (
     <aside className="z-10 fixed bg-[rgba(10, 10, 10, 0.85)] backdrop-blur-lg h-full w-19 flex flex-col items-center">
