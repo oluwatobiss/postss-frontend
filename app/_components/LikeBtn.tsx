@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { LikeBtnCSS, LikeBtnProps, PutPostOption } from "@/app/_types";
+import { socket } from "../_socket";
 import { svg } from "../_svg";
 import useSWRMutation from "swr/mutation";
 
@@ -20,7 +21,7 @@ export default function LikeBtn({ postId, likes }: LikeBtnProps) {
   const [userId, setUserId] = useState("");
   const [userToken, setUserToken] = useState("");
   const [likePost, setLikePost] = useState(false);
-  const [totalLikes, setTotalLikes] = useState(0);
+  const [totalLikes, setTotalLikes] = useState({ postId, likes: likes.length });
   const { trigger } = useSWRMutation(`${url}/${postId}`, putPost);
   const fillColor = likePost ? "#ff0034" : "";
   const strokeColor = likePost ? "" : "#ccc";
@@ -31,9 +32,8 @@ export default function LikeBtn({ postId, likes }: LikeBtnProps) {
 
   async function togglePostLike(e: React.MouseEvent<HTMLButtonElement>) {
     try {
-      const result = await trigger({ userId, userToken, likePost: !likePost });
+      await trigger({ userId, userToken, likePost: !likePost });
       setLikePost(!likePost);
-      setTotalLikes(result.likes);
     } catch (error) {
       if (error instanceof Error) console.error(error.message);
     }
@@ -45,8 +45,19 @@ export default function LikeBtn({ postId, likes }: LikeBtnProps) {
     const userToken = localStorage.getItem("postssToken") || "";
     setUserId(userData.id);
     setUserToken(userToken);
-    setTotalLikes(likes.length);
     likes.includes(userData.id) && setLikePost(true);
+  }, []);
+
+  useEffect(() => {
+    function onPostLike(info: { postId: number; likes: number }) {
+      info.postId === totalLikes.postId &&
+        setTotalLikes({ ...totalLikes, likes: info.likes });
+    }
+    // On getting a postLike event from the server, update the clicked post's total likes
+    socket.on("postLike", onPostLike);
+    return () => {
+      socket.off("postLike", onPostLike);
+    };
   }, []);
 
   return (
@@ -56,7 +67,7 @@ export default function LikeBtn({ postId, likes }: LikeBtnProps) {
         style={cssVariable as LikeBtnCSS}
       >
         {svg.heart}
-        {!!totalLikes && <span>{totalLikes}</span>}
+        {!!totalLikes.likes && <span>{totalLikes.likes}</span>}
       </div>
     </button>
   );
