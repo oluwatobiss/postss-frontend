@@ -1,5 +1,5 @@
 "use client";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
 import { UserDataContext } from "@/app/_components/Contexts";
 import {
@@ -115,21 +115,6 @@ export default function EditProfile() {
       if (error instanceof Error) console.error(error.message);
     }
   }
-
-  // useEffect(() => {
-  //   const userToken = localStorage.getItem("postssToken") || "";
-  //   const userDataJson = localStorage.getItem("postssUserData");
-  //   const userData = userDataJson && JSON.parse(userDataJson);
-  //   setUserToken(userToken);
-  //   setUserId(userData.id);
-  //   setFirstName(userData.firstName || "");
-  //   setLastName(userData.lastName || "");
-  //   setUsername(userData.username);
-  //   setBio(userData.bio || "");
-  //   setEmail(userData.email);
-  //   setWebsite(userData.website || "");
-  //   setAdmin(userData.status === "ADMIN");
-  // }, []);
 
   return (
     <main className="sm:px-[30%] sm:py-20 min-h-screen font-[family-name:var(--font-geist-sans)]">

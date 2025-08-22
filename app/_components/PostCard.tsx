@@ -9,9 +9,6 @@ import LikeBtn from "./LikeBtn";
 export default function PostCard({ post }: { post: PostProps }) {
   // const router = useRouter();
 
-  console.log("=== PostCard ===");
-  console.log(post);
-
   function handlePostCardClick(e: React.MouseEvent<HTMLElement>) {
     console.log("=== Toggle Like ===");
     console.log("The toggleLike button");

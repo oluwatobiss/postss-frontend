@@ -6,6 +6,7 @@ interface LikeBtnCSS extends CSSProperties {
 }
 
 type ChangeEvent = React.ChangeEvent<HTMLInputElement>;
+type ChildrenProps = Readonly<{ children: React.ReactNode }>;
 type DateProps = { date: string; styles: string };
 type DeleteFetcherOptions = { id: number; userToken: string };
 type DivInputRef = { divInputRef: React.RefObject<HTMLDivElement | null> };
@@ -55,7 +56,6 @@ type PutPostOption = {
     likePost: boolean;
   };
 };
-type RootElementsProps = Readonly<{ children: React.ReactNode }>;
 type UpsertFetcherOption = { arg: { name: string; imageUrl: string } };
 type UserDataType = {
   userToken: string;
@@ -110,7 +110,7 @@ export type {
   PostUserOption,
   PutUserOption,
   PutPostOption,
-  RootElementsProps,
+  ChildrenProps,
   SvgProps,
   UpsertFetcherOption,
   User,

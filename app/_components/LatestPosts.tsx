@@ -1,5 +1,5 @@
 "use client";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { UserDataContext } from "./Contexts";
 import { GetFetcherOptions, PostProps } from "@/app/_types";
 import useSWR from "swr";
@@ -15,19 +15,8 @@ async function getPosts({ url, userToken }: GetFetcherOptions) {
 export default function LatestPosts() {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts`;
   const userDataContext = useContext(UserDataContext);
-  if (!userDataContext) {
-    throw new Error(
-      "LatestPosts Error: LatestPosts component must be used within the UserDataContext provider"
-    );
-  }
   const userToken = userDataContext.userToken;
-  // const [userToken, setUserToken] = useState("");
   const { data, error, isLoading } = useSWR({ url, userToken }, getPosts);
-
-  // useEffect(() => {
-  //   const token = localStorage.getItem("postssToken");
-  //   token && setUserToken(token);
-  // }, []);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;

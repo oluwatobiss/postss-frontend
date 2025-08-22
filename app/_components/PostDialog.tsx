@@ -102,8 +102,6 @@ function DialogSubmission({ divInputRef }: DivInputRef) {
 
   async function submitPost() {
     const post = divInputRef.current?.innerText || "";
-    // const userDataJson = localStorage.getItem("postssUserData");
-    // const userData = userDataJson && JSON.parse(userDataJson);
     const authorId = userDataContext.userData.id;
     console.log("=== submitPost ===");
 
