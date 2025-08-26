@@ -1,6 +1,6 @@
 import { useContext, useRef } from "react";
 import { svg } from "../_svg";
-import { DivInputRef, PostDialogProps } from "@/app/_types";
+import { DialogSubmissionProp, PostDialogProps } from "@/app/_types";
 import { socket } from "../_socket";
 import { UserDataContext } from "./Contexts";
 import Image from "next/image";
@@ -46,7 +46,7 @@ function DialogToReply() {
   );
 }
 
-function DialogReply({ divInputRef }: DivInputRef) {
+function DialogReply({ divInputRef }: Omit<DialogSubmissionProp, "dialogRef">) {
   return (
     <section className="w-full px-6 pt-4 pb-1.5 grid grid-cols-[48px_minmax(0,1fr)]">
       <span className="select-none pt-1 size-9 bg-[rgb(30,30,30)] rounded-full">
@@ -93,7 +93,7 @@ async function postMessage(
   return await response.json();
 }
 
-function DialogSubmission({ divInputRef }: DivInputRef) {
+function DialogSubmission({ divInputRef, dialogRef }: DialogSubmissionProp) {
   const userDataContext = useContext(UserDataContext);
   const { trigger } = useSWRMutation(
     `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts`,
@@ -115,6 +115,7 @@ function DialogSubmission({ divInputRef }: DivInputRef) {
         // Re-send user's chat message to the server for brocasting to all sockets
         socket.emit("submitPost", result.content);
       }
+      dialogRef.current?.close();
     } catch (error) {
       if (error instanceof Error) console.error(error.message);
     }
@@ -163,7 +164,7 @@ export default function PostDialog({ dialogRef, isNewPost }: PostDialogProps) {
       <DialogHeader dialogRef={dialogRef} />
       {!isNewPost && <DialogToReply />}
       <DialogReply divInputRef={divInputRef} />
-      <DialogSubmission divInputRef={divInputRef} />
+      <DialogSubmission divInputRef={divInputRef} dialogRef={dialogRef} />
     </dialog>
   );
 }

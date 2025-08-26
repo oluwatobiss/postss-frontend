@@ -9,7 +9,10 @@ type ChangeEvent = React.ChangeEvent<HTMLInputElement>;
 type ChildrenProps = Readonly<{ children: React.ReactNode }>;
 type DateProps = { date: string; styles: string };
 type DeleteFetcherOptions = { id: number; userToken: string };
-type DivInputRef = { divInputRef: React.RefObject<HTMLDivElement | null> };
+type DialogSubmissionProp = {
+  divInputRef: React.RefObject<HTMLDivElement | null>;
+  dialogRef: React.RefObject<HTMLDialogElement | null>;
+};
 type Errors = { msg: string; path: string };
 type FormEvent = React.FormEvent<HTMLFormElement>;
 type GetFetcherOptions = { url: string; userToken: string };
@@ -96,7 +99,7 @@ export type {
   ChangeEvent,
   DateProps,
   DeleteFetcherOptions,
-  DivInputRef,
+  DialogSubmissionProp,
   Errors,
   FormEvent,
   GetFetcherOptions,
