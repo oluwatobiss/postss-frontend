@@ -1,13 +1,43 @@
 "use client";
+import { useContext } from "react";
+import { UserDataContext } from "./Contexts";
 import { svg } from "../_svg";
-import { PostProps } from "@/app/_types";
+import { DeleteFetcherOptions, PostCardProps } from "@/app/_types";
 // import { useRouter } from "next/navigation";
+import useSWRMutation from "swr/mutation";
 import Image from "next/image";
 import Date from "./Date";
 import LikeBtn from "./LikeBtn";
 
-export default function PostCard({ post }: { post: PostProps }) {
+async function deletePost(url: string, { arg }: { arg: DeleteFetcherOptions }) {
+  const response = await fetch(`${url}/${arg.id}`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${arg.userToken}` },
+  });
+  return await response.json();
+}
+
+export default function PostCard({ post, setPosts }: PostCardProps) {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts`;
+  const { userToken, userData } = useContext(UserDataContext);
+  const { trigger } = useSWRMutation(url, deletePost);
+
   // const router = useRouter();
+
+  async function trashPost(id: number) {
+    try {
+      if (confirm("Delete post permanently?")) {
+        const result = await trigger({ id, userToken });
+        if (result.message) {
+          alert("Error: Invalid delete credentials");
+          throw new Error(result.message);
+        }
+        setPosts(result);
+      }
+    } catch (error) {
+      if (error instanceof Error) console.error(error.message);
+    }
+  }
 
   function handlePostCardClick(e: React.MouseEvent<HTMLElement>) {
     console.log("=== Toggle Like ===");
@@ -49,6 +79,9 @@ export default function PostCard({ post }: { post: PostProps }) {
               {!!post.comments && <span>{post.comments}</span>}
             </div>
           </button>
+          {userToken && userData.status === "ADMIN" && (
+            <button onClick={() => trashPost(post.id)}>{svg.delete}</button>
+          )}
         </div>
       </span>
     </div>

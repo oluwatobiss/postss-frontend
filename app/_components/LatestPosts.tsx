@@ -20,6 +20,10 @@ export default function LatestPosts() {
   const userToken = userDataContext.userToken;
   const { trigger, error, isMutating } = useSWRMutation(url, getPosts);
 
+  function updatePosts(dbPosts: PostProps[]) {
+    setPosts(dbPosts);
+  }
+
   useEffect(() => {
     (async function getInitialPosts() {
       const result = await trigger({ userToken });
@@ -42,7 +46,7 @@ export default function LatestPosts() {
   return (
     <>
       {posts.map((post: PostProps) => (
-        <PostCard key={post.id} post={post} />
+        <PostCard key={post.id} post={post} setPosts={updatePosts} />
       ))}
     </>
   );

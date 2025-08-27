@@ -35,6 +35,10 @@ type PostProps = {
   author: string;
   comments: number;
 };
+type PostCardProps = {
+  post: PostProps;
+  setPosts: (dbPosts: PostProps[]) => void;
+};
 type PostUserArg = {
   username: string;
   email: string;
@@ -109,6 +113,7 @@ export type {
   AsideProps,
   PostDialogProps,
   PostProps,
+  PostCardProps,
   PostUserAuthOption,
   PostUserOption,
   PutUserOption,
