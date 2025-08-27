@@ -1,8 +1,9 @@
 "use client";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserDataContext } from "./Contexts";
 import { svg } from "../_svg";
-import { DeleteFetcherOptions, PostCardProps } from "@/app/_types";
+import { DeleteFetcherOptions, PostProps, PostCardProps } from "@/app/_types";
+import { socket } from "../_socket";
 // import { useRouter } from "next/navigation";
 import useSWRMutation from "swr/mutation";
 import Image from "next/image";
@@ -32,7 +33,6 @@ export default function PostCard({ post, setPosts }: PostCardProps) {
           alert("Error: Invalid delete credentials");
           throw new Error(result.message);
         }
-        setPosts(result);
       }
     } catch (error) {
       if (error instanceof Error) console.error(error.message);
@@ -48,6 +48,15 @@ export default function PostCard({ post, setPosts }: PostCardProps) {
     //   ? console.log("Like button clicked!")
     //   : router.push("/post/testing123");
   }
+
+  useEffect(() => {
+    // On getting a newPost event from the server, update the list of latest posts
+    const onDeletePost = (updatedList: PostProps[]) => setPosts(updatedList);
+    socket.on("deletePost", onDeletePost);
+    return () => {
+      socket.off("deletePost", onDeletePost);
+    };
+  }, []);
 
   return (
     <div
