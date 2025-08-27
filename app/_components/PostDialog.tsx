@@ -101,26 +101,16 @@ function DialogSubmission({ divInputRef, dialogRef }: DialogSubmissionProp) {
   );
 
   async function submitPost() {
-    const post = divInputRef.current?.innerText || "";
-    const authorId = userDataContext.userData.id;
-    console.log("=== submitPost ===");
-
     try {
-      const result = await trigger({ post, authorId });
-
-      console.log("=== submitPost try result ===");
-      console.log(result);
-
-      if (result.content) {
-        // Re-send user's chat message to the server for brocasting to all sockets
-        socket.emit("submitPost", result.content);
-      }
+      const post = divInputRef.current?.innerText || "";
+      const authorId = userDataContext.userData.id;
+      await trigger({ post, authorId });
+      if (divInputRef.current && divInputRef.current.innerText)
+        divInputRef.current.innerText = "";
       dialogRef.current?.close();
     } catch (error) {
       if (error instanceof Error) console.error(error.message);
     }
-    if (divInputRef.current && divInputRef.current.innerText)
-      divInputRef.current.innerText = "";
   }
 
   return (
