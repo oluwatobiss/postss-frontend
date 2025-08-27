@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { ChildrenProps, UserDataType } from "@/app/_types";
 import { UserDataContext } from "./Contexts";
-import defaultUserData from "../_defaultUserData";
+import { defaultUserData } from "../_defaultContexts";
 
 export function UserDataContextProvider({ children }: ChildrenProps) {
   const [userData, setUserData] = useState<UserDataType>(defaultUserData);

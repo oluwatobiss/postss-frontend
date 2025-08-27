@@ -1,17 +1,9 @@
 "use client";
 import { use, useContext } from "react";
-import { UserDataContext } from "../../_components/Contexts";
-import { GetFetcherOptions, PostProps } from "@/app/_types";
-import useSWR from "swr";
+import { PostsContext, UserDataContext } from "@/app/_components/Contexts";
+import { PostProps } from "@/app/_types";
 import Image from "next/image";
-import PostCard from "../../_components/PostCard";
-
-async function getPosts({ url, userToken }: GetFetcherOptions) {
-  const response = await fetch(url, {
-    headers: { Authorization: `Bearer ${userToken}` },
-  });
-  return await response.json();
-}
+import PostCard from "@/app/_components/PostCard";
 
 export default function Profile({
   params,
@@ -19,11 +11,9 @@ export default function Profile({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = use(params);
-  const userDataContext = useContext(UserDataContext);
-  const userToken = userDataContext.userToken;
-  const userId = userDataContext.userData.id;
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts/authors/${userId}`;
-  const { data, error, isLoading } = useSWR({ url, userToken }, getPosts);
+  const { userData } = useContext(UserDataContext);
+  const { posts, updatePosts } = useContext(PostsContext);
+  const userPosts = posts.filter((post) => post.authorId === userData.id);
 
   return (
     <>
@@ -42,8 +32,8 @@ export default function Profile({
           Post
         </div>
       </div>
-      {data?.map((post: PostProps) => (
-        <PostCard key={post.id} post={post} />
+      {userPosts.map((post: PostProps) => (
+        <PostCard key={post.id} post={post} setPosts={updatePosts} />
       ))}
     </>
   );

@@ -75,7 +75,9 @@ export default function PostCard({ post, setPosts }: PostCardProps) {
       <span>
         <div className="flex gap-x-2 overflow-y-hidden whitespace-nowrap text-ellipsis leading-5">
           <span className="font-semibold">{post.author}</span>
-          <Date styles="text-[rgb(119,119,119)]" date={`${post.createdAt}`} />
+          {post.id !== 0 && (
+            <Date styles="text-[rgb(119,119,119)]" date={`${post.createdAt}`} />
+          )}
         </div>
         <div className="mt-1 overflow-hidden wrap-anywhere text-[.9375rem] leading-[140%] whitespace-pre-wrap">
           {post.content}
