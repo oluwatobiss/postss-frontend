@@ -29,7 +29,7 @@ export default function ProfileLayout({ children }: ChildrenProps) {
             <div>
               <Image
                 src="https://avatar.iran.liara.run/public"
-                alt="codesweetly"
+                alt={username}
                 width={84}
                 height={84}
                 className="object-cover outline-offset-[-.5px] outline-[.5px] outline-solid outline-[rgba(243,245,247,.15)] rounded-full touch-manipulation select-none"

@@ -38,9 +38,11 @@ export default function PostCard({ post }: PostCardProps) {
 
   function handlePostCardClick(e: React.MouseEvent<HTMLElement>) {
     const isLikeBtn = (e.target as HTMLElement).closest(".likeBtn");
+    const replyBtn = (e.target as HTMLElement).closest(".replyBtn");
     const isDeleteBtn = (e.target as HTMLElement).closest(".deleteBtn");
-    if (!isLikeBtn && !isDeleteBtn)
-      openPostDialog({ isNewPost: false, post });
+    replyBtn && openPostDialog({ isNewPost: false, post });
+    if (!isLikeBtn && !replyBtn && !isDeleteBtn)
+      console.log("Post dialog clicked");
   }
 
   return (
@@ -51,7 +53,7 @@ export default function PostCard({ post }: PostCardProps) {
       <span className="select-none pt-1 size-9 bg-[rgb(30,30,30)] rounded-full">
         <Image
           src="https://avatar.iran.liara.run/public"
-          alt="codesweetly"
+          alt={post.author}
           width={500}
           height={500}
           className="object-cover outline-offset-[-.5px] outline-[.5px] outline-solid outline-[rgba(243,245,247,.15)] rounded-full touch-manipulation"
@@ -69,7 +71,7 @@ export default function PostCard({ post }: PostCardProps) {
         </div>
         <div className="mt-2 h-9 flex text-[#ccc] [&_button]:mr-3 [&_button]:flex [&_button]:items-center [&_button]:justify-center [&_button]:cursor-pointer [&_button]:px-3 [&_button]:rounded-3xl [&_button]:hover:bg-[rgba(255,255,255,0.08)]">
           <LikeBtn postId={post.id} likes={post.likes} />
-          <button>
+          <button className="replyBtn">
             <div className="flex gap-x-1">
               {svg.chat}
               {!!post.comments && <span>{post.comments}</span>}
