@@ -20,10 +20,6 @@ export function PostsContextProvider({ children }: ChildrenProps) {
   const userDataContext = useContext(UserDataContext);
   const userToken = userDataContext.userToken;
 
-  function updatePosts(dbPosts: PostProps[]) {
-    setPosts(dbPosts);
-  }
-
   useEffect(() => {
     (async function getInitialPosts() {
       const result = await trigger({ userToken });
@@ -34,14 +30,22 @@ export function PostsContextProvider({ children }: ChildrenProps) {
   useEffect(() => {
     // On getting a newPost event from the server, update the list of latest posts
     const onNewPost = (latestPosts: PostProps[]) => setPosts(latestPosts);
+    // On getting a newPost event from the server, update the list of latest posts
+    const onDeletePost = (updatedList: PostProps[]) => {
+      console.log("=== Delete from updatedList profile ===");
+      console.log(updatedList);
+      setPosts(updatedList);
+    };
     socket.on("newPost", onNewPost);
+    socket.on("deletePost", onDeletePost);
     return () => {
       socket.off("newPost", onNewPost);
+      socket.off("deletePost", onDeletePost);
     };
   }, []);
 
   if (isMutating) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
-  return <PostsContext value={{ posts, updatePosts }}>{children}</PostsContext>;
+  return <PostsContext value={posts}>{children}</PostsContext>;
 }

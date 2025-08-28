@@ -12,7 +12,7 @@ export default function Profile({
 }) {
   const { slug } = use(params);
   const { userData } = useContext(UserDataContext);
-  const { posts, updatePosts } = useContext(PostsContext);
+  const posts = useContext(PostsContext);
   const userPosts = posts.filter((post) => post.authorId === userData.id);
 
   return (
@@ -33,7 +33,7 @@ export default function Profile({
         </div>
       </div>
       {userPosts.map((post: PostProps) => (
-        <PostCard key={post.id} post={post} setPosts={updatePosts} />
+        <PostCard key={post.id} post={post} />
       ))}
     </>
   );

@@ -35,10 +35,7 @@ type PostProps = {
   author: string;
   comments: number;
 };
-type PostCardProps = {
-  post: PostProps;
-  setPosts: (dbPosts: PostProps[]) => void;
-};
+type PostCardProps = { post: PostProps };
 type PostUserArg = {
   username: string;
   email: string;

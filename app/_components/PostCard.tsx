@@ -1,9 +1,8 @@
 "use client";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { UserDataContext } from "./Contexts";
 import { svg } from "../_svg";
-import { DeleteFetcherOptions, PostProps, PostCardProps } from "@/app/_types";
-import { socket } from "../_socket";
+import { DeleteFetcherOptions, PostCardProps } from "@/app/_types";
 // import { useRouter } from "next/navigation";
 import useSWRMutation from "swr/mutation";
 import Image from "next/image";
@@ -18,7 +17,7 @@ async function deletePost(url: string, { arg }: { arg: DeleteFetcherOptions }) {
   return await response.json();
 }
 
-export default function PostCard({ post, setPosts }: PostCardProps) {
+export default function PostCard({ post }: PostCardProps) {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts`;
   const { userToken, userData } = useContext(UserDataContext);
   const { trigger } = useSWRMutation(url, deletePost);
@@ -48,15 +47,6 @@ export default function PostCard({ post, setPosts }: PostCardProps) {
     //   ? console.log("Like button clicked!")
     //   : router.push("/post/testing123");
   }
-
-  useEffect(() => {
-    // On getting a newPost event from the server, update the list of latest posts
-    const onDeletePost = (updatedList: PostProps[]) => setPosts(updatedList);
-    socket.on("deletePost", onDeletePost);
-    return () => {
-      socket.off("deletePost", onDeletePost);
-    };
-  }, []);
 
   return (
     <div
