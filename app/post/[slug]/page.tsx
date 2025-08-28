@@ -1,6 +1,6 @@
 import { svg } from "../../_svg";
 import Image from "next/image";
-import PostCard from "../../_components/PostCard";
+// import PostCard from "../../_components/PostCard";
 
 export default function Post() {
   return (
@@ -44,6 +44,7 @@ export default function Post() {
         </div>
       </div>
       <div className="border-t-[.5px] border-t-[rgba(243,245,247,.15)]">
+        {/* <PostCard />
         <PostCard />
         <PostCard />
         <PostCard />
@@ -51,8 +52,7 @@ export default function Post() {
         <PostCard />
         <PostCard />
         <PostCard />
-        <PostCard />
-        <PostCard />
+        <PostCard /> */}
       </div>
       <div className="fixed bottom-0 w-full max-w-160 border-b-0 border-[.5px] border-[rgba(243,245,247,.15)] py-2 bg-[rgb(16,16,16)]">
         <div className="flex items-center border-[.5px] border-[rgba(0,0,0,0.4)] rounded-3xl mx-6 p-1 bg-[rgb(30,30,30)] cursor-pointer">

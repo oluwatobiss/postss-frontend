@@ -1,12 +1,13 @@
 "use client";
 import { useContext } from "react";
+import { useRouter } from "next/navigation";
 import { PostDialogContext, UserDataContext } from "./Contexts";
 import { svg } from "../_svg";
 import { DeleteFetcherOptions, PostCardProps } from "@/app/_types";
-import useSWRMutation from "swr/mutation";
 import Image from "next/image";
 import Date from "./Date";
 import LikeBtn from "./LikeBtn";
+import useSWRMutation from "swr/mutation";
 
 async function deletePost(url: string, { arg }: { arg: DeleteFetcherOptions }) {
   const response = await fetch(`${url}/${arg.id}`, {
@@ -18,6 +19,7 @@ async function deletePost(url: string, { arg }: { arg: DeleteFetcherOptions }) {
 
 export default function PostCard({ post }: PostCardProps) {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts`;
+  const router = useRouter();
   const openPostDialog = useContext(PostDialogContext);
   const { userToken, userData } = useContext(UserDataContext);
   const { trigger } = useSWRMutation(url, deletePost);
@@ -41,8 +43,7 @@ export default function PostCard({ post }: PostCardProps) {
     const replyBtn = (e.target as HTMLElement).closest(".replyBtn");
     const isDeleteBtn = (e.target as HTMLElement).closest(".deleteBtn");
     replyBtn && openPostDialog({ isNewPost: false, post });
-    if (!isLikeBtn && !replyBtn && !isDeleteBtn)
-      console.log("Post dialog clicked");
+    !isLikeBtn && !replyBtn && !isDeleteBtn && router.push(`/post/${post.id}`);
   }
 
   return (
