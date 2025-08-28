@@ -28,19 +28,13 @@ export function PostsContextProvider({ children }: ChildrenProps) {
   }, []);
 
   useEffect(() => {
-    // On getting a newPost event from the server, update the list of latest posts
-    const onNewPost = (latestPosts: PostProps[]) => setPosts(latestPosts);
-    // On getting a newPost event from the server, update the list of latest posts
-    const onDeletePost = (updatedList: PostProps[]) => {
-      console.log("=== Delete from updatedList profile ===");
-      console.log(updatedList);
-      setPosts(updatedList);
-    };
-    socket.on("newPost", onNewPost);
-    socket.on("deletePost", onDeletePost);
+    // On getting a newPost or deletePost event from the server, update the list of posts
+    const updateList = (updatedList: PostProps[]) => setPosts(updatedList);
+    socket.on("newPost", updateList);
+    socket.on("deletePost", updateList);
     return () => {
-      socket.off("newPost", onNewPost);
-      socket.off("deletePost", onDeletePost);
+      socket.off("newPost", updateList);
+      socket.off("deletePost", updateList);
     };
   }, []);
 
