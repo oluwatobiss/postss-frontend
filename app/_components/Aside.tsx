@@ -1,8 +1,7 @@
 import { useContext } from "react";
 import { Mr_Bedfort } from "next/font/google";
+import { PostDialogContext, UserDataContext } from "./Contexts";
 import { svg } from "../_svg";
-import { AsideProps } from "@/app/_types";
-import { UserDataContext } from "./Contexts";
 import Link from "next/link";
 
 const mrBedfort = Mr_Bedfort({ weight: "400", subsets: ["latin"] });
@@ -13,10 +12,9 @@ function logout() {
   window.location.reload();
 }
 
-export default function Aside({ openPostDialog }: AsideProps) {
-  const userDataContext = useContext(UserDataContext);
-  const userToken = userDataContext.userToken;
-
+export default function Aside() {
+  const openPostDialog = useContext(PostDialogContext);
+  const { userToken } = useContext(UserDataContext);
   return (
     <aside className="z-10 fixed bg-[rgba(10, 10, 10, 0.85)] backdrop-blur-lg h-full w-19 flex flex-col items-center">
       <Link href="/">

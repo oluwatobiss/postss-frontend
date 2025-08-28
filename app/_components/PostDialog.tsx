@@ -1,7 +1,6 @@
 import { useContext, useRef } from "react";
 import { svg } from "../_svg";
 import { DialogSubmissionProp, PostDialogProps } from "@/app/_types";
-import { socket } from "../_socket";
 import { UserDataContext } from "./Contexts";
 import Image from "next/image";
 import useSWRMutation from "swr/mutation";

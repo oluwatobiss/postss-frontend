@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ChildrenProps } from "@/app/_types";
+import { PostDialogContext } from "./Contexts";
 import { PostsContextProvider } from "./PostsContextProvider";
 import { SocketContextProvider } from "./SocketContextProvider";
 import { UserDataContextProvider } from "./UserDataContextProvider";
@@ -36,20 +37,22 @@ export default function RootElements({ children }: ChildrenProps) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <UserDataContextProvider>
-          <SocketContextProvider>
-            <PostsContextProvider>
-              <PostDialog dialogRef={dialogRef} isNewPost={isNewPost} />
-              <Aside openPostDialog={openPostDialog} />
-              <main className="w-full fixed min-h-screen">
-                <h1 className="text-center h-15 leading-15">{heading}</h1>
-                <div className="w-full fixed top-15 bottom-0 overflow-y-scroll">
-                  <div className="w-160 mx-auto bg-[#181818] border-[.5px] border-[rgb(45,45,45)] py-3 cursor-pointer shadow-[0_0_12px_0_rgba(0,0,0,0.04)]">
-                    {children}
+          <PostDialog dialogRef={dialogRef} isNewPost={isNewPost} />
+          <PostDialogContext value={openPostDialog}>
+            <Aside />
+            <SocketContextProvider>
+              <PostsContextProvider>
+                <main className="w-full fixed min-h-screen">
+                  <h1 className="text-center h-15 leading-15">{heading}</h1>
+                  <div className="w-full fixed top-15 bottom-0 overflow-y-scroll">
+                    <div className="w-160 mx-auto bg-[#181818] border-[.5px] border-[rgb(45,45,45)] py-3 cursor-pointer shadow-[0_0_12px_0_rgba(0,0,0,0.04)]">
+                      {children}
+                    </div>
                   </div>
-                </div>
-              </main>
-            </PostsContextProvider>
-          </SocketContextProvider>
+                </main>
+              </PostsContextProvider>
+            </SocketContextProvider>
+          </PostDialogContext>
         </UserDataContextProvider>
       </body>
     </html>

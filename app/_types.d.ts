@@ -18,7 +18,6 @@ type FormEvent = React.FormEvent<HTMLFormElement>;
 type GetFetcherOptions = { url: string; userToken: string };
 type LikeBtnProps = { postId: number; likes: number[] };
 type LoggedInUser = { id: number; username: string; status: string };
-type AsideProps = { openPostDialog: (isNewPost: boolean) => void };
 type PostDialogProps = {
   dialogRef: React.RefObject<HTMLDialogElement | null>;
   isNewPost: boolean;
@@ -107,7 +106,6 @@ export type {
   LikeBtnCSS,
   LikeBtnProps,
   LoggedInUser,
-  AsideProps,
   PostDialogProps,
   PostProps,
   PostCardProps,

@@ -1,9 +1,8 @@
 "use client";
 import { useContext } from "react";
-import { UserDataContext } from "./Contexts";
+import { PostDialogContext, UserDataContext } from "./Contexts";
 import { svg } from "../_svg";
 import { DeleteFetcherOptions, PostCardProps } from "@/app/_types";
-// import { useRouter } from "next/navigation";
 import useSWRMutation from "swr/mutation";
 import Image from "next/image";
 import Date from "./Date";
@@ -19,10 +18,9 @@ async function deletePost(url: string, { arg }: { arg: DeleteFetcherOptions }) {
 
 export default function PostCard({ post }: PostCardProps) {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts`;
+  const openPostDialog = useContext(PostDialogContext);
   const { userToken, userData } = useContext(UserDataContext);
   const { trigger } = useSWRMutation(url, deletePost);
-
-  // const router = useRouter();
 
   async function trashPost(id: number) {
     try {
@@ -39,13 +37,9 @@ export default function PostCard({ post }: PostCardProps) {
   }
 
   function handlePostCardClick(e: React.MouseEvent<HTMLElement>) {
-    console.log("=== Toggle Like ===");
-    console.log("The toggleLike button");
-
-    // const isLikeBtn = (e.target as HTMLElement).closest(".likeBtn");
-    // isLikeBtn
-    //   ? console.log("Like button clicked!")
-    //   : router.push("/post/testing123");
+    const isLikeBtn = (e.target as HTMLElement).closest(".likeBtn");
+    const isDeleteBtn = (e.target as HTMLElement).closest(".deleteBtn");
+    if (!isLikeBtn && !isDeleteBtn) openPostDialog(false);
   }
 
   return (
@@ -81,7 +75,9 @@ export default function PostCard({ post }: PostCardProps) {
             </div>
           </button>
           {userToken && userData.status === "ADMIN" && (
-            <button onClick={() => trashPost(post.id)}>{svg.delete}</button>
+            <button className="deleteBtn" onClick={() => trashPost(post.id)}>
+              {svg.delete}
+            </button>
           )}
         </div>
       </span>
