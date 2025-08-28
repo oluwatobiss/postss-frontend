@@ -7,6 +7,7 @@ import { DeleteFetcherOptions, PostCardProps } from "@/app/_types";
 import Image from "next/image";
 import Date from "./Date";
 import LikeBtn from "./LikeBtn";
+import ReplyBtn from "./ReplyBtn";
 import useSWRMutation from "swr/mutation";
 
 async function deletePost(url: string, { arg }: { arg: DeleteFetcherOptions }) {
@@ -72,12 +73,7 @@ export default function PostCard({ post }: PostCardProps) {
         </div>
         <div className="mt-2 h-9 flex text-[#ccc] [&_button]:mr-3 [&_button]:flex [&_button]:items-center [&_button]:justify-center [&_button]:cursor-pointer [&_button]:px-3 [&_button]:rounded-3xl [&_button]:hover:bg-[rgba(255,255,255,0.08)]">
           <LikeBtn postId={post.id} likes={post.likes} />
-          <button className="replyBtn">
-            <div className="flex gap-x-1">
-              {svg.chat}
-              {!!post.comments && <span>{post.comments}</span>}
-            </div>
-          </button>
+          <ReplyBtn hasReply={!!post.comments} total={post.comments} />
           {userToken && userData.status === "ADMIN" && (
             <button className="deleteBtn" onClick={() => trashPost(post.id)}>
               {svg.delete}

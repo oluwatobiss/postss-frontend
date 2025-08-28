@@ -1,44 +1,23 @@
-import { svg } from "../../_svg";
+"use client";
+import { use, useContext } from "react";
+import { defaultPost } from "@/app/_defaultContexts";
+import { PostsContext } from "@/app/_components/Contexts";
+import PostCard from "@/app/_components/PostCard";
 import Image from "next/image";
-// import PostCard from "../../_components/PostCard";
 
-export default function Post() {
+export default function Post({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = use(params);
+  const posts = useContext(PostsContext);
+  const post = posts.find((post) => post.id === +slug);
+
   return (
     <div className="w-full py-3 not-first:border-t-[.5px] not-first:border-t-[rgba(243,245,247,.15)]">
       <div className="px-6 pt-1 pb-3">
-        <div className="flex items-center gap-x-2">
-          <span className="select-none pt-1 bg-[rgb(30,30,30)] rounded-full">
-            <Image
-              src="https://avatar.iran.liara.run/public"
-              alt="codesweetly"
-              width={36}
-              height={36}
-              className="object-cover outline-offset-[-.5px] outline-[.5px] outline-solid outline-[rgba(243,245,247,.15)] rounded-full touch-manipulation"
-            />
-          </span>
-          <span className="flex gap-x-2 overflow-y-hidden whitespace-nowrap text-ellipsis leading-5">
-            <span className="font-semibold">codesweetly</span>
-            <span className="text-[rgb(119,119,119)]">20m</span>
-          </span>
-        </div>
-        <div className="pt-3">
-          <div className="mt-1 overflow-hidden wrap-anywhere text-[.9375rem] leading-[140%] whitespace-pre-wrap">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolore
-            dolorem debitis, vel provident consectetur veniam, ab unde aperiam
-            praesentium molestiae maiores est voluptates itaque explicabo magni
-            voluptatem voluptatibus? Quidem, officiis.
-          </div>
-          <div className="mt-2 h-9 flex text-[#ccc]">
-            <span className="flex pr-3 gap-x-1">
-              <span>{svg.heart}</span>
-              <span>332</span>
-            </span>
-            <span className="flex pr-3 gap-x-1">
-              <span>{svg.chat}</span>
-              <span>14</span>
-            </span>
-          </div>
-        </div>
+        <PostCard post={post || defaultPost} />
         <div className="mt-2 pt-4 pb-1 border-t-[.5px] border-t-[rgba(243,245,247,.15)]">
           Replies
         </div>
