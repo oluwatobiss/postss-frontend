@@ -1,7 +1,7 @@
 "use client";
 import { use, useContext } from "react";
 import { defaultPost } from "@/app/_defaultContexts";
-import { PostsContext } from "@/app/_components/Contexts";
+import { PostDialogContext, PostsContext } from "@/app/_components/Contexts";
 import PostCard from "@/app/_components/PostCard";
 import Image from "next/image";
 
@@ -11,6 +11,7 @@ export default function Post({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = use(params);
+  const openPostDialog = useContext(PostDialogContext);
   const posts = useContext(PostsContext);
   const post = posts.find((post) => post.id === +slug);
 
@@ -22,7 +23,7 @@ export default function Post({
           Replies
         </div>
       </div>
-      <div className="border-t-[.5px] border-t-[rgba(243,245,247,.15)]">
+      <div className="border-t-[.5px] border-t-[rgba(243,245,247,.15)] min-h-screen">
         {/* <PostCard />
         <PostCard />
         <PostCard />
@@ -33,7 +34,12 @@ export default function Post({
         <PostCard />
         <PostCard /> */}
       </div>
-      <div className="fixed bottom-0 w-full max-w-160 border-b-0 border-[.5px] border-[rgba(243,245,247,.15)] py-2 bg-[rgb(16,16,16)]">
+      <div
+        onClick={() =>
+          openPostDialog({ isNewPost: false, post: post || defaultPost })
+        }
+        className="fixed bottom-0 w-full max-w-160 border-b-0 border-[.5px] border-[rgba(243,245,247,.15)] py-2 bg-[rgb(16,16,16)]"
+      >
         <div className="flex items-center border-[.5px] border-[rgba(0,0,0,0.4)] rounded-3xl mx-6 p-1 bg-[rgb(30,30,30)] cursor-pointer">
           <span className="select-none p-2 bg-[rgb(30,30,30)] rounded-full">
             <Image
@@ -46,7 +52,7 @@ export default function Post({
             />
           </span>
           <span className="text-[rgb(119,119,119)]">
-            Reply to oluwatobiss...
+            Reply to {post?.author}...
           </span>
         </div>
       </div>

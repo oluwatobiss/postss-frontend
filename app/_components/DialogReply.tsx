@@ -14,7 +14,7 @@ export default function DialogReply({
       <span className="select-none pt-1 size-9 bg-[rgb(30,30,30)] rounded-full">
         <Image
           src="https://avatar.iran.liara.run/public"
-          alt={userData.username}
+          alt={userData?.username}
           width={500}
           height={500}
           className="object-cover outline-offset-[-.5px] outline-[.5px] outline-solid outline-[rgba(243,245,247,.15)] rounded-full touch-manipulation"
@@ -22,7 +22,7 @@ export default function DialogReply({
       </span>
       <span>
         <div className="overflow-y-hidden whitespace-nowrap font-semibold text-ellipsis leading-5">
-          {userData.username}
+          {userData?.username}
         </div>
         <div
           role="textbox"
