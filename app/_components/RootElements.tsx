@@ -2,11 +2,12 @@
 import { useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Geist, Geist_Mono } from "next/font/google";
-import { ChildrenProps } from "@/app/_types";
+import { ChildrenProps, PostProps } from "@/app/_types";
 import { PostDialogContext } from "./Contexts";
 import { PostsContextProvider } from "./PostsContextProvider";
 import { SocketContextProvider } from "./SocketContextProvider";
 import { UserDataContextProvider } from "./UserDataContextProvider";
+import { defaultPost } from "../_defaultContexts";
 import Aside from "./Aside";
 import PostDialog from "./PostDialog";
 
@@ -21,13 +22,16 @@ const geistMono = Geist_Mono({
 });
 
 export default function RootElements({ children }: ChildrenProps) {
-  const [isNewPost, setIsNewPost] = useState(false);
+  const [postInfo, setPostInfo] = useState({
+    isNewPost: false,
+    post: defaultPost,
+  });
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const pathname = usePathname();
   const heading = pathname === "/" ? "Latest" : "Profile";
 
-  function openPostDialog(isNewPost: boolean) {
-    setIsNewPost(isNewPost);
+  function openPostDialog(postInfo: { isNewPost: boolean; post: PostProps }) {
+    setPostInfo(postInfo);
     dialogRef.current?.showModal();
   }
 
@@ -37,7 +41,7 @@ export default function RootElements({ children }: ChildrenProps) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <UserDataContextProvider>
-          <PostDialog dialogRef={dialogRef} isNewPost={isNewPost} />
+          <PostDialog dialogRef={dialogRef} postInfo={postInfo} />
           <PostDialogContext value={openPostDialog}>
             <Aside />
             <SocketContextProvider>

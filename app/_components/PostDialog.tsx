@@ -1,11 +1,11 @@
 import { useContext, useRef } from "react";
 import { svg } from "../_svg";
-import { DialogSubmissionProp, PostDialogProps } from "@/app/_types";
+import { DialogSubmissionProp, PostDialogProps, PostProps } from "@/app/_types";
 import { UserDataContext } from "./Contexts";
 import Image from "next/image";
 import useSWRMutation from "swr/mutation";
 
-function DialogHeader({ dialogRef }: Omit<PostDialogProps, "isNewPost">) {
+function DialogHeader({ dialogRef }: Omit<PostDialogProps, "postInfo">) {
   return (
     <section className="border-b-[.5px] border-b-[rgba(243,245,247,0.15)] h-14 grid grid-cols-[minmax(64px,100px)_minmax(0,1fr)_minmax(64px,100px)] items-center">
       <span
@@ -19,7 +19,7 @@ function DialogHeader({ dialogRef }: Omit<PostDialogProps, "isNewPost">) {
   );
 }
 
-function DialogToReply() {
+function DialogToReply({ post }: { post: PostProps }) {
   return (
     <section className="w-full px-6 pt-4 pb-1.5 grid grid-cols-[48px_minmax(0,1fr)]">
       <span className="select-none pt-1 size-9 bg-[rgb(30,30,30)] rounded-full">
@@ -33,12 +33,10 @@ function DialogToReply() {
       </span>
       <span>
         <div className="overflow-y-hidden whitespace-nowrap font-semibold text-ellipsis leading-5">
-          codesweetly
+          {post.author}
         </div>
         <div className="mt-1 overflow-hidden wrap-anywhere text-[.9375rem] leading-[140%] whitespace-pre-wrap">
-          dolorem debitis, vel provident consectetur veniam, ab unde aperiam
-          praesentium molestiae maiores est voluptates itaque explicabo magni
-          voluptatem voluptatibus? Quidem, officiis.
+          {post.content}
         </div>
       </span>
     </section>
@@ -125,7 +123,7 @@ function DialogSubmission({ divInputRef, dialogRef }: DialogSubmissionProp) {
   );
 }
 
-export default function PostDialog({ dialogRef, isNewPost }: PostDialogProps) {
+export default function PostDialog({ dialogRef, postInfo }: PostDialogProps) {
   const divInputRef = useRef<HTMLDivElement>(null);
 
   function closePostDialog(
@@ -151,7 +149,7 @@ export default function PostDialog({ dialogRef, isNewPost }: PostDialogProps) {
       onClick={(e) => closePostDialog(e)}
     >
       <DialogHeader dialogRef={dialogRef} />
-      {!isNewPost && <DialogToReply />}
+      {!postInfo.isNewPost && <DialogToReply post={postInfo.post} />}
       <DialogReply divInputRef={divInputRef} />
       <DialogSubmission divInputRef={divInputRef} dialogRef={dialogRef} />
     </dialog>

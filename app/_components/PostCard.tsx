@@ -39,7 +39,8 @@ export default function PostCard({ post }: PostCardProps) {
   function handlePostCardClick(e: React.MouseEvent<HTMLElement>) {
     const isLikeBtn = (e.target as HTMLElement).closest(".likeBtn");
     const isDeleteBtn = (e.target as HTMLElement).closest(".deleteBtn");
-    if (!isLikeBtn && !isDeleteBtn) openPostDialog(false);
+    if (!isLikeBtn && !isDeleteBtn)
+      openPostDialog({ isNewPost: false, post });
   }
 
   return (

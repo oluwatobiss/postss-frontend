@@ -20,7 +20,7 @@ type LikeBtnProps = { postId: number; likes: number[] };
 type LoggedInUser = { id: number; username: string; status: string };
 type PostDialogProps = {
   dialogRef: React.RefObject<HTMLDialogElement | null>;
-  isNewPost: boolean;
+  postInfo: { isNewPost: boolean; post: PostProps };
 };
 type PostProps = {
   id: number;

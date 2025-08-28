@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Mr_Bedfort } from "next/font/google";
 import { PostDialogContext, UserDataContext } from "./Contexts";
+import { defaultPost } from "../_defaultContexts";
 import { svg } from "../_svg";
 import Link from "next/link";
 
@@ -32,7 +33,9 @@ export default function Aside() {
             </Link>
             <div
               className="bg-[rgba(255,255,255,0.08)] group [&_svg]:group-hover:text-white"
-              onClick={() => openPostDialog(true)}
+              onClick={() =>
+                openPostDialog({ isNewPost: true, post: defaultPost })
+              }
             >
               {svg.plus}
             </div>
