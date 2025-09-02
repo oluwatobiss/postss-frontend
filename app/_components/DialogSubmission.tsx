@@ -5,7 +5,7 @@ import useSWRMutation from "swr/mutation";
 
 async function postMessage(
   url: string,
-  { arg }: { arg: { post: string; authorId: number } }
+  { arg }: { arg: { content: string; authorId: number } }
 ) {
   const response = await fetch(url, {
     method: "POST",
@@ -18,18 +18,27 @@ async function postMessage(
 export default function DialogSubmission({
   divInputRef,
   dialogRef,
+  postId,
 }: DialogSubmissionProp) {
   const userDataContext = useContext(UserDataContext);
-  const { trigger } = useSWRMutation(
-    `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts`,
-    postMessage
-  );
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts${
+    postId ? `/${postId}/comments` : ""
+  }`;
 
-  async function submitPost() {
+  console.log("=== DialogSubmission ===");
+  console.log(url);
+
+  const { trigger } = useSWRMutation(url, postMessage);
+
+  async function submitMessage() {
     try {
-      const post = divInputRef.current?.innerText || "";
+      const content = divInputRef.current?.innerText || "";
       const authorId = userDataContext.userData.id;
-      await trigger({ post, authorId });
+      const response = await trigger({ content, authorId });
+
+      console.log("=== submitMessage ===");
+      console.log(response);
+
       if (divInputRef.current && divInputRef.current.innerText)
         divInputRef.current.innerText = "";
       dialogRef.current?.close();
@@ -43,7 +52,7 @@ export default function DialogSubmission({
       <button
         type="button"
         className="border border-[rgba(243,245,247,0.15)] rounded-xl font-semibold text-[rgb(243,245,247)] cursor-pointer px-4 py-2"
-        onClick={submitPost}
+        onClick={submitMessage}
       >
         Post
       </button>

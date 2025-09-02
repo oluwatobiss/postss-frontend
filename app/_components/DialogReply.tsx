@@ -7,10 +7,10 @@ import Image from "next/image";
 
 export default function DialogReply({
   divInputRef,
-}: Omit<DialogSubmissionProp, "dialogRef">) {
+}: Omit<DialogSubmissionProp, "dialogRef" | "postId">) {
   const { userData } = useContext(UserDataContext);
   return (
-    <section className="w-full px-6 pt-4 pb-1.5 grid grid-cols-[48px_minmax(0,1fr)]">
+    <section className="w-full px-13 pt-4 pb-1.5 grid grid-cols-[48px_minmax(0,1fr)]">
       <span className="select-none pt-1 size-9 bg-[rgb(30,30,30)] rounded-full">
         <Image
           src="https://avatar.iran.liara.run/public"

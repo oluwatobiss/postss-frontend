@@ -29,7 +29,11 @@ export default function PostDialog({ dialogRef, postInfo }: PostDialogProps) {
       <DialogHeader dialogRef={dialogRef} />
       {!postInfo.isNewPost && <DialogToReply post={postInfo.post} />}
       <DialogReply divInputRef={divInputRef} />
-      <DialogSubmission divInputRef={divInputRef} dialogRef={dialogRef} />
+      <DialogSubmission
+        divInputRef={divInputRef}
+        dialogRef={dialogRef}
+        postId={postInfo.isNewPost ? 0 : postInfo.post.id}
+      />
     </dialog>
   );
 }

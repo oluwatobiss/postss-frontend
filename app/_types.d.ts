@@ -12,6 +12,7 @@ type DeleteFetcherOptions = { id: number; userToken: string };
 type DialogSubmissionProp = {
   divInputRef: React.RefObject<HTMLDivElement | null>;
   dialogRef: React.RefObject<HTMLDialogElement | null>;
+  postId: number;
 };
 type Errors = { msg: string; path: string };
 type FormEvent = React.FormEvent<HTMLFormElement>;
