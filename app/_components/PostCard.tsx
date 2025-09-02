@@ -18,7 +18,7 @@ async function deletePost(url: string, { arg }: { arg: DeleteFetcherOptions }) {
   return await response.json();
 }
 
-export default function PostCard({ post }: PostCardProps) {
+export default function PostCard({ comment, commentSum, post }: PostCardProps) {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts`;
   const router = useRouter();
   const openPostDialog = useContext(PostDialogContext);
@@ -40,11 +40,16 @@ export default function PostCard({ post }: PostCardProps) {
   }
 
   function handlePostCardClick(e: React.MouseEvent<HTMLElement>) {
-    const isLikeBtn = (e.target as HTMLElement).closest(".likeBtn");
-    const replyBtn = (e.target as HTMLElement).closest(".replyBtn");
-    const isDeleteBtn = (e.target as HTMLElement).closest(".deleteBtn");
-    replyBtn && openPostDialog({ isNewPost: false, post });
-    !isLikeBtn && !replyBtn && !isDeleteBtn && router.push(`/post/${post.id}`);
+    if (post) {
+      const isLikeBtn = (e.target as HTMLElement).closest(".likeBtn");
+      const replyBtn = (e.target as HTMLElement).closest(".replyBtn");
+      const isDeleteBtn = (e.target as HTMLElement).closest(".deleteBtn");
+      replyBtn && openPostDialog({ isNewPost: false, post });
+      !isLikeBtn &&
+        !replyBtn &&
+        !isDeleteBtn &&
+        router.push(`/post/${post.id}`);
+    }
   }
 
   return (
@@ -55,7 +60,7 @@ export default function PostCard({ post }: PostCardProps) {
       <span className="select-none pt-1 size-9 bg-[rgb(30,30,30)] rounded-full">
         <Image
           src="https://avatar.iran.liara.run/public"
-          alt={post.author}
+          alt={post?.author || comment?.author || ""}
           width={500}
           height={500}
           className="object-cover outline-offset-[-.5px] outline-[.5px] outline-solid outline-[rgba(243,245,247,.15)] rounded-full touch-manipulation"
@@ -63,19 +68,36 @@ export default function PostCard({ post }: PostCardProps) {
       </span>
       <span>
         <div className="flex gap-x-2 overflow-y-hidden whitespace-nowrap text-ellipsis leading-5">
-          <span className="font-semibold">{post.author}</span>
-          {post.id !== 0 && (
-            <Date styles="text-[rgb(119,119,119)]" date={`${post.createdAt}`} />
+          <span className="font-semibold">
+            {post?.author || comment?.author}
+          </span>
+          {(post?.id || comment?.id) && (
+            <Date
+              styles="text-[rgb(119,119,119)]"
+              date={`${post?.createdAt || comment?.createdAt}`}
+            />
           )}
         </div>
         <div className="mt-1 overflow-hidden wrap-anywhere text-[.9375rem] leading-[140%] whitespace-pre-wrap">
-          {post.content}
+          {post?.content || comment?.content}
         </div>
         <div className="mt-2 h-9 flex text-[#ccc] [&_button]:mr-3 [&_button]:flex [&_button]:items-center [&_button]:justify-center [&_button]:cursor-pointer [&_button]:px-3 [&_button]:rounded-3xl [&_button]:hover:bg-[rgba(255,255,255,0.08)]">
-          <LikeBtn postId={post.id} likes={post.likes} />
-          <ReplyBtn hasReply={!!post.comments} total={post.comments} />
+          <LikeBtn
+            commentId={comment?.id}
+            postId={post?.id}
+            likes={post?.likes || comment?.likes || []}
+          />
+          {post && (
+            <ReplyBtn
+              hasReply={!!commentSum || !!post.comments}
+              total={commentSum || post.comments}
+            />
+          )}
           {userToken && userData.status === "ADMIN" && (
-            <button className="deleteBtn" onClick={() => trashPost(post.id)}>
+            <button
+              className="deleteBtn"
+              onClick={() => trashPost(post?.id || comment?.id || 0)}
+            >
               {svg.delete}
             </button>
           )}

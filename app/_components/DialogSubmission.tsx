@@ -24,21 +24,13 @@ export default function DialogSubmission({
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts${
     postId ? `/${postId}/comments` : ""
   }`;
-
-  console.log("=== DialogSubmission ===");
-  console.log(url);
-
   const { trigger } = useSWRMutation(url, postMessage);
 
   async function submitMessage() {
     try {
       const content = divInputRef.current?.innerText || "";
       const authorId = userDataContext.userData.id;
-      const response = await trigger({ content, authorId });
-
-      console.log("=== submitMessage ===");
-      console.log(response);
-
+      await trigger({ content, authorId });
       if (divInputRef.current && divInputRef.current.innerText)
         divInputRef.current.innerText = "";
       dialogRef.current?.close();

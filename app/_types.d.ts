@@ -17,7 +17,7 @@ type DialogSubmissionProp = {
 type Errors = { msg: string; path: string };
 type FormEvent = React.FormEvent<HTMLFormElement>;
 type GetFetcherOptions = { url: string; userToken: string };
-type LikeBtnProps = { postId: number; likes: number[] };
+type LikeBtnProps = { commentId?: number; postId?: number; likes: number[] };
 type LoggedInUser = { id: number; username: string; status: string };
 type PostDialogProps = {
   dialogRef: React.RefObject<HTMLDialogElement | null>;
@@ -35,7 +35,12 @@ type PostProps = {
   author: string;
   comments: number;
 };
-type PostCardProps = { post: PostProps };
+type CommentProps = Omit<PostProps, "comments"> & { postId: number };
+type PostCardProps = {
+  comment?: CommentProps;
+  commentSum?: number;
+  post?: PostProps;
+};
 type PostUserArg = {
   username: string;
   email: string;
@@ -98,6 +103,7 @@ type User = {
 
 export type {
   ChangeEvent,
+  CommentProps,
   DateProps,
   DeleteFetcherOptions,
   DialogSubmissionProp,

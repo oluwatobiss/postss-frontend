@@ -13,6 +13,19 @@ export const defaultUserData = {
   },
 };
 
+export const defaultComment = {
+  id: 0,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  content: "",
+  published: true,
+  authorId: 0,
+  views: 0,
+  likes: [0],
+  author: "",
+  postId: 0,
+};
+
 export const defaultPost = {
   id: 0,
   createdAt: new Date(),

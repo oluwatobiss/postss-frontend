@@ -17,14 +17,20 @@ async function putPost(url: string, { arg }: PutPostOption) {
   return await response.json();
 }
 
-export default function LikeBtn({ postId, likes }: LikeBtnProps) {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts`;
+export default function LikeBtn({ commentId, postId, likes }: LikeBtnProps) {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts/${postId}${
+    commentId ? `/comments/${commentId}` : ""
+  }`;
   const userDataContext = useContext(UserDataContext);
   const userToken = userDataContext.userToken;
   const userId = userDataContext.userData.id;
   const [likePost, setLikePost] = useState(false);
-  const [totalLikes, setTotalLikes] = useState({ postId, likes: likes.length });
-  const { trigger } = useSWRMutation(`${url}/${postId}`, putPost);
+  const [totalLikes, setTotalLikes] = useState({
+    commentId,
+    postId,
+    likes: likes.length,
+  });
+  const { trigger } = useSWRMutation(url, putPost);
   const fillColor = likePost ? "#ff0034" : "";
   const strokeColor = likePost ? "" : "#ccc";
   const cssVariable = {
@@ -54,6 +60,18 @@ export default function LikeBtn({ postId, likes }: LikeBtnProps) {
     socket.on("postLike", onPostLike);
     return () => {
       socket.off("postLike", onPostLike);
+    };
+  }, []);
+
+  useEffect(() => {
+    function onCommentLike(info: { commentId: number; likes: number }) {
+      info.commentId === totalLikes.commentId &&
+        setTotalLikes({ ...totalLikes, likes: info.likes });
+    }
+    // On getting a commentLike event from the server, update the clicked comment's total likes
+    socket.on("commentLike", onCommentLike);
+    return () => {
+      socket.off("commentLike", onCommentLike);
     };
   }, []);
 
