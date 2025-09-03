@@ -21,10 +21,9 @@ export function PostsContextProvider({ children }: ChildrenProps) {
   const userToken = userDataContext.userToken;
 
   function updatePostCommentSum(postId: number, commentSum: number) {
-    const updatedPosts = posts.map((p) => {
-      const newPost = p.id === postId ? { ...p, comments: commentSum } : p;
-      return newPost;
-    });
+    const updatedPosts = posts.map((p) =>
+      p.id === postId ? { ...p, comments: commentSum } : p
+    );
     setPosts(updatedPosts);
   }
 
