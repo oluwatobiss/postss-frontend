@@ -30,7 +30,7 @@ export function CommentsContextProvider({ children }: ChildrenProps) {
       const result = await trigger({ userToken });
       setComments(result);
     }
-    slug && getInitialComments();
+    slug && !slug.includes("%40") && getInitialComments();
   }, [slug]);
 
   useEffect(() => {
