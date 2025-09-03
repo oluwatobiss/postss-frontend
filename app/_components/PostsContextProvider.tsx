@@ -20,6 +20,14 @@ export function PostsContextProvider({ children }: ChildrenProps) {
   const userDataContext = useContext(UserDataContext);
   const userToken = userDataContext.userToken;
 
+  function updatePostCommentSum(postId: number, commentSum: number) {
+    const updatedPosts = posts.map((p) => {
+      const newPost = p.id === postId ? { ...p, comments: commentSum } : p;
+      return newPost;
+    });
+    setPosts(updatedPosts);
+  }
+
   useEffect(() => {
     (async function getInitialPosts() {
       const result = await trigger({ userToken });
@@ -41,5 +49,9 @@ export function PostsContextProvider({ children }: ChildrenProps) {
   if (isMutating) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
-  return <PostsContext value={posts}>{children}</PostsContext>;
+  return (
+    <PostsContext value={{ posts, updatePostCommentSum }}>
+      {children}
+    </PostsContext>
+  );
 }

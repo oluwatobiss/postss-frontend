@@ -1,8 +1,12 @@
 "use client";
 import { useContext } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { DeleteFetcherOptions, PostCardProps } from "@/app/_types";
-import { PostDialogContext, UserDataContext } from "./Contexts";
+import {
+  CommentProps,
+  DeleteFetcherOptions,
+  PostCardProps,
+} from "@/app/_types";
+import { PostsContext, PostDialogContext, UserDataContext } from "./Contexts";
 import { svg } from "../_svg";
 import useSWRMutation from "swr/mutation";
 import Image from "next/image";
@@ -19,9 +23,10 @@ async function deletePost(url: string, { arg }: { arg: DeleteFetcherOptions }) {
 }
 
 export default function PostCard({ comment, commentSum, post }: PostCardProps) {
-  const { slug } = useParams();
+  const { slug = 0 } = useParams();
   const router = useRouter();
   const openPostDialog = useContext(PostDialogContext);
+  const { updatePostCommentSum } = useContext(PostsContext);
   const { userToken, userData } = useContext(UserDataContext);
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}${
     post ? "/posts" : `/posts/${slug}/comments`
@@ -35,6 +40,12 @@ export default function PostCard({ comment, commentSum, post }: PostCardProps) {
         if (result.message) {
           alert("Error: Invalid delete credentials");
           throw new Error(result.message);
+        }
+        if (comment) {
+          const postComments = result.filter(
+            (r: CommentProps) => r.postId === +slug
+          );
+          updatePostCommentSum(+slug, postComments.length);
         }
       }
     } catch (error) {

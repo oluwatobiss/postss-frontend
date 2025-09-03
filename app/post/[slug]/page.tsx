@@ -16,7 +16,7 @@ export default function Post({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = use(params);
-  const posts = useContext(PostsContext);
+  const { posts } = useContext(PostsContext);
   const comments = useContext(CommentsContext);
   const openPostDialog = useContext(PostDialogContext);
   const post = posts.find((post) => post.id === +slug);

@@ -12,7 +12,7 @@ export default function Profile({
 }) {
   const { slug } = use(params);
   const { userData } = useContext(UserDataContext);
-  const posts = useContext(PostsContext);
+  const { posts } = useContext(PostsContext);
   const userPosts = posts.filter((post) => post.authorId === userData.id);
 
   return (

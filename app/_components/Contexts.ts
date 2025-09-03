@@ -6,10 +6,13 @@ import {
   defaultUserData,
 } from "../_defaultContexts";
 
+export const CommentsContext = createContext([defaultComment]);
 export const PostDialogContext = createContext(
   (postInfo: { isNewPost: boolean; post: PostProps }) => {}
 );
-export const CommentsContext = createContext([defaultComment]);
-export const PostsContext = createContext([defaultPost]);
+export const PostsContext = createContext({
+  posts: [defaultPost],
+  updatePostCommentSum(postId: number, commentSum: number) {},
+});
 export const SocketContext = createContext(false);
 export const UserDataContext = createContext(defaultUserData);

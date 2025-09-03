@@ -5,7 +5,7 @@ import { PostProps } from "@/app/_types";
 import PostCard from "./PostCard";
 
 export default function LatestPosts() {
-  const posts = useContext(PostsContext);
+  const { posts } = useContext(PostsContext);
   const comments = useContext(CommentsContext);
   function getLatestPosts() {
     return posts.map((post: PostProps) => {
