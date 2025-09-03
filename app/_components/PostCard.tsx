@@ -1,14 +1,14 @@
 "use client";
 import { useContext } from "react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { DeleteFetcherOptions, PostCardProps } from "@/app/_types";
 import { PostDialogContext, UserDataContext } from "./Contexts";
 import { svg } from "../_svg";
-import { DeleteFetcherOptions, PostCardProps } from "@/app/_types";
+import useSWRMutation from "swr/mutation";
 import Image from "next/image";
 import Date from "./Date";
 import LikeBtn from "./LikeBtn";
 import ReplyBtn from "./ReplyBtn";
-import useSWRMutation from "swr/mutation";
 
 async function deletePost(url: string, { arg }: { arg: DeleteFetcherOptions }) {
   const response = await fetch(`${url}/${arg.id}`, {
@@ -19,15 +19,18 @@ async function deletePost(url: string, { arg }: { arg: DeleteFetcherOptions }) {
 }
 
 export default function PostCard({ comment, commentSum, post }: PostCardProps) {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts`;
+  const { slug } = useParams();
   const router = useRouter();
   const openPostDialog = useContext(PostDialogContext);
   const { userToken, userData } = useContext(UserDataContext);
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}${
+    post ? "/posts" : `/posts/${slug}/comments`
+  }`;
   const { trigger } = useSWRMutation(url, deletePost);
 
   async function trashPost(id: number) {
     try {
-      if (confirm("Delete post permanently?")) {
+      if (confirm(`Delete ${post ? "post" : "comment"} permanently?`)) {
         const result = await trigger({ id, userToken });
         if (result.message) {
           alert("Error: Invalid delete credentials");
@@ -96,7 +99,7 @@ export default function PostCard({ comment, commentSum, post }: PostCardProps) {
           {userToken && userData.status === "ADMIN" && (
             <button
               className="deleteBtn"
-              onClick={() => trashPost(post?.id || comment?.id || 0)}
+              onClick={() => trashPost(comment?.id || post?.id || 0)}
             >
               {svg.delete}
             </button>
