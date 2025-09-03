@@ -9,7 +9,7 @@ import useSWRMutation from "swr/mutation";
 
 async function getComments(
   url: string,
-  { arg }: { arg: { userToken: string; postId: number } }
+  { arg }: { arg: { userToken: string } }
 ) {
   const response = await fetch(url, {
     headers: { Authorization: `Bearer ${arg.userToken}` },
@@ -19,19 +19,19 @@ async function getComments(
 
 export function CommentsContextProvider({ children }: ChildrenProps) {
   const [comments, setComments] = useState<CommentProps[]>([defaultComment]);
-  const { slug = 0 } = useParams();
+  const { slug } = useParams();
   const userDataContext = useContext(UserDataContext);
   const userToken = userDataContext.userToken;
-  const postId = +slug;
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts/${postId}/comments`;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts/${slug}/comments`;
   const { trigger, error, isMutating } = useSWRMutation(url, getComments);
 
   useEffect(() => {
-    (async function getInitialComments() {
-      const result = await trigger({ userToken, postId });
+    async function getInitialComments() {
+      const result = await trigger({ userToken });
       setComments(result);
-    })();
-  }, []);
+    }
+    slug && getInitialComments();
+  }, [slug]);
 
   useEffect(() => {
     // On getting a newComment or deleteComment event from the server, update the list of comments
