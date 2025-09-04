@@ -7,12 +7,7 @@ import Image from "next/image";
 export default function ProfileLayout({ children }: ChildrenProps) {
   const userDataContext = useContext(UserDataContext);
   const { userData } = userDataContext;
-  const firstName = userData.firstName;
-  const lastName = userData.lastName;
-  const username = userData.username;
-  const bio = userData.bio;
-  const website = userData.website;
-
+  const { firstName, lastName, username, bio, website } = userData;
   return (
     <>
       <section>
@@ -62,21 +57,7 @@ export default function ProfileLayout({ children }: ChildrenProps) {
           </a>
         </section>
       </section>
-      <section>
-        <div className="grid grid-cols-[repeat(4,1fr)] items-center [&_div]:border-b [&_div]:px-4 [&_div]:h-12 [&_div]:flex [&_div]:items-center [&_div]:justify-center [&_div]:font-semibold">
-          <div className="border-[#fff]">Posts</div>
-          <div className="border-[rgba(243,245,247,0.15)] text-[rgb(119,119,119)]">
-            Subscriptions
-          </div>
-          <div className="border-[rgba(243,245,247,0.15)] text-[rgb(119,119,119)]">
-            Likes
-          </div>
-          <div className="border-[rgba(243,245,247,0.15)] text-[rgb(119,119,119)]">
-            Followers
-          </div>
-        </div>
-        <div>{children}</div>
-      </section>
+      <section>{children}</section>
     </>
   );
 }

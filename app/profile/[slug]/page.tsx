@@ -1,5 +1,5 @@
 "use client";
-import { use, useContext } from "react";
+import { use, useContext, useRef, useState } from "react";
 import { PostsContext, UserDataContext } from "@/app/_components/Contexts";
 import { PostProps } from "@/app/_types";
 import Image from "next/image";
@@ -13,10 +13,47 @@ export default function Profile({
   const { slug } = use(params);
   const { userData } = useContext(UserDataContext);
   const { posts } = useContext(PostsContext);
-  const userPosts = posts.filter((post) => post.authorId === userData.id);
+  const [tabPosts, setTabPosts] = useState<PostProps[]>([]);
+  const activeTab = useRef("");
+
+  function showUserPosts() {
+    activeTab.current = "Posts";
+    const userPosts = posts.filter((post) => post.authorId === userData.id);
+    setTabPosts(userPosts);
+  }
+
+  function showLikedPosts() {
+    activeTab.current = "Likes";
+    const likedPosts = posts.filter((post) => post.likes.includes(userData.id));
+    setTabPosts(likedPosts);
+  }
+
+  function getStyle(tab: string) {
+    return {
+      borderColor:
+        activeTab.current === tab ? "#fff" : "rgba(243,245,247,0.15)",
+      color: activeTab.current === tab ? "#fff" : "rgb(119,119,119)",
+    };
+  }
+
+  if (!activeTab.current) showUserPosts();
 
   return (
     <>
+      <div className="grid grid-cols-[repeat(4,1fr)] items-center [&_div]:border-b [&_div]:px-4 [&_div]:h-12 [&_div]:flex [&_div]:items-center [&_div]:justify-center [&_div]:font-semibold">
+        <div onClick={showUserPosts} style={getStyle("Posts")}>
+          Posts
+        </div>
+        <div className="border-[rgba(243,245,247,0.15)] text-[rgb(119,119,119)]">
+          Subscriptions
+        </div>
+        <div onClick={showLikedPosts} style={getStyle("Likes")}>
+          Likes
+        </div>
+        <div className="border-[rgba(243,245,247,0.15)] text-[rgb(119,119,119)]">
+          Followers
+        </div>
+      </div>
       <div className="px-6 py-4 flex">
         <Image
           src="https://avatar.iran.liara.run/public"
@@ -32,7 +69,7 @@ export default function Profile({
           Post
         </div>
       </div>
-      {userPosts.map((post: PostProps) => (
+      {tabPosts.map((post: PostProps) => (
         <PostCard key={post.id} post={post} />
       ))}
     </>
