@@ -81,6 +81,18 @@ type UserDataType = {
   };
 };
 
+type BioType = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  username: string;
+  bio: string;
+  email: string;
+  website: string;
+  password: string;
+  status: string;
+};
+
 type UserDataContextType = {
   userData: UserDataType;
   updateUserData: (userData: UserDataType) => void;
@@ -125,5 +137,6 @@ export type {
   UpsertFetcherOption,
   User,
   UserDataType,
+  BioType,
   UserDataContextType,
 };
