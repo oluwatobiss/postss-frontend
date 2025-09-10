@@ -28,8 +28,11 @@ export default function Aside() {
       {userToken && (
         <div className="grow flex items-center">
           <div className="grid gap-y-4 [&_div]:size-15 [&_div]:rounded-xl [&_div]:flex [&_div]:items-center [&_div]:justify-center [&_div]:cursor-pointer [&_div]:hover:bg-[rgba(255,255,255,0.08)] [&_svg]:text-[rgb(77,77,77)]">
-            <Link href="/profile/@oluwatobiss">
-              <div>{svg.person}</div>
+            <Link href="/">
+              <div>{svg.home}</div>
+            </Link>
+            <Link href="/explore">
+              <div>{svg.search}</div>
             </Link>
             <div
               className="bg-[rgba(255,255,255,0.08)] group [&_svg]:group-hover:text-white"
@@ -39,6 +42,9 @@ export default function Aside() {
             >
               {svg.plus}
             </div>
+            <Link href="/profile/@oluwatobiss">
+              <div>{svg.person}</div>
+            </Link>
             <button
               type="button"
               onClick={logout}

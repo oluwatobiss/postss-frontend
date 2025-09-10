@@ -79,6 +79,21 @@ export const svg = {
       />
     </Svg>
   ),
+  home: (
+    <Svg
+      ariaLabel="Home"
+      viewBox="0 0 26 26"
+      style={{ fill: "currentColor", height: "24px", width: "24px" }}
+    >
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeWidth="2.5"
+        d="M2.3 12.9v7.8c0 1.2.8 2 2 2h5c.2 0 .4-.2.4-.5v-5.7a3.3 3.3 0 0 1 6.6 0v5.7c0 .3.2.5.4.5h5a2 2 0 0 0 2-2V13A5 5 0 0 0 22 9l-5.8-4.7a5 5 0 0 0-6.2 0L4 9a5 5 0 0 0-1.8 3.9Z"
+      />
+    </Svg>
+  ),
   media: (
     <Svg
       ariaLabel="Attach media"
@@ -143,6 +158,20 @@ export const svg = {
         stroke="currentColor"
         strokeLinecap="round"
         strokeWidth="1.5"
+      />
+    </Svg>
+  ),
+  search: (
+    <Svg
+      ariaLabel="Search"
+      viewBox="0 0 26 26"
+      style={{ fill: "currentColor", height: "24px", width: "24px" }}
+    >
+      <path
+        fill="currentColor"
+        fillRule="evenodd"
+        d="M3.5 11.5a8 8 0 1 1 16 0 8 8 0 0 1-16 0Zm8-10.5A10.5 10.5 0 1 0 18 19.8l4.4 4.3a1.3 1.3 0 0 0 1.7-1.7L19.8 18a10.5 10.5 0 0 0-8.3-17Z"
+        clipRule="evenodd"
       />
     </Svg>
   ),

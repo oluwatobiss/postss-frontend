@@ -22,6 +22,17 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+function getHeading(pathname: string) {
+  if (pathname === "/") return "Latest";
+  if (pathname.includes("/edit-profile")) return "Edit Profile";
+  if (pathname.includes("/explore")) return "Explore";
+  if (pathname.includes("/login")) return "Login";
+  if (pathname.includes("/post/")) return "Post";
+  if (pathname.includes("/profile/")) return "Profile";
+  if (pathname.includes("/sign-up")) return "Sign up";
+  return "SUPER SECTION";
+}
+
 export default function RootElements({ children }: ChildrenProps) {
   const [postInfo, setPostInfo] = useState({
     isNewPost: false,
@@ -29,16 +40,6 @@ export default function RootElements({ children }: ChildrenProps) {
   });
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const pathname = usePathname();
-
-  function getHeading(pathname: string) {
-    if (pathname === "/") return "Latest";
-    if (pathname.includes("/edit-profile")) return "Edit Profile";
-    if (pathname.includes("/login")) return "Login";
-    if (pathname.includes("/post/")) return "Post";
-    if (pathname.includes("/profile/")) return "Profile";
-    if (pathname.includes("/sign-up")) return "Sign up";
-    return "SUPER SECTION";
-  }
 
   function openPostDialog(postInfo: { isNewPost: boolean; post: PostProps }) {
     setPostInfo(postInfo);
