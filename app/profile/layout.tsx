@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { UserDataContext } from "@/app/_components/Contexts";
 import { ChildrenProps } from "@/app/_types";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function ProfileLayout({ children }: ChildrenProps) {
   const userDataContext = useContext(UserDataContext);
@@ -34,7 +35,7 @@ export default function ProfileLayout({ children }: ChildrenProps) {
           <div className="mt-4">
             <div>{bio}</div>
             <div className="mt-3 min-h-9 text-[rgb(119,119,119)]">
-              <span>🔎 Explore</span>
+              <Link href="/explore">🔎 Explore</Link>
               {website && (
                 <>
                   <span className="px-2">•</span>
