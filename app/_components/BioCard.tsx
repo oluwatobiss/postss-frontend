@@ -2,15 +2,14 @@
 import { useContext } from "react";
 import { UserDataContext } from "@/app/_components/Contexts";
 import { BioType } from "@/app/_types";
-// import { useRouter } from "next/navigation";
 import Image from "next/image";
 import useSWRMutation from "swr/mutation";
 
 async function putUser(
   url: string,
-  { arg }: { arg: { userToken: string | false | null } }
+  { arg }: { arg: { userToken: string; follow: boolean } }
 ) {
-  const response = await fetch(url, {
+  const response = await fetch(`${url}?follow=${arg.follow}`, {
     method: "PUT",
     headers: {
       "Content-type": "application/json; charset=UTF-8",
@@ -20,38 +19,39 @@ async function putUser(
   return await response.json();
 }
 
-export default function BioCard({ userToFollow }: { userToFollow: BioType }) {
-  // const router = useRouter();
+export default function BioCard({ followCand }: { followCand: BioType }) {
   const userDataContext = useContext(UserDataContext);
   const { userToken, userData } = userDataContext;
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/users`;
   const userId = userData.id;
   const { data, trigger } = useSWRMutation(
-    `${url}/${userToFollow.id}/${userId}`,
+    `${url}/${followCand.id}/${userId}`,
     putUser
   );
 
-  console.log("=== BioCard ===");
-  console.log(data);
   const following =
-    data?.following.includes(userToFollow.id) ||
-    userData.following.includes(userToFollow.id);
+    data?.following.includes(followCand.id) ||
+    userData.following.includes(followCand.id);
 
-  async function updateUser() {
+  async function followUser(follow: boolean) {
     try {
-      const result = await trigger({ userToken });
+      const result = await trigger({ userToken, follow });
       if (result.message) {
         alert("Error: Invalid update credentials");
         throw new Error(result.message);
       }
-      console.log("=== updateUser in BioCard ===");
 
+      console.log("=== followUser in BioCard ===");
       console.log(result);
 
       localStorage.setItem("postssUserData", JSON.stringify(result));
     } catch (error) {
       if (error instanceof Error) console.error(error.message);
     }
+  }
+
+  function unFollowUser() {
+    if (confirm(`Unfolow ${followCand.username}?`)) followUser(false);
   }
 
   return (
@@ -68,27 +68,26 @@ export default function BioCard({ userToFollow }: { userToFollow: BioType }) {
       <span>
         <div className="flex justify-between overflow-y-hidden whitespace-nowrap text-ellipsis leading-5">
           <span>
-            <div className="font-semibold">{userToFollow.username}</div>
-            {(userToFollow.firstName || userToFollow.lastName) && (
-              <div className="text-[#777]">{`${userToFollow?.firstName} ${userToFollow?.lastName}`}</div>
+            <div className="font-semibold">{followCand.username}</div>
+            {(followCand.firstName || followCand.lastName) && (
+              <div className="text-[#777]">{`${followCand?.firstName} ${followCand?.lastName}`}</div>
             )}
           </span>
           <button
             type="button"
-            className="min-w-26 h-8.5 rounded-lg font-semibold"
-            disabled={following}
+            className="min-w-26 h-8.5 rounded-lg font-semibold cursor-pointer"
             style={
               following
                 ? { border: "1px solid #777", color: "#777" }
                 : { backgroundColor: "#fff", color: "#000" }
             }
-            onClick={updateUser}
+            onClick={() => (following ? unFollowUser() : followUser(true))}
           >
             {following ? "Following" : "Follow"}
           </button>
         </div>
         <div className="mt-1 mb-4 overflow-hidden wrap-anywhere text-[.9375rem] leading-[140%] whitespace-pre-wrap">
-          {userToFollow.bio}
+          {followCand.bio}
         </div>
         <div className="text-[#777]">285k followers</div>
       </span>
