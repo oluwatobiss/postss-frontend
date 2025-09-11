@@ -20,5 +20,7 @@ export default function Explore() {
   console.log("=== Explore ===");
   console.log(data);
 
-  return data.map((user: BioType) => <BioCard key={user.id} user={user} />);
+  return data.map((userToFollow: BioType) => (
+    <BioCard key={userToFollow.id} userToFollow={userToFollow} />
+  ));
 }

@@ -10,6 +10,8 @@ export const defaultUserData = {
     website: "n/a",
     password: "n/a",
     status: "n/a",
+    followers: [0],
+    following: [0],
   },
 };
 

@@ -78,6 +78,8 @@ type UserDataType = {
     website: string;
     password: string;
     status: string;
+    followers: number[];
+    following: number[];
   };
 };
 
