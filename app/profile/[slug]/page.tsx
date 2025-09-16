@@ -4,9 +4,16 @@ import {
   PostsContext,
   UserTokenNDataContext,
 } from "@/app/_components/Contexts";
-import { PostProps } from "@/app/_types";
+import { BioType, PostProps } from "@/app/_types";
 import Image from "next/image";
+import BioCard from "@/app/_components/BioCard";
 import PostCard from "@/app/_components/PostCard";
+import useSWR from "swr";
+
+async function getUsers(url: string) {
+  const response = await fetch(url);
+  return response.json();
+}
 
 export default function Profile({
   params,
@@ -18,7 +25,12 @@ export default function Profile({
   const { userData } = userTokenNData;
   const { posts } = useContext(PostsContext);
   const [tabPosts, setTabPosts] = useState<PostProps[]>([]);
+  const [tabBios, setTabBios] = useState<BioType[]>([]);
   const activeTab = useRef("");
+  const { data } = useSWR(
+    `${process.env.NEXT_PUBLIC_BACKEND_URI}/users`,
+    getUsers
+  );
 
   function showUserPosts() {
     activeTab.current = "Posts";
@@ -30,6 +42,15 @@ export default function Profile({
     activeTab.current = "Likes";
     const likedPosts = posts.filter((post) => post.likes.includes(userData.id));
     setTabPosts(likedPosts);
+  }
+
+  function showSubscriptions() {
+    activeTab.current = "Subscriptions";
+    const subscriptions = userData.following;
+    const biosSubscribedTo = data?.filter((bio: BioType) =>
+      subscriptions.includes(bio.id)
+    );
+    setTabBios(biosSubscribedTo);
   }
 
   function getStyle(tab: string) {
@@ -48,15 +69,13 @@ export default function Profile({
         <div onClick={showUserPosts} style={getStyle("Posts")}>
           Posts
         </div>
-        <div className="border-[rgba(243,245,247,0.15)] text-[rgb(119,119,119)]">
+        <div onClick={showSubscriptions} style={getStyle("Subscriptions")}>
           Subscriptions
         </div>
         <div onClick={showLikedPosts} style={getStyle("Likes")}>
           Likes
         </div>
-        <div className="border-[rgba(243,245,247,0.15)] text-[rgb(119,119,119)]">
-          Followers
-        </div>
+        <div style={getStyle("Followers")}>Followers</div>
       </div>
       <div className="px-6 py-4 flex">
         <Image
@@ -73,9 +92,16 @@ export default function Profile({
           Post
         </div>
       </div>
-      {tabPosts.map((post: PostProps) => (
-        <PostCard key={post.id} post={post} />
-      ))}
+      {activeTab.current === "Posts" || activeTab.current === "Likes"
+        ? tabPosts.map((post: PostProps) => (
+            <PostCard key={post.id} post={post} />
+          ))
+        : ""}
+      {activeTab.current === "Subscriptions"
+        ? tabBios.map((bio: BioType) => (
+            <BioCard key={bio.id} followCand={bio} />
+          ))
+        : ""}
     </>
   );
 }

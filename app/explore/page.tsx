@@ -21,9 +21,6 @@ export default function Explore() {
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
 
-  console.log("=== Explore ===");
-  console.log(data);
-
   return data.map(
     (followCand: BioType) =>
       followCand.id !== userData.id &&
