@@ -53,6 +53,15 @@ export default function Profile({
     setTabBios(biosSubscribedTo);
   }
 
+  function showFollowers() {
+    activeTab.current = "Followers";
+    const followers = userData.followers;
+    const biosFollowingUser = data?.filter((bio: BioType) =>
+      followers.includes(bio.id)
+    );
+    setTabBios(biosFollowingUser);
+  }
+
   function getStyle(tab: string) {
     return {
       borderColor:
@@ -75,7 +84,9 @@ export default function Profile({
         <div onClick={showLikedPosts} style={getStyle("Likes")}>
           Likes
         </div>
-        <div style={getStyle("Followers")}>Followers</div>
+        <div onClick={showFollowers} style={getStyle("Followers")}>
+          Followers
+        </div>
       </div>
       <div className="px-6 py-4 flex">
         <Image
@@ -97,7 +108,8 @@ export default function Profile({
             <PostCard key={post.id} post={post} />
           ))
         : ""}
-      {activeTab.current === "Subscriptions"
+      {activeTab.current === "Subscriptions" ||
+      activeTab.current === "Followers"
         ? tabBios.map((bio: BioType) => (
             <BioCard key={bio.id} followCand={bio} />
           ))
