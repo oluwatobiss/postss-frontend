@@ -34,17 +34,23 @@ export default function ProfileLayout({ children }: ChildrenProps) {
           <div className="mt-4">
             <div>{bio}</div>
             <div className="mt-3 min-h-9 text-[rgb(119,119,119)]">
-              <span>293 followers</span>
+              {userData.followers.length ? (
+                <span>{userData.followers.length} followers</span>
+              ) : (
+                ""
+              )}
+              {userData.followers.length && website ? (
+                <span className="px-2">•</span>
+              ) : (
+                ""
+              )}
               {website && (
-                <>
-                  <span className="px-2">•</span>
-                  <span>
-                    {website.replace(
-                      /^https|^http|\:\/\/www\.|^www\.|\:\/\//g,
-                      ""
-                    )}
-                  </span>
-                </>
+                <span>
+                  {website.replace(
+                    /^https|^http|\:\/\/www\.|^www\.|\:\/\//g,
+                    ""
+                  )}
+                </span>
               )}
             </div>
           </div>
