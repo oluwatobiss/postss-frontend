@@ -25,7 +25,8 @@ export default function Explore() {
 
   return data.map(
     (followCand: BioType) =>
-      followCand.id !== userData.id && (
+      followCand.id !== userData.id &&
+      !followCand.followers?.includes(userData.id) && (
         <BioCard key={followCand.id} followCand={followCand} />
       )
   );

@@ -93,6 +93,7 @@ type BioType = {
   website: string;
   password: string;
   status: string;
+  followers: number[];
 };
 
 type UserDataContextType = {

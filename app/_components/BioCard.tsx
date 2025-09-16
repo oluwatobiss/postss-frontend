@@ -89,7 +89,11 @@ export default function BioCard({ followCand }: { followCand: BioType }) {
         <div className="mt-1 mb-4 overflow-hidden wrap-anywhere text-[.9375rem] leading-[140%] whitespace-pre-wrap">
           {followCand.bio}
         </div>
-        <div className="text-[#777]">285k followers</div>
+        {followCand.followers.length ? (
+          <div className="text-[#777]">{followCand.followers.length}</div>
+        ) : (
+          ""
+        )}
       </span>
     </div>
   );
