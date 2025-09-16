@@ -1,6 +1,9 @@
 "use client";
 import { use, useContext, useRef, useState } from "react";
-import { PostsContext, UserDataContext } from "@/app/_components/Contexts";
+import {
+  PostsContext,
+  UserTokenNDataContext,
+} from "@/app/_components/Contexts";
 import { PostProps } from "@/app/_types";
 import Image from "next/image";
 import PostCard from "@/app/_components/PostCard";
@@ -11,7 +14,8 @@ export default function Profile({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = use(params);
-  const { userData } = useContext(UserDataContext);
+  const { userTokenNData } = useContext(UserTokenNDataContext);
+  const { userData } = userTokenNData;
   const { posts } = useContext(PostsContext);
   const [tabPosts, setTabPosts] = useState<PostProps[]>([]);
   const activeTab = useRef("");

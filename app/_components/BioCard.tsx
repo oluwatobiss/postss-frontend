@@ -1,6 +1,6 @@
 "use client";
 import { useContext } from "react";
-import { UserDataContext } from "@/app/_components/Contexts";
+import { UserTokenNDataContext } from "@/app/_components/Contexts";
 import { BioType } from "@/app/_types";
 import Image from "next/image";
 import useSWRMutation from "swr/mutation";
@@ -20,8 +20,8 @@ async function putUser(
 }
 
 export default function BioCard({ followCand }: { followCand: BioType }) {
-  const userDataContext = useContext(UserDataContext);
-  const { userToken, userData } = userDataContext;
+  const { userTokenNData } = useContext(UserTokenNDataContext);
+  const { userToken, userData } = userTokenNData;
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/users`;
   const userId = userData.id;
   const { data, trigger } = useSWRMutation(

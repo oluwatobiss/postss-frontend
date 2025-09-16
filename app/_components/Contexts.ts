@@ -1,9 +1,9 @@
 import { createContext } from "react";
-import { PostProps } from "@/app/_types";
+import { PostProps, UserTokenNDataType } from "@/app/_types";
 import {
   defaultComment,
   defaultPost,
-  defaultUserData,
+  defaultUserTokenNData,
 } from "../_defaultContexts";
 
 export const CommentsContext = createContext([defaultComment]);
@@ -15,4 +15,7 @@ export const PostsContext = createContext({
   updatePostCommentSum(postId: number, commentSum: number) {},
 });
 export const SocketContext = createContext(false);
-export const UserDataContext = createContext(defaultUserData);
+export const UserTokenNDataContext = createContext({
+  userTokenNData: defaultUserTokenNData,
+  updateUserTokenNData: (data: UserTokenNDataType) => {},
+});

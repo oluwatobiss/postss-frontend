@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { UserDataContext } from "./Contexts";
+import { UserTokenNDataContext } from "./Contexts";
 import { LikeBtnCSS, LikeBtnProps, PutPostOption } from "@/app/_types";
 import { socket } from "../_socket";
 import { svg } from "../_svg";
@@ -21,9 +21,9 @@ export default function LikeBtn({ commentId, postId, likes }: LikeBtnProps) {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts/${postId}${
     commentId ? `/comments/${commentId}` : ""
   }`;
-  const userDataContext = useContext(UserDataContext);
-  const userToken = userDataContext.userToken;
-  const userId = userDataContext.userData.id;
+  const { userTokenNData } = useContext(UserTokenNDataContext);
+  const { userToken, userData } = userTokenNData;
+  const userId = userData.id;
   const [likePost, setLikePost] = useState(false);
   const [totalLikes, setTotalLikes] = useState({
     commentId,

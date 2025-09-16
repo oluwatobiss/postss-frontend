@@ -66,7 +66,7 @@ type PutPostOption = {
   };
 };
 type UpsertFetcherOption = { arg: { name: string; imageUrl: string } };
-type UserDataType = {
+type UserTokenNDataType = {
   userToken: string;
   userData: {
     id: number;
@@ -96,9 +96,9 @@ type BioType = {
   followers: number[];
 };
 
-type UserDataContextType = {
-  userData: UserDataType;
-  updateUserData: (userData: UserDataType) => void;
+type UserTokenNDataContextType = {
+  userData: UserTokenNDataType;
+  updateUserTokenNData: (userData: UserTokenNDataType) => void;
 };
 type PostUserAuthOption = { arg: { email: string; password: string } };
 type SvgProps = {
@@ -139,7 +139,7 @@ export type {
   SvgProps,
   UpsertFetcherOption,
   User,
-  UserDataType,
+  UserTokenNDataType,
   BioType,
-  UserDataContextType,
+  UserTokenNDataContextType,
 };

@@ -6,7 +6,11 @@ import {
   DeleteFetcherOptions,
   PostCardProps,
 } from "@/app/_types";
-import { PostsContext, PostDialogContext, UserDataContext } from "./Contexts";
+import {
+  PostsContext,
+  PostDialogContext,
+  UserTokenNDataContext,
+} from "./Contexts";
 import { svg } from "../_svg";
 import useSWRMutation from "swr/mutation";
 import Image from "next/image";
@@ -27,7 +31,8 @@ export default function PostCard({ comment, commentSum, post }: PostCardProps) {
   const router = useRouter();
   const openPostDialog = useContext(PostDialogContext);
   const { updatePostCommentSum } = useContext(PostsContext);
-  const { userToken, userData } = useContext(UserDataContext);
+  const { userTokenNData } = useContext(UserTokenNDataContext);
+  const { userToken, userData } = userTokenNData;
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}${
     post ? "/posts" : `/posts/${slug}/comments`
   }`;

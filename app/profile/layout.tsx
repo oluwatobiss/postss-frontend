@@ -1,12 +1,12 @@
 "use client";
 import { useContext } from "react";
-import { UserDataContext } from "@/app/_components/Contexts";
+import { UserTokenNDataContext } from "@/app/_components/Contexts";
 import { ChildrenProps } from "@/app/_types";
 import Image from "next/image";
 
 export default function ProfileLayout({ children }: ChildrenProps) {
-  const userDataContext = useContext(UserDataContext);
-  const { userData } = userDataContext;
+  const { userTokenNData } = useContext(UserTokenNDataContext);
+  const { userData } = userTokenNData;
   const { firstName, lastName, username, bio, website } = userData;
   return (
     <>

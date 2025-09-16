@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { DialogSubmissionProp } from "@/app/_types";
-import { UserDataContext } from "./Contexts";
+import { UserTokenNDataContext } from "./Contexts";
 import useSWRMutation from "swr/mutation";
 
 async function postMessage(
@@ -20,7 +20,8 @@ export default function DialogSubmission({
   dialogRef,
   postId,
 }: DialogSubmissionProp) {
-  const userDataContext = useContext(UserDataContext);
+  const { userTokenNData } = useContext(UserTokenNDataContext);
+  const { userData } = userTokenNData;
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts${
     postId ? `/${postId}/comments` : ""
   }`;
@@ -29,7 +30,7 @@ export default function DialogSubmission({
   async function submitMessage() {
     try {
       const content = divInputRef.current?.innerText || "";
-      const authorId = userDataContext.userData.id;
+      const authorId = userData.id;
       await trigger({ content, authorId });
       if (divInputRef.current && divInputRef.current.innerText)
         divInputRef.current.innerText = "";

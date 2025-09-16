@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Mr_Bedfort } from "next/font/google";
-import { PostDialogContext, UserDataContext } from "./Contexts";
+import { PostDialogContext, UserTokenNDataContext } from "./Contexts";
 import { defaultPost } from "../_defaultContexts";
 import { svg } from "../_svg";
 import Link from "next/link";
@@ -15,7 +15,9 @@ function logout() {
 
 export default function Aside() {
   const openPostDialog = useContext(PostDialogContext);
-  const { userToken, userData } = useContext(UserDataContext);
+  const { userTokenNData } = useContext(UserTokenNDataContext);
+  const { userToken, userData } = userTokenNData;
+
   return (
     <aside className="z-10 fixed bg-[rgba(10, 10, 10, 0.85)] backdrop-blur-lg h-full w-19 flex flex-col items-center">
       <Link href="/">

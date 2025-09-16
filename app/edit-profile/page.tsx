@@ -1,7 +1,7 @@
 "use client";
 import { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
-import { UserDataContext } from "@/app/_components/Contexts";
+import { UserTokenNDataContext } from "@/app/_components/Contexts";
 import {
   ChangeEvent,
   DeleteFetcherOptions,
@@ -33,9 +33,10 @@ async function deleteUser(url: string, { arg }: { arg: DeleteFetcherOptions }) {
 
 export default function EditProfile() {
   const router = useRouter();
-  const userDataContext = useContext(UserDataContext);
-  const { userToken, userData } = userDataContext;
-
+  const { userTokenNData, updateUserTokenNData } = useContext(
+    UserTokenNDataContext
+  );
+  const { userToken, userData } = userTokenNData;
   const [firstName, setFirstName] = useState(userData.firstName || "");
   const [lastName, setLastName] = useState(userData.lastName || "");
   const [username, setUsername] = useState(userData.username);
@@ -45,10 +46,8 @@ export default function EditProfile() {
   const [admin, setAdmin] = useState(userData.status === "ADMIN");
   const [adminCode, setAdminCode] = useState("");
   const [errors, setErrors] = useState<Errors[]>([]);
-
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/users`;
   const userId = userData.id;
-
   const { trigger, isMutating, error } = useSWRMutation(
     `${url}/${userId}`,
     putUser
@@ -78,6 +77,7 @@ export default function EditProfile() {
         throw new Error(result.message);
       }
       localStorage.setItem("postssUserData", JSON.stringify(result));
+      updateUserTokenNData({ userToken, userData: result });
       router.push(`/profile/@${userData.username}`);
     } catch (error) {
       if (error instanceof Error) console.error(error.message);

@@ -1,7 +1,7 @@
 "use client";
 import { useContext, useEffect, useState } from "react";
 import { ChildrenProps, PostProps } from "@/app/_types";
-import { UserDataContext, PostsContext } from "./Contexts";
+import { UserTokenNDataContext, PostsContext } from "./Contexts";
 import { defaultPost } from "../_defaultContexts";
 import { socket } from "../_socket";
 import useSWRMutation from "swr/mutation";
@@ -17,8 +17,8 @@ export function PostsContextProvider({ children }: ChildrenProps) {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts`;
   const [posts, setPosts] = useState<PostProps[]>([defaultPost]);
   const { trigger, error, isMutating } = useSWRMutation(url, getPosts);
-  const userDataContext = useContext(UserDataContext);
-  const userToken = userDataContext.userToken;
+  const { userTokenNData } = useContext(UserTokenNDataContext);
+  const { userToken } = userTokenNData;
 
   function updatePostCommentSum(postId: number, commentSum: number) {
     const updatedPosts = posts.map((p) =>

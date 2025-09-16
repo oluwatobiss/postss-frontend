@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { defaultComment } from "@/app/_defaultContexts";
 import { ChildrenProps, CommentProps } from "@/app/_types";
-import { CommentsContext, UserDataContext } from "./Contexts";
+import { CommentsContext, UserTokenNDataContext } from "./Contexts";
 import { socket } from "../_socket";
 import useSWRMutation from "swr/mutation";
 
@@ -20,8 +20,8 @@ async function getComments(
 export function CommentsContextProvider({ children }: ChildrenProps) {
   const [comments, setComments] = useState<CommentProps[]>([defaultComment]);
   const { slug } = useParams();
-  const userDataContext = useContext(UserDataContext);
-  const userToken = userDataContext.userToken;
+  const { userTokenNData } = useContext(UserTokenNDataContext);
+  const { userToken } = userTokenNData;
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts/${slug}/comments`;
   const { trigger, error, isMutating } = useSWRMutation(url, getComments);
 

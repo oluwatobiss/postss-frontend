@@ -1,4 +1,4 @@
-export const defaultUserData = {
+export const defaultUserTokenNData = {
   userToken: "",
   userData: {
     id: 0,

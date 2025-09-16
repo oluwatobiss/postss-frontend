@@ -7,7 +7,7 @@ import { PostDialogContext } from "./Contexts";
 import { CommentsContextProvider } from "./CommentsContextProvider";
 import { PostsContextProvider } from "./PostsContextProvider";
 import { SocketContextProvider } from "./SocketContextProvider";
-import { UserDataContextProvider } from "./UserDataContextProvider";
+import { UserTokenNDataContextProvider } from "./UserTokenNDataContextProvider";
 import { defaultPost } from "../_defaultContexts";
 import Aside from "./Aside";
 import PostDialog from "./PostDialog";
@@ -51,7 +51,7 @@ export default function RootElements({ children }: ChildrenProps) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <UserDataContextProvider>
+        <UserTokenNDataContextProvider>
           <PostDialog dialogRef={dialogRef} postInfo={postInfo} />
           <PostDialogContext value={openPostDialog}>
             <Aside />
@@ -72,7 +72,7 @@ export default function RootElements({ children }: ChildrenProps) {
               </PostsContextProvider>
             </SocketContextProvider>
           </PostDialogContext>
-        </UserDataContextProvider>
+        </UserTokenNDataContextProvider>
       </body>
     </html>
   );

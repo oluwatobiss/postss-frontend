@@ -2,11 +2,12 @@
 import { useContext, useEffect, useState } from "react";
 import { ChildrenProps } from "@/app/_types";
 import { socket } from "../_socket";
-import { SocketContext, UserDataContext } from "./Contexts";
+import { SocketContext, UserTokenNDataContext } from "./Contexts";
 
 export function SocketContextProvider({ children }: ChildrenProps) {
   const [isConnected, setIsConnected] = useState(false);
-  const { userToken } = useContext(UserDataContext);
+  const { userTokenNData } = useContext(UserTokenNDataContext);
+  const { userToken } = userTokenNData;
 
   useEffect(() => {
     if (userToken) {

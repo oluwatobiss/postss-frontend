@@ -1,14 +1,15 @@
 "use client";
 import { useContext } from "react";
 import { DialogSubmissionProp } from "@/app/_types";
-import { UserDataContext } from "./Contexts";
+import { UserTokenNDataContext } from "./Contexts";
 import { svg } from "../_svg";
 import Image from "next/image";
 
 export default function DialogReply({
   divInputRef,
 }: Omit<DialogSubmissionProp, "dialogRef" | "postId">) {
-  const { userData } = useContext(UserDataContext);
+  const { userTokenNData } = useContext(UserTokenNDataContext);
+  const { userData } = userTokenNData;
   return (
     <section className="w-full px-13 pt-4 pb-1.5 grid grid-cols-[48px_minmax(0,1fr)]">
       <span className="select-none pt-1 size-9 bg-[rgb(30,30,30)] rounded-full">
