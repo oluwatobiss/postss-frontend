@@ -36,12 +36,12 @@ export default function EditProfile() {
   const userDataContext = useContext(UserDataContext);
   const { userToken, userData } = userDataContext;
 
-  const [firstName, setFirstName] = useState(userData.firstName);
-  const [lastName, setLastName] = useState(userData.lastName);
+  const [firstName, setFirstName] = useState(userData.firstName || "");
+  const [lastName, setLastName] = useState(userData.lastName || "");
   const [username, setUsername] = useState(userData.username);
-  const [bio, setBio] = useState(userData.bio);
+  const [bio, setBio] = useState(userData.bio || "");
   const [email, setEmail] = useState(userData.email);
-  const [website, setWebsite] = useState(userData.website);
+  const [website, setWebsite] = useState(userData.website || "");
   const [admin, setAdmin] = useState(userData.status === "ADMIN");
   const [adminCode, setAdminCode] = useState("");
   const [errors, setErrors] = useState<Errors[]>([]);
@@ -78,7 +78,7 @@ export default function EditProfile() {
         throw new Error(result.message);
       }
       localStorage.setItem("postssUserData", JSON.stringify(result));
-      router.push("/profile");
+      router.push(`/profile/@${userData.username}`);
     } catch (error) {
       if (error instanceof Error) console.error(error.message);
     }

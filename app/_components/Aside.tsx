@@ -15,7 +15,7 @@ function logout() {
 
 export default function Aside() {
   const openPostDialog = useContext(PostDialogContext);
-  const { userToken } = useContext(UserDataContext);
+  const { userToken, userData } = useContext(UserDataContext);
   return (
     <aside className="z-10 fixed bg-[rgba(10, 10, 10, 0.85)] backdrop-blur-lg h-full w-19 flex flex-col items-center">
       <Link href="/">
@@ -42,7 +42,7 @@ export default function Aside() {
             >
               {svg.plus}
             </div>
-            <Link href="/profile/@oluwatobiss">
+            <Link href={`/profile/@${userData.username}`}>
               <div>{svg.person}</div>
             </Link>
             <button

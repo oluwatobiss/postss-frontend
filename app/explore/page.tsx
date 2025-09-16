@@ -1,4 +1,6 @@
 "use client";
+import { useContext } from "react";
+import { UserDataContext } from "../_components/Contexts";
 import { BioType } from "@/app/_types";
 import useSWR from "swr";
 import BioCard from "../_components/BioCard";
@@ -9,6 +11,7 @@ async function getUsers(url: string) {
 }
 
 export default function Explore() {
+  const { userData } = useContext(UserDataContext);
   const { data, error, isLoading } = useSWR(
     `${process.env.NEXT_PUBLIC_BACKEND_URI}/users`,
     getUsers
@@ -20,7 +23,10 @@ export default function Explore() {
   console.log("=== Explore ===");
   console.log(data);
 
-  return data.map((followCand: BioType) => (
-    <BioCard key={followCand.id} followCand={followCand} />
-  ));
+  return data.map(
+    (followCand: BioType) =>
+      followCand.id !== userData.id && (
+        <BioCard key={followCand.id} followCand={followCand} />
+      )
+  );
 }
