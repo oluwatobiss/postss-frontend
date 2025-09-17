@@ -40,10 +40,6 @@ export default function BioCard({ followCand }: { followCand: BioType }) {
         alert("Error: Invalid update credentials");
         throw new Error(result.message);
       }
-
-      console.log("=== followUser in BioCard ===");
-      console.log(result);
-
       localStorage.setItem("postssUserData", JSON.stringify(result));
     } catch (error) {
       if (error instanceof Error) console.error(error.message);

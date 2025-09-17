@@ -1,6 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { UserTokenNDataContext } from "@/app/_components/context/Contexts";
 import { Errors, FormEvent, PostUserAuthOption } from "@/app/_types";
 import Link from "next/link";
 import useSWRMutation from "swr/mutation";
@@ -17,6 +18,7 @@ async function postUserAuthData(url: string, { arg }: PostUserAuthOption) {
 export default function LoginForm() {
   const pathname = usePathname();
   const router = useRouter();
+  const { updateUserTokenNData } = useContext(UserTokenNDataContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<Errors[]>([]);
@@ -29,10 +31,12 @@ export default function LoginForm() {
     e.preventDefault();
     try {
       const result = await trigger({ email, password });
-      if (result.errors?.length) return setErrors(result.errors);
-      localStorage.setItem("postssToken", result.token);
-      localStorage.setItem("postssUserData", JSON.stringify(result.payload));
-      pathname === "/login" ? router.push("/") : window.location.reload();
+      const { errors, payload, token } = result;
+      if (errors?.length) return setErrors(errors);
+      localStorage.setItem("postssToken", token);
+      localStorage.setItem("postssUserData", JSON.stringify(payload));
+      updateUserTokenNData({ userToken: token, userData: payload });
+      pathname === "/login" && router.push("/");
     } catch (error) {
       if (error instanceof Error) console.error(error.message);
     }
