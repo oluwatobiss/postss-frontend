@@ -53,7 +53,7 @@ export default function LoginForm() {
   }
 
   return (
-    <main className="min-h-screen flex justify-center items-center font-[family-name:var(--font-geist-sans)]">
+    <div className="min-h-[85vh] flex justify-center items-center">
       <div className="w-[352px] h-fit p-6 shadow-lg rounded-lg shadow-gray-600">
         <h1 className="text-4xl">Login</h1>
         <form
@@ -116,6 +116,6 @@ export default function LoginForm() {
           Continue with GitHub
         </button>
       </div>
-    </main>
+    </div>
   );
 }
