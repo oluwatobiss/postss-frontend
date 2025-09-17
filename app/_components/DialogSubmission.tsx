@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { DialogSubmissionProp } from "@/app/_types";
-import { UserTokenNDataContext } from "./Contexts";
+import { UserTokenNDataContext } from "./context/Contexts";
 import useSWRMutation from "swr/mutation";
 
 async function postMessage(

@@ -4,7 +4,7 @@ import {
   defaultComment,
   defaultPost,
   defaultUserTokenNData,
-} from "../_defaultContexts";
+} from "../../_defaultContexts";
 
 export const CommentsContext = createContext([defaultComment]);
 export const PostDialogContext = createContext(

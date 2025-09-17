@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Mr_Bedfort } from "next/font/google";
-import { PostDialogContext, UserTokenNDataContext } from "./Contexts";
+import { PostDialogContext, UserTokenNDataContext } from "./context/Contexts";
 import { defaultPost } from "../_defaultContexts";
 import { svg } from "../_svg";
 import Link from "next/link";

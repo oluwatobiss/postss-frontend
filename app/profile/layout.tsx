@@ -1,6 +1,6 @@
 "use client";
 import { useContext } from "react";
-import { UserTokenNDataContext } from "@/app/_components/Contexts";
+import { UserTokenNDataContext } from "@/app/_components/context/Contexts";
 import { ChildrenProps } from "@/app/_types";
 import Image from "next/image";
 

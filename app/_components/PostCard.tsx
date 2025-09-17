@@ -10,7 +10,7 @@ import {
   PostsContext,
   PostDialogContext,
   UserTokenNDataContext,
-} from "./Contexts";
+} from "./context/Contexts";
 import { svg } from "../_svg";
 import useSWRMutation from "swr/mutation";
 import Image from "next/image";

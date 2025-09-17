@@ -1,6 +1,6 @@
 "use client";
 import { useContext } from "react";
-import { UserTokenNDataContext } from "../_components/Contexts";
+import { UserTokenNDataContext } from "../_components/context/Contexts";
 import { BioType } from "@/app/_types";
 import useSWR from "swr";
 import BioCard from "../_components/BioCard";

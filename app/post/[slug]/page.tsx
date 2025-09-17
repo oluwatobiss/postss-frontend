@@ -6,7 +6,7 @@ import {
   CommentsContext,
   PostDialogContext,
   PostsContext,
-} from "@/app/_components/Contexts";
+} from "@/app/_components/context/Contexts";
 import PostCard from "@/app/_components/PostCard";
 import Image from "next/image";
 

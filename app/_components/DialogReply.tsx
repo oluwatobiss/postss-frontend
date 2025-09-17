@@ -1,7 +1,7 @@
 "use client";
 import { useContext } from "react";
 import { DialogSubmissionProp } from "@/app/_types";
-import { UserTokenNDataContext } from "./Contexts";
+import { UserTokenNDataContext } from "./context/Contexts";
 import { svg } from "../_svg";
 import Image from "next/image";
 

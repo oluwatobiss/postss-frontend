@@ -1,7 +1,7 @@
 "use client";
 import { useContext, useEffect, useState } from "react";
 import { ChildrenProps } from "@/app/_types";
-import { socket } from "../_socket";
+import { socket } from "../../_socket";
 import { SocketContext, UserTokenNDataContext } from "./Contexts";
 
 export function SocketContextProvider({ children }: ChildrenProps) {

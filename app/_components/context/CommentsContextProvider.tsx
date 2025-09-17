@@ -2,9 +2,9 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { defaultComment } from "@/app/_defaultContexts";
+import { socket } from "@/app/_socket";
 import { ChildrenProps, CommentProps } from "@/app/_types";
 import { CommentsContext, UserTokenNDataContext } from "./Contexts";
-import { socket } from "../_socket";
 import useSWRMutation from "swr/mutation";
 
 async function getComments(

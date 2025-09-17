@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { UserTokenNDataContext } from "./Contexts";
+import { UserTokenNDataContext } from "./context/Contexts";
 import { LikeBtnCSS, LikeBtnProps, PutPostOption } from "@/app/_types";
 import { socket } from "../_socket";
 import { svg } from "../_svg";

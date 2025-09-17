@@ -1,6 +1,6 @@
 "use client";
 import { useContext } from "react";
-import { CommentsContext, PostsContext } from "./Contexts";
+import { CommentsContext, PostsContext } from "./context/Contexts";
 import { PostProps } from "@/app/_types";
 import PostCard from "./PostCard";
 

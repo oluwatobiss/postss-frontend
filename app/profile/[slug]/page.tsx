@@ -3,7 +3,7 @@ import { use, useContext, useRef, useState } from "react";
 import {
   PostsContext,
   UserTokenNDataContext,
-} from "@/app/_components/Contexts";
+} from "@/app/_components/context/Contexts";
 import { BioType, PostProps } from "@/app/_types";
 import Image from "next/image";
 import BioCard from "@/app/_components/BioCard";

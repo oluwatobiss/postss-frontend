@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { ChildrenProps, UserTokenNDataType } from "@/app/_types";
 import { UserTokenNDataContext } from "./Contexts";
-import { defaultUserTokenNData } from "../_defaultContexts";
+import { defaultUserTokenNData } from "../../_defaultContexts";
 
 export function UserTokenNDataContextProvider({ children }: ChildrenProps) {
   const [userTokenNData, setUserTokenNData] = useState<UserTokenNDataType>(

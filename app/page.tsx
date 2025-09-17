@@ -1,6 +1,9 @@
 "use client";
 import { useContext } from "react";
-import { SocketContext, UserTokenNDataContext } from "./_components/Contexts";
+import {
+  SocketContext,
+  UserTokenNDataContext,
+} from "./_components/context/Contexts";
 import LatestPosts from "./_components/LatestPosts";
 import LoginForm from "./_components/LoginForm";
 

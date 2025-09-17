@@ -2,8 +2,8 @@
 import { useContext, useEffect, useState } from "react";
 import { ChildrenProps, PostProps } from "@/app/_types";
 import { UserTokenNDataContext, PostsContext } from "./Contexts";
-import { defaultPost } from "../_defaultContexts";
-import { socket } from "../_socket";
+import { defaultPost } from "../../_defaultContexts";
+import { socket } from "../../_socket";
 import useSWRMutation from "swr/mutation";
 
 async function getPosts(url: string, { arg }: { arg: { userToken: string } }) {
