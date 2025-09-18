@@ -44,22 +44,20 @@ export default function Profile({
     setTabPosts(likedPosts);
   }
 
-  function showSubscriptions() {
-    activeTab.current = "Subscriptions";
-    const subscriptions = userData.following;
+  function showSubs() {
+    activeTab.current = "Subs";
+    const subs = userData.following;
     const biosSubscribedTo = data?.filter((bio: BioType) =>
-      subscriptions.includes(bio.id)
+      subs.includes(bio.id)
     );
     setTabBios(biosSubscribedTo);
   }
 
-  function showFollowers() {
-    activeTab.current = "Followers";
-    const followers = userData.followers;
-    const biosFollowingUser = data?.filter((bio: BioType) =>
-      followers.includes(bio.id)
-    );
-    setTabBios(biosFollowingUser);
+  function showFans() {
+    activeTab.current = "Fans";
+    const fans = userData.followers;
+    const fansBios = data?.filter((bio: BioType) => fans.includes(bio.id));
+    setTabBios(fansBios);
   }
 
   function getStyle(tab: string) {
@@ -78,14 +76,14 @@ export default function Profile({
         <div onClick={showUserPosts} style={getStyle("Posts")}>
           Posts
         </div>
-        <div onClick={showSubscriptions} style={getStyle("Subscriptions")}>
-          Subscriptions
+        <div onClick={showSubs} style={getStyle("Subs")}>
+          Subs
         </div>
         <div onClick={showLikedPosts} style={getStyle("Likes")}>
           Likes
         </div>
-        <div onClick={showFollowers} style={getStyle("Followers")}>
-          Followers
+        <div onClick={showFans} style={getStyle("Fans")}>
+          Fans
         </div>
       </div>
       <div className="px-6 py-4 flex">
@@ -108,8 +106,7 @@ export default function Profile({
             <PostCard key={post.id} post={post} />
           ))
         : ""}
-      {activeTab.current === "Subscriptions" ||
-      activeTab.current === "Followers"
+      {activeTab.current === "Subs" || activeTab.current === "Fans"
         ? tabBios.map((bio: BioType) => (
             <BioCard key={bio.id} followCand={bio} />
           ))
