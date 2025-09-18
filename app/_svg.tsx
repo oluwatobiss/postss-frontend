@@ -133,6 +133,18 @@ export const svg = {
       </defs>
     </Svg>
   ),
+  menu: (
+    <Svg
+      ariaLabel="Menu"
+      viewBox="0 0 24 24"
+      style={{ fill: "currentColor", height: "31px", width: "31px" }}
+    >
+      <path
+        fillRule="evenodd"
+        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"
+      />
+    </Svg>
+  ),
   person: (
     <Svg
       ariaLabel="Profile"

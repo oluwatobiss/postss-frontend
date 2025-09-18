@@ -9,6 +9,7 @@ import { PostsContextProvider } from "./context/PostsContextProvider";
 import { SocketContextProvider } from "./context/SocketContextProvider";
 import { UserTokenNDataContextProvider } from "./context/UserTokenNDataContextProvider";
 import { defaultPost } from "../_defaultContexts";
+import { svg } from "../_svg";
 import Aside from "./Aside";
 import PostDialog from "./PostDialog";
 import Link from "next/link";
@@ -74,7 +75,7 @@ export default function RootElements({ children }: ChildrenProps) {
                       <h1 className="text-center h-15 leading-15">
                         {getHeading(pathname)}
                       </h1>
-                      <span>menu</span>
+                      <span>{svg.menu}</span>
                     </header>
                     <div className="w-full fixed top-15 bottom-0 overflow-y-scroll">
                       <div className="md:w-160 mx-auto bg-[#181818] border-[.5px] border-[rgb(45,45,45)] py-3 cursor-pointer shadow-[0_0_12px_0_rgba(0,0,0,0.04)]">
