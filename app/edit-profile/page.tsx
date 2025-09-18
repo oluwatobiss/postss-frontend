@@ -117,7 +117,7 @@ export default function EditProfile() {
   }
 
   return (
-    <main className="sm:px-[30%] sm:py-20 min-h-screen font-[family-name:var(--font-geist-sans)]">
+    <div className="px-[30%] py-20 not-md:px-[15%] min-h-screen font-[family-name:var(--font-geist-sans)]">
       <form
         className="[&_.text-input]:w-full [&_input]:border [&_input]:border-gray-500 [&_input]:rounded-sm [&_input]:my-1 [&_input]:px-5 [&_input]:py-2 [&_input]:text-lg [&_label]:inline-block [&_label]:text-sm [&_.text-input-label]:mt-3"
         onSubmit={updateUser}
@@ -265,6 +265,6 @@ export default function EditProfile() {
       {error && (
         <div className="my-3 text-sm text-red-500">Error: {error.message}</div>
       )}
-    </main>
+    </div>
   );
 }
