@@ -8,7 +8,6 @@ interface LikeBtnCSS extends CSSProperties {
 type ChangeEvent = React.ChangeEvent<HTMLInputElement>;
 type ChildrenProps = Readonly<{ children: React.ReactNode }>;
 type DateProps = { date: string; styles: string };
-type DeleteFetcherOptions = { id: number; userToken: string };
 type DialogSubmissionProp = {
   divInputRef: React.RefObject<HTMLDivElement | null>;
   dialogRef: React.RefObject<HTMLDialogElement | null>;
@@ -16,7 +15,7 @@ type DialogSubmissionProp = {
 };
 type Errors = { msg: string; path: string };
 type FormEvent = React.FormEvent<HTMLFormElement>;
-type GetFetcherOptions = { url: string; userToken: string };
+type GetFetcherOpt = { url: string; userToken: string };
 type LikeBtnProps = { commentId?: number; postId?: number; likes: number[] };
 type LoggedInUser = { id: number; username: string; status: string };
 type PostDialogProps = {
@@ -36,6 +35,26 @@ type PostProps = {
   comments: number;
 };
 type CommentProps = Omit<PostProps, "comments"> & { postId: number };
+type mutateDataArg = {
+  admin?: boolean;
+  adminCode?: string;
+  authorId?: number;
+  bio?: string;
+  content?: string;
+  email?: string;
+  firstName?: string;
+  follow?: boolean;
+  id?: number;
+  lastName?: string;
+  likePost?: boolean;
+  method: string;
+  password?: string;
+  userId?: number;
+  username?: string;
+  userToken?: string;
+  website?: string;
+};
+type mutateDataOpt = { arg: mutateDataArg };
 type PostCardProps = {
   comment?: CommentProps;
   commentSum?: number;
@@ -48,24 +67,6 @@ type PostUserArg = {
   admin: boolean;
   adminCode: string;
 };
-type PostUserOption = { arg: PostUserArg };
-type PutUserOption = {
-  arg: Omit<PostUserArg, "password"> & {
-    firstName: string;
-    lastName: string;
-    bio: string;
-    website: string;
-    userToken: string | false | null;
-  };
-};
-type PutPostOption = {
-  arg: {
-    userId: number;
-    userToken: string;
-    likePost: boolean;
-  };
-};
-type UpsertFetcherOption = { arg: { name: string; imageUrl: string } };
 type UserTokenNDataType = {
   userToken: string;
   userData: {
@@ -100,7 +101,6 @@ type UserTokenNDataContextType = {
   userData: UserTokenNDataType;
   updateUserTokenNData: (userData: UserTokenNDataType) => void;
 };
-type PostLoginOption = { arg: { email: string; password: string } };
 type SvgProps = {
   ariaLabel: string;
   viewBox: string;
@@ -120,24 +120,20 @@ export type {
   ChangeEvent,
   CommentProps,
   DateProps,
-  DeleteFetcherOptions,
   DialogSubmissionProp,
   Errors,
   FormEvent,
-  GetFetcherOptions,
+  GetFetcherOpt,
+  mutateDataArg,
+  mutateDataOpt,
   LikeBtnCSS,
   LikeBtnProps,
   LoggedInUser,
   PostDialogProps,
   PostProps,
   PostCardProps,
-  PostLoginOption,
-  PostUserOption,
-  PutUserOption,
-  PutPostOption,
   ChildrenProps,
   SvgProps,
-  UpsertFetcherOption,
   User,
   UserTokenNDataType,
   BioType,
