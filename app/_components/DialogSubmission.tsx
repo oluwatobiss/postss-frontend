@@ -5,12 +5,15 @@ import useSWRMutation from "swr/mutation";
 
 async function postMessage(
   url: string,
-  { arg }: { arg: { content: string; authorId: number } }
+  { arg }: { arg: { userToken: string; content: string; authorId: number } }
 ) {
   const response = await fetch(url, {
     method: "POST",
     body: JSON.stringify(arg),
-    headers: { "Content-type": "application/json; charset=UTF-8" },
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+      Authorization: `Bearer ${arg.userToken}`,
+    },
   });
   return await response.json();
 }
@@ -21,7 +24,7 @@ export default function DialogSubmission({
   postId,
 }: DialogSubmissionProp) {
   const { userTokenNData } = useContext(UserTokenNDataContext);
-  const { userData } = userTokenNData;
+  const { userData, userToken } = userTokenNData;
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts${
     postId ? `/${postId}/comments` : ""
   }`;
@@ -31,7 +34,7 @@ export default function DialogSubmission({
     try {
       const content = divInputRef.current?.innerText || "";
       const authorId = userData.id;
-      await trigger({ content, authorId });
+      await trigger({ userToken, content, authorId });
       if (divInputRef.current && divInputRef.current.innerText)
         divInputRef.current.innerText = "";
       dialogRef.current?.close();

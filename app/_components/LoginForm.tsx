@@ -2,11 +2,11 @@
 import { useContext, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { UserTokenNDataContext } from "@/app/_components/context/Contexts";
-import { Errors, FormEvent, PostUserAuthOption } from "@/app/_types";
+import { Errors, FormEvent, PostLoginOption } from "@/app/_types";
 import Link from "next/link";
 import useSWRMutation from "swr/mutation";
 
-async function postUserAuthData(url: string, { arg }: PostUserAuthOption) {
+async function postLoginData(url: string, { arg }: PostLoginOption) {
   const response = await fetch(url, {
     method: "POST",
     body: JSON.stringify(arg),
@@ -24,7 +24,7 @@ export default function LoginForm() {
   const [errors, setErrors] = useState<Errors[]>([]);
   const { trigger, isMutating, error } = useSWRMutation(
     `${process.env.NEXT_PUBLIC_BACKEND_URI}/login`,
-    postUserAuthData
+    postLoginData
   );
 
   async function authenticateUser(e: FormEvent) {

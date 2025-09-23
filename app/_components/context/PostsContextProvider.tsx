@@ -28,13 +28,6 @@ export function PostsContextProvider({ children }: ChildrenProps) {
   }
 
   useEffect(() => {
-    (async function getInitialPosts() {
-      const result = await trigger({ userToken });
-      setPosts(result);
-    })();
-  }, []);
-
-  useEffect(() => {
     // On getting a newPost or deletePost event from the server, update the list of posts
     const updateList = (updatedList: PostProps[]) => setPosts(updatedList);
     socket.on("newPost", updateList);
@@ -44,6 +37,15 @@ export function PostsContextProvider({ children }: ChildrenProps) {
       socket.off("deletePost", updateList);
     };
   }, []);
+
+  useEffect(() => {
+    if (userToken) {
+      (async function getInitialPosts() {
+        const result = await trigger({ userToken });
+        setPosts(result);
+      })();
+    }
+  }, [userToken]);
 
   if (isMutating) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;

@@ -100,7 +100,7 @@ type UserTokenNDataContextType = {
   userData: UserTokenNDataType;
   updateUserTokenNData: (userData: UserTokenNDataType) => void;
 };
-type PostUserAuthOption = { arg: { email: string; password: string } };
+type PostLoginOption = { arg: { email: string; password: string } };
 type SvgProps = {
   ariaLabel: string;
   viewBox: string;
@@ -131,7 +131,7 @@ export type {
   PostDialogProps,
   PostProps,
   PostCardProps,
-  PostUserAuthOption,
+  PostLoginOption,
   PostUserOption,
   PutUserOption,
   PutPostOption,

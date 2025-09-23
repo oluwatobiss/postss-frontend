@@ -6,31 +6,25 @@ import {
 } from "@/app/_components/context/Contexts";
 import { BioType, PostProps } from "@/app/_types";
 import Image from "next/image";
+import getUsers from "@/app/_getUsers";
 import BioCard from "@/app/_components/BioCard";
 import PostCard from "@/app/_components/PostCard";
 import useSWR from "swr";
-
-async function getUsers(url: string) {
-  const response = await fetch(url);
-  return response.json();
-}
 
 export default function Profile({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/users`;
+  const activeTab = useRef("");
   const { slug } = use(params);
   const { userTokenNData } = useContext(UserTokenNDataContext);
-  const { userData } = userTokenNData;
+  const { userData, userToken } = userTokenNData;
   const { posts } = useContext(PostsContext);
+  const { data } = useSWR({ url, userToken }, getUsers);
   const [tabPosts, setTabPosts] = useState<PostProps[]>([]);
   const [tabBios, setTabBios] = useState<BioType[]>([]);
-  const activeTab = useRef("");
-  const { data } = useSWR(
-    `${process.env.NEXT_PUBLIC_BACKEND_URI}/users`,
-    getUsers
-  );
 
   function showUserPosts() {
     activeTab.current = "Posts";
