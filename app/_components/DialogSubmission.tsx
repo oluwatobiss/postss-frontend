@@ -2,21 +2,7 @@ import { useContext } from "react";
 import { DialogSubmissionProp } from "@/app/_types";
 import { UserTokenNDataContext } from "./context/Contexts";
 import useSWRMutation from "swr/mutation";
-
-async function postMessage(
-  url: string,
-  { arg }: { arg: { userToken: string; content: string; authorId: number } }
-) {
-  const response = await fetch(url, {
-    method: "POST",
-    body: JSON.stringify(arg),
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-      Authorization: `Bearer ${arg.userToken}`,
-    },
-  });
-  return await response.json();
-}
+import mutateData from "../_mutateData";
 
 export default function DialogSubmission({
   divInputRef,
@@ -28,13 +14,13 @@ export default function DialogSubmission({
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts${
     postId ? `/${postId}/comments` : ""
   }`;
-  const { trigger } = useSWRMutation(url, postMessage);
+  const { trigger } = useSWRMutation(url, mutateData);
 
   async function submitMessage() {
     try {
       const content = divInputRef.current?.innerText || "";
       const authorId = userData.id;
-      await trigger({ userToken, content, authorId });
+      await trigger({ method: "POST", userToken, content, authorId });
       if (divInputRef.current && divInputRef.current.innerText)
         divInputRef.current.innerText = "";
       dialogRef.current?.close();

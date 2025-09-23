@@ -1,11 +1,7 @@
 "use client";
 import { useContext } from "react";
 import { useParams, useRouter } from "next/navigation";
-import {
-  CommentProps,
-  DeleteFetcherOptions,
-  PostCardProps,
-} from "@/app/_types";
+import { CommentProps, PostCardProps } from "@/app/_types";
 import {
   PostsContext,
   PostDialogContext,
@@ -17,14 +13,7 @@ import Image from "next/image";
 import Date from "./Date";
 import LikeBtn from "./LikeBtn";
 import ReplyBtn from "./ReplyBtn";
-
-async function deletePost(url: string, { arg }: { arg: DeleteFetcherOptions }) {
-  const response = await fetch(`${url}/${arg.id}`, {
-    method: "DELETE",
-    headers: { Authorization: `Bearer ${arg.userToken}` },
-  });
-  return await response.json();
-}
+import mutateData from "../_mutateData";
 
 export default function PostCard({ comment, commentSum, post }: PostCardProps) {
   const { slug = 0 } = useParams();
@@ -36,12 +25,12 @@ export default function PostCard({ comment, commentSum, post }: PostCardProps) {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}${
     post ? "/posts" : `/posts/${slug}/comments`
   }`;
-  const { trigger } = useSWRMutation(url, deletePost);
+  const { trigger } = useSWRMutation(url, mutateData);
 
   async function trashPost(id: number) {
     try {
       if (confirm(`Delete ${post ? "post" : "comment"} permanently?`)) {
-        const result = await trigger({ id, userToken });
+        const result = await trigger({ method: "DELETE", id, userToken });
         if (result.message) {
           alert("Error: Invalid delete credentials");
           throw new Error(result.message);

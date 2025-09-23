@@ -2,18 +2,10 @@
 import { useContext, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { UserTokenNDataContext } from "@/app/_components/context/Contexts";
-import { Errors, FormEvent, PostLoginOption } from "@/app/_types";
+import { Errors, FormEvent } from "@/app/_types";
 import Link from "next/link";
 import useSWRMutation from "swr/mutation";
-
-async function postLoginData(url: string, { arg }: PostLoginOption) {
-  const response = await fetch(url, {
-    method: "POST",
-    body: JSON.stringify(arg),
-    headers: { "Content-type": "application/json; charset=UTF-8" },
-  });
-  return await response.json();
-}
+import mutateData from "../_mutateData";
 
 export default function LoginForm() {
   const pathname = usePathname();
@@ -24,13 +16,13 @@ export default function LoginForm() {
   const [errors, setErrors] = useState<Errors[]>([]);
   const { trigger, isMutating, error } = useSWRMutation(
     `${process.env.NEXT_PUBLIC_BACKEND_URI}/login`,
-    postLoginData
+    mutateData
   );
 
   async function authenticateUser(e: FormEvent) {
     e.preventDefault();
     try {
-      const result = await trigger({ email, password });
+      const result = await trigger({ method: "POST", email, password });
       const { errors, payload, token } = result;
       if (errors?.length) return setErrors(errors);
       localStorage.setItem("postssToken", token);

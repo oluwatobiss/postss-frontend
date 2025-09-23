@@ -1,18 +1,10 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, Errors, FormEvent, PostUserOption } from "@/app/_types";
+import { ChangeEvent, Errors, FormEvent } from "@/app/_types";
 import Link from "next/link";
 import useSWRMutation from "swr/mutation";
-
-async function postUser(url: string, { arg }: PostUserOption) {
-  const response = await fetch(url, {
-    method: "POST",
-    body: JSON.stringify(arg),
-    headers: { "Content-type": "application/json; charset=UTF-8" },
-  });
-  return await response.json();
-}
+import mutateData from "../_mutateData";
 
 export default function SignUp() {
   const router = useRouter();
@@ -24,13 +16,14 @@ export default function SignUp() {
   const [errors, setErrors] = useState<Errors[]>([]);
   const { trigger, isMutating, error } = useSWRMutation(
     `${process.env.NEXT_PUBLIC_BACKEND_URI}/users`,
-    postUser
+    mutateData
   );
 
   async function registerUser(e: FormEvent) {
     e.preventDefault();
     try {
       const result = await trigger({
+        method: "POST",
         username,
         email,
         password,

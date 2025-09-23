@@ -5,20 +5,17 @@ import { UserTokenNDataContext, PostsContext } from "./Contexts";
 import { defaultPost } from "../../_defaultContexts";
 import { socket } from "../../_socket";
 import useSWRMutation from "swr/mutation";
-
-async function getPosts(url: string, { arg }: { arg: { userToken: string } }) {
-  const response = await fetch(url, {
-    headers: { Authorization: `Bearer ${arg.userToken}` },
-  });
-  return await response.json();
-}
+import getData from "@/app/_getData";
 
 export function PostsContextProvider({ children }: ChildrenProps) {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts`;
   const [posts, setPosts] = useState<PostProps[]>([defaultPost]);
-  const { trigger, error, isMutating } = useSWRMutation(url, getPosts);
   const { userTokenNData } = useContext(UserTokenNDataContext);
   const { userToken } = userTokenNData;
+  const { trigger, error, isMutating } = useSWRMutation(
+    { url, userToken },
+    getData
+  );
 
   function updatePostCommentSum(postId: number, commentSum: number) {
     const updatedPosts = posts.map((p) =>
@@ -41,7 +38,7 @@ export function PostsContextProvider({ children }: ChildrenProps) {
   useEffect(() => {
     if (userToken) {
       (async function getInitialPosts() {
-        const result = await trigger({ userToken });
+        const result = await trigger();
         setPosts(result);
       })();
     }

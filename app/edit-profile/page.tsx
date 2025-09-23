@@ -2,34 +2,9 @@
 import { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
 import { UserTokenNDataContext } from "@/app/_components/context/Contexts";
-import {
-  ChangeEvent,
-  DeleteFetcherOptions,
-  Errors,
-  FormEvent,
-  PutUserOption,
-} from "@/app/_types";
+import { ChangeEvent, Errors, FormEvent } from "@/app/_types";
 import useSWRMutation from "swr/mutation";
-
-async function putUser(url: string, { arg }: PutUserOption) {
-  const response = await fetch(url, {
-    method: "PUT",
-    body: JSON.stringify(arg),
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-      Authorization: `Bearer ${arg.userToken}`,
-    },
-  });
-  return await response.json();
-}
-
-async function deleteUser(url: string, { arg }: { arg: DeleteFetcherOptions }) {
-  const response = await fetch(`${url}/${arg.id}`, {
-    method: "DELETE",
-    headers: { Authorization: `Bearer ${arg.userToken}` },
-  });
-  return await response.json();
-}
+import mutateData from "../_mutateData";
 
 export default function EditProfile() {
   const router = useRouter();
@@ -50,17 +25,18 @@ export default function EditProfile() {
   const userId = userData.id;
   const { trigger, isMutating, error } = useSWRMutation(
     `${url}/${userId}`,
-    putUser
+    mutateData
   );
   const { trigger: removeUser, isMutating: isDeleting } = useSWRMutation(
     url,
-    deleteUser
+    mutateData
   );
 
   async function updateUser(e: FormEvent) {
     e.preventDefault();
     try {
       const result = await trigger({
+        method: "PUT",
         firstName,
         lastName,
         username,
@@ -102,7 +78,7 @@ export default function EditProfile() {
   async function deleteAccount(id: number) {
     try {
       if (confirm("Delete your account permanently?")) {
-        const result = await removeUser({ id, userToken });
+        const result = await removeUser({ method: "DELETE", id, userToken });
         if (result.message) {
           alert("Error: Invalid delete credentials");
           throw new Error(result.message);

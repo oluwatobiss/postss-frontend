@@ -4,20 +4,7 @@ import { UserTokenNDataContext } from "@/app/_components/context/Contexts";
 import { BioType } from "@/app/_types";
 import Image from "next/image";
 import useSWRMutation from "swr/mutation";
-
-async function putUser(
-  url: string,
-  { arg }: { arg: { userToken: string; follow: boolean } }
-) {
-  const response = await fetch(`${url}?follow=${arg.follow}`, {
-    method: "PUT",
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-      Authorization: `Bearer ${arg.userToken}`,
-    },
-  });
-  return await response.json();
-}
+import mutateData from "../_mutateData";
 
 export default function BioCard({ followCand }: { followCand: BioType }) {
   const { userTokenNData } = useContext(UserTokenNDataContext);
@@ -26,16 +13,15 @@ export default function BioCard({ followCand }: { followCand: BioType }) {
   const userId = userData.id;
   const { data, trigger } = useSWRMutation(
     `${url}/${followCand.id}/${userId}`,
-    putUser
+    mutateData
   );
-
   const following =
     data?.following.includes(followCand.id) ||
     userData.following.includes(followCand.id);
 
   async function followUser(follow: boolean) {
     try {
-      const result = await trigger({ userToken, follow });
+      const result = await trigger({ method: "PUT", userToken, follow });
       if (result.message) {
         alert("Error: Invalid update credentials");
         throw new Error(result.message);

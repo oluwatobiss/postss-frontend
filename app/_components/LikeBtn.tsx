@@ -1,21 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { UserTokenNDataContext } from "./context/Contexts";
-import { LikeBtnCSS, LikeBtnProps, PutPostOption } from "@/app/_types";
+import { LikeBtnCSS, LikeBtnProps } from "@/app/_types";
 import { socket } from "../_socket";
 import { svg } from "../_svg";
 import useSWRMutation from "swr/mutation";
-
-async function putPost(url: string, { arg }: PutPostOption) {
-  const response = await fetch(url, {
-    method: "PUT",
-    body: JSON.stringify(arg),
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-      Authorization: `Bearer ${arg.userToken}`,
-    },
-  });
-  return await response.json();
-}
+import mutateData from "../_mutateData";
 
 export default function LikeBtn({ commentId, postId, likes }: LikeBtnProps) {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts/${postId}${
@@ -30,7 +19,7 @@ export default function LikeBtn({ commentId, postId, likes }: LikeBtnProps) {
     postId,
     likes: likes.length,
   });
-  const { trigger } = useSWRMutation(url, putPost);
+  const { trigger } = useSWRMutation(url, mutateData);
   const fillColor = likePost ? "#ff0034" : "";
   const strokeColor = likePost ? "" : "#ccc";
   const cssVariable = {
@@ -40,7 +29,7 @@ export default function LikeBtn({ commentId, postId, likes }: LikeBtnProps) {
 
   async function togglePostLike(e: React.MouseEvent<HTMLButtonElement>) {
     try {
-      await trigger({ userId, userToken, likePost: !likePost });
+      await trigger({ method: "PUT", userId, userToken, likePost: !likePost });
       setLikePost(!likePost);
     } catch (error) {
       if (error instanceof Error) console.error(error.message);

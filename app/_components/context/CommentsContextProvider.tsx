@@ -20,18 +20,6 @@ export function CommentsContextProvider({ children }: ChildrenProps) {
   );
 
   useEffect(() => {
-    async function getInitialComments() {
-      const result = await trigger();
-      console.log("=== CommentsContextProvider ===");
-
-      console.log(result);
-
-      setComments(result);
-    }
-    slug && !slug.includes("%40") && getInitialComments();
-  }, [slug]);
-
-  useEffect(() => {
     // On getting a newComment or deleteComment event from the server, update the list of comments
     const updateList = (updatedList: CommentProps[]) =>
       setComments(updatedList);
@@ -42,6 +30,14 @@ export function CommentsContextProvider({ children }: ChildrenProps) {
       socket.off("deleteComment", updateList);
     };
   }, []);
+
+  useEffect(() => {
+    async function getInitialComments() {
+      const result = await trigger();
+      setComments(result);
+    }
+    slug && !slug.includes("%40") && getInitialComments();
+  }, [slug]);
 
   if (isMutating) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
