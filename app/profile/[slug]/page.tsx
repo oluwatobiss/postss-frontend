@@ -6,7 +6,7 @@ import {
 } from "@/app/_components/context/Contexts";
 import { BioType, PostProps } from "@/app/_types";
 import Image from "next/image";
-import getUsers from "@/app/_getUsers";
+import getData from "@/app/_getData";
 import BioCard from "@/app/_components/BioCard";
 import PostCard from "@/app/_components/PostCard";
 import useSWR from "swr";
@@ -22,7 +22,7 @@ export default function Profile({
   const { userTokenNData } = useContext(UserTokenNDataContext);
   const { userData, userToken } = userTokenNData;
   const { posts } = useContext(PostsContext);
-  const { data } = useSWR({ url, userToken }, getUsers);
+  const { data } = useSWR({ url, userToken }, getData);
   const [tabPosts, setTabPosts] = useState<PostProps[]>([]);
   const [tabBios, setTabBios] = useState<BioType[]>([]);
 

@@ -6,16 +6,7 @@ import { socket } from "@/app/_socket";
 import { ChildrenProps, CommentProps } from "@/app/_types";
 import { CommentsContext, UserTokenNDataContext } from "./Contexts";
 import useSWRMutation from "swr/mutation";
-
-async function getComments(
-  url: string,
-  { arg }: { arg: { userToken: string } }
-) {
-  const response = await fetch(url, {
-    headers: { Authorization: `Bearer ${arg.userToken}` },
-  });
-  return await response.json();
-}
+import getData from "@/app/_getData";
 
 export function CommentsContextProvider({ children }: ChildrenProps) {
   const [comments, setComments] = useState<CommentProps[]>([defaultComment]);
@@ -23,11 +14,18 @@ export function CommentsContextProvider({ children }: ChildrenProps) {
   const { userTokenNData } = useContext(UserTokenNDataContext);
   const { userToken } = userTokenNData;
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts/${slug}/comments`;
-  const { trigger, error, isMutating } = useSWRMutation(url, getComments);
+  const { trigger, error, isMutating } = useSWRMutation(
+    { url, userToken },
+    getData
+  );
 
   useEffect(() => {
     async function getInitialComments() {
-      const result = await trigger({ userToken });
+      const result = await trigger();
+      console.log("=== CommentsContextProvider ===");
+
+      console.log(result);
+
       setComments(result);
     }
     slug && !slug.includes("%40") && getInitialComments();
