@@ -6,7 +6,7 @@ import { socket } from "@/app/_socket";
 import { ChildrenProps, CommentProps } from "@/app/_types";
 import { CommentsContext, UserTokenNDataContext } from "./Contexts";
 import useSWRMutation from "swr/mutation";
-import getData from "@/app/_getData";
+import getData from "@/app/_utils/getData";
 
 export function CommentsContextProvider({ children }: ChildrenProps) {
   const [comments, setComments] = useState<CommentProps[]>([defaultComment]);

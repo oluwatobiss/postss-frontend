@@ -13,7 +13,7 @@ import Image from "next/image";
 import Date from "./Date";
 import LikeBtn from "./LikeBtn";
 import ReplyBtn from "./ReplyBtn";
-import mutateData from "../_mutateData";
+import mutateData from "../_utils/mutateData";
 
 export default function PostCard({ comment, commentSum, post }: PostCardProps) {
   const { slug = 0 } = useParams();

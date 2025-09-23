@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { UserTokenNDataContext } from "@/app/_components/context/Contexts";
 import { ChangeEvent, Errors, FormEvent } from "@/app/_types";
 import useSWRMutation from "swr/mutation";
-import mutateData from "../_mutateData";
+import mutateData from "../_utils/mutateData";
 
 export default function EditProfile() {
   const router = useRouter();

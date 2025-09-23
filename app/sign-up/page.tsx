@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { ChangeEvent, Errors, FormEvent } from "@/app/_types";
 import Link from "next/link";
 import useSWRMutation from "swr/mutation";
-import mutateData from "../_mutateData";
+import mutateData from "../_utils/mutateData";
 
 export default function SignUp() {
   const router = useRouter();

@@ -1,4 +1,4 @@
-import { mutateDataArg, mutateDataOpt } from "./_types";
+import { mutateDataArg, mutateDataOpt } from "../_types";
 
 const setBody = (obj: Omit<mutateDataArg, "method">) => ({
   body: JSON.stringify(obj),

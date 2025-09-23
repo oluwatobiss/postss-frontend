@@ -6,7 +6,7 @@ import {
 } from "@/app/_components/context/Contexts";
 import { BioType, PostProps } from "@/app/_types";
 import Image from "next/image";
-import getData from "@/app/_getData";
+import getData from "@/app/_utils/getData";
 import BioCard from "@/app/_components/BioCard";
 import PostCard from "@/app/_components/PostCard";
 import useSWR from "swr";

@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { UserTokenNDataContext } from "../_components/context/Contexts";
 import { BioType } from "@/app/_types";
 import useSWR from "swr";
-import getData from "../_getData";
+import getData from "../_utils/getData";
 import BioCard from "../_components/BioCard";
 
 export default function Explore() {

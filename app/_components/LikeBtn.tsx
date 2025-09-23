@@ -4,7 +4,7 @@ import { LikeBtnCSS, LikeBtnProps } from "@/app/_types";
 import { socket } from "../_socket";
 import { svg } from "../_svg";
 import useSWRMutation from "swr/mutation";
-import mutateData from "../_mutateData";
+import mutateData from "../_utils/mutateData";
 
 export default function LikeBtn({ commentId, postId, likes }: LikeBtnProps) {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts/${postId}${

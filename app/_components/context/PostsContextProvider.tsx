@@ -5,7 +5,7 @@ import { UserTokenNDataContext, PostsContext } from "./Contexts";
 import { defaultPost } from "../../_defaultContexts";
 import { socket } from "../../_socket";
 import useSWRMutation from "swr/mutation";
-import getData from "@/app/_getData";
+import getData from "@/app/_utils/getData";
 
 export function PostsContextProvider({ children }: ChildrenProps) {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts`;

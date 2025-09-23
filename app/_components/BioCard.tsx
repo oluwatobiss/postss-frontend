@@ -4,7 +4,7 @@ import { UserTokenNDataContext } from "@/app/_components/context/Contexts";
 import { BioType } from "@/app/_types";
 import Image from "next/image";
 import useSWRMutation from "swr/mutation";
-import mutateData from "../_mutateData";
+import mutateData from "../_utils/mutateData";
 
 export default function BioCard({ followCand }: { followCand: BioType }) {
   const { userTokenNData } = useContext(UserTokenNDataContext);

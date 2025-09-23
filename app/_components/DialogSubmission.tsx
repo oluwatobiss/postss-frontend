@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { DialogSubmissionProp } from "@/app/_types";
 import { UserTokenNDataContext } from "./context/Contexts";
 import useSWRMutation from "swr/mutation";
-import mutateData from "../_mutateData";
+import mutateData from "../_utils/mutateData";
 
 export default function DialogSubmission({
   divInputRef,
