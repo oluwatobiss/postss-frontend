@@ -23,7 +23,7 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<Errors[]>([]);
   const { trigger, isMutating, error } = useSWRMutation(
-    `${process.env.NEXT_PUBLIC_BACKEND_URI}/auths`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URI}/login`,
     postUserAuthData
   );
 
