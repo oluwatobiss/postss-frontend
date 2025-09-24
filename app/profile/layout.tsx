@@ -47,7 +47,7 @@ export default function ProfileLayout({ children }: ChildrenProps) {
               {website && (
                 <span>
                   {website.replace(
-                    /^https|^http|\:\/\/www\.|^www\.|\:\/\//g,
+                    /^https|^http|\:\/\/www\.|^www\.|\:\/\/|\/$/g,
                     ""
                   )}
                 </span>

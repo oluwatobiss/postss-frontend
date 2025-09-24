@@ -8,6 +8,8 @@ import useSWRMutation from "swr/mutation";
 import mutateData from "../_utils/mutateData";
 
 export default function LoginForm() {
+  const demoEmail = process.env.NEXT_PUBLIC_DEMO_EMAIL;
+  const demoPass = process.env.NEXT_PUBLIC_DEMO_PASSWORD;
   const pathname = usePathname();
   const router = useRouter();
   const { updateUserTokenNData } = useContext(UserTokenNDataContext);
@@ -19,10 +21,16 @@ export default function LoginForm() {
     mutateData
   );
 
-  async function authenticateUser(e: FormEvent) {
+  async function authenticateUser(
+    e: FormEvent | React.MouseEvent<HTMLButtonElement>,
+    isDemo: boolean
+  ) {
     e.preventDefault();
     try {
-      const result = await trigger({ method: "POST", email, password });
+      const authData = isDemo
+        ? { email: demoEmail, password: demoPass }
+        : { email, password };
+      const result = await trigger({ method: "POST", ...authData });
       const { errors, payload, token } = result;
       if (errors?.length) return setErrors(errors);
       localStorage.setItem("postssToken", token);
@@ -50,7 +58,7 @@ export default function LoginForm() {
         <h1 className="text-4xl">Login</h1>
         <form
           className="[&_input]:w-full [&_input]:border [&_input]:border-gray-500 [&_input]:rounded-sm [&_input]:my-1 [&_input]:px-5 [&_input]:py-2 [&_input]:text-lg [&_label]:inline-block [&_label]:text-sm [&_label]:mt-3"
-          onSubmit={authenticateUser}
+          onSubmit={(e) => authenticateUser(e, false)}
         >
           <div>
             <label htmlFor="email">Email</label>
@@ -106,6 +114,13 @@ export default function LoginForm() {
           className="cursor-pointer w-full rounded-full border border-solid border-transparent transition-colors bg-foreground text-background hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 mt-3 px-4 sm:px-5"
         >
           Continue with GitHub
+        </button>
+        <button
+          type="button"
+          onClick={(e) => authenticateUser(e, true)}
+          className="cursor-pointer w-full rounded-full border border-solid border-transparent transition-colors bg-foreground text-background hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 mt-3 px-4 sm:px-5"
+        >
+          Try Demo Account
         </button>
       </div>
     </div>
