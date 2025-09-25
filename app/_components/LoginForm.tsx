@@ -8,6 +8,7 @@ import useSWRMutation from "swr/mutation";
 import mutateData from "../_utils/mutateData";
 
 export default function LoginForm() {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/login`;
   const demoEmail = process.env.NEXT_PUBLIC_DEMO_EMAIL;
   const demoPass = process.env.NEXT_PUBLIC_DEMO_PASSWORD;
   const pathname = usePathname();
@@ -16,10 +17,7 @@ export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<Errors[]>([]);
-  const { trigger, isMutating, error } = useSWRMutation(
-    `${process.env.NEXT_PUBLIC_BACKEND_URI}/login`,
-    mutateData
-  );
+  const { trigger, isMutating, error } = useSWRMutation(url, mutateData);
 
   async function authenticateUser(
     e: FormEvent | React.MouseEvent<HTMLButtonElement>,
@@ -109,12 +107,12 @@ export default function LoginForm() {
           </Link>
         </div>
         <hr className="my-5 text-gray-500" />
-        <button
-          type="button"
-          className="cursor-pointer w-full rounded-full border border-solid border-transparent transition-colors bg-foreground text-background hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 mt-3 px-4 sm:px-5"
+        <Link
+          className="flex justify-center items-center cursor-pointer w-full rounded-full border border-solid border-transparent transition-colors bg-foreground text-background hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 mt-3 px-4 sm:px-5"
+          href={url}
         >
           Continue with GitHub
-        </button>
+        </Link>
         <button
           type="button"
           onClick={(e) => authenticateUser(e, true)}
