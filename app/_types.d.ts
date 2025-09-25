@@ -15,7 +15,7 @@ type DialogSubmissionProp = {
 };
 type Errors = { msg: string; path: string };
 type FormEvent = React.FormEvent<HTMLFormElement>;
-type GetFetcherOpt = { url: string; userToken: string };
+type GetFetcherOpt = { url: string; userToken?: string; sendCookie?: boolean };
 type LikeBtnProps = { commentId?: number; postId?: number; likes: number[] };
 type LoggedInUser = { id: number; username: string; status: string };
 type PostDialogProps = {
