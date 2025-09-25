@@ -7,7 +7,7 @@ export default async function getData({
 }: GetFetcherOpt) {
   const response = await fetch(url, {
     ...(userToken && { headers: { Authorization: `Bearer ${userToken}` } }),
-    ...(sendCookie && { credentials: "include" }),
+    ...(sendCookie && { credentials: "include" as RequestCredentials }),
   });
   return await response.json();
 }

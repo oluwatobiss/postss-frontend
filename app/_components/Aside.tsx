@@ -1,22 +1,32 @@
+"use client";
 import { useContext } from "react";
 import { Mr_Bedfort } from "next/font/google";
 import { PostDialogContext, UserTokenNDataContext } from "./context/Contexts";
 import { defaultPost } from "../_defaultContexts";
 import { svg } from "../_svg";
 import Link from "next/link";
+import useSWRMutation from "swr/mutation";
+import mutateData from "../_utils/mutateData";
 
 const mrBedfort = Mr_Bedfort({ weight: "400", subsets: ["latin"] });
 
-function logout() {
-  localStorage.removeItem("postssToken");
-  localStorage.removeItem("postssUserData");
-  window.location.reload();
-}
-
 export default function Aside() {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/logout`;
   const openPostDialog = useContext(PostDialogContext);
   const { userTokenNData } = useContext(UserTokenNDataContext);
   const { userToken, userData } = userTokenNData;
+  const { trigger } = useSWRMutation(url, mutateData);
+
+  async function logout() {
+    try {
+      await trigger({ method: "POST", sendCookie: true });
+      localStorage.removeItem("postssToken");
+      localStorage.removeItem("postssUserData");
+      window.location.href = "/";
+    } catch (error) {
+      if (error instanceof Error) console.error(error.message);
+    }
+  }
 
   return (
     <aside className="fixed z-10 not-md:bottom-0 md:h-full md:w-19 not-md:w-full flex flex-col items-center bg-[rgba(10, 10, 10, 0.85)] backdrop-blur-lg">

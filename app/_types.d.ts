@@ -49,6 +49,7 @@ type mutateDataArg = {
   likePost?: boolean;
   method: string;
   password?: string;
+  sendCookie?: boolean;
   userId?: number;
   username?: string;
   userToken?: string;
