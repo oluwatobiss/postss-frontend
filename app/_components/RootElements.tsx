@@ -76,7 +76,7 @@ export default function RootElements({ children }: ChildrenProps) {
                       </h1>
                     </header>
                     <div className="w-full fixed top-15 bottom-0 overflow-y-scroll">
-                      <div className="md:w-160 mx-auto bg-[#181818] border-[.5px] border-[rgb(45,45,45)] py-3 cursor-pointer shadow-[0_0_12px_0_rgba(0,0,0,0.04)]">
+                      <div className="md:w-160 mx-auto bg-[#181818] border-[.5px] border-[rgb(45,45,45)] py-3 shadow-[0_0_12px_0_rgba(0,0,0,0.04)]">
                         {children}
                       </div>
                     </div>

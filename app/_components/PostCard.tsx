@@ -62,7 +62,7 @@ export default function PostCard({ comment, commentSum, post }: PostCardProps) {
 
   return (
     <div
-      className="w-full px-6 py-3 grid grid-cols-[48px_minmax(0,1fr)] not-first:border-t-[.5px] not-first:border-t-[rgba(243,245,247,.15)]"
+      className="cursor-pointer w-full px-6 py-3 grid grid-cols-[48px_minmax(0,1fr)] not-first:border-t-[.5px] not-first:border-t-[rgba(243,245,247,.15)]"
       onClick={handlePostCardClick}
     >
       <span className="select-none pt-1 size-9 bg-[rgb(30,30,30)] rounded-full">
@@ -93,7 +93,7 @@ export default function PostCard({ comment, commentSum, post }: PostCardProps) {
         <div className="mt-1 overflow-hidden wrap-anywhere text-[.9375rem] leading-[140%] whitespace-pre-wrap">
           {post?.content || comment?.content}
         </div>
-        <div className="mt-2 h-9 flex text-[#ccc] [&_button]:mr-3 [&_button]:flex [&_button]:items-center [&_button]:justify-center [&_button]:cursor-pointer [&_button]:px-3 [&_button]:rounded-3xl [&_button]:hover:bg-[rgba(255,255,255,0.08)]">
+        <div className="mt-2 h-9 flex text-[#ccc] [&_button]:mr-3 [&_button]:flex [&_button]:items-center [&_button]:justify-center [&_button]:px-3 [&_button]:rounded-3xl [&_button]:hover:bg-[rgba(255,255,255,0.08)]">
           <LikeBtn
             commentId={comment?.id}
             postId={post?.id}

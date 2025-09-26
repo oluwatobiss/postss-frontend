@@ -67,7 +67,7 @@ export default function Profile({
 
   return (
     <>
-      <div className="grid grid-cols-[repeat(4,1fr)] items-center [&_div]:border-b [&_div]:px-4 [&_div]:h-12 [&_div]:flex [&_div]:items-center [&_div]:justify-center [&_div]:font-semibold">
+      <div className="cursor-pointer grid grid-cols-[repeat(4,1fr)] items-center [&_div]:border-b [&_div]:px-4 [&_div]:h-12 [&_div]:flex [&_div]:items-center [&_div]:justify-center [&_div]:font-semibold">
         <div onClick={showUserPosts} style={getStyle("Posts")}>
           Posts
         </div>
