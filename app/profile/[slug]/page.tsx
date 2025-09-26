@@ -2,10 +2,12 @@
 import { use, useContext, useRef, useState } from "react";
 import {
   PostsContext,
+  PostDialogContext,
   UserTokenNDataContext,
 } from "@/app/_components/context/Contexts";
 import { User, PostProps } from "@/app/_types";
 import Image from "next/image";
+import { defaultPost } from "@/app/_defaultContexts";
 import getData from "@/app/_utils/getData";
 import BioCard from "@/app/_components/BioCard";
 import PostCard from "@/app/_components/PostCard";
@@ -17,6 +19,7 @@ export default function Profile({
   params: Promise<{ slug: string }>;
 }) {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/users`;
+  const openPostDialog = useContext(PostDialogContext);
   const activeTab = useRef("");
   const { slug } = use(params);
   const { userTokenNData } = useContext(UserTokenNDataContext);
@@ -90,11 +93,16 @@ export default function Profile({
           height={36}
           className="object-cover outline-offset-[-.5px] outline-[.5px] outline-solid outline-[rgba(243,245,247,.15)] rounded-full touch-manipulation select-none"
         />
-        <div className="mx-2 px-1 flex items-center text-[rgb(119,119,119)] cursor-text grow">
-          What&apos;s new?
-        </div>
-        <div className="h-9 border border-[rgba(243,245,247,0.15)] cursor-pointer font-semibold rounded-xl shrink-0 inline-flex items-center px-4">
-          Post
+        <div
+          onClick={() => openPostDialog({ isNewPost: true, post: defaultPost })}
+          className="flex w-full"
+        >
+          <div className="mx-2 px-1 flex items-center text-[rgb(119,119,119)] cursor-text grow">
+            What&apos;s new?
+          </div>
+          <div className="h-9 border border-[rgba(243,245,247,0.15)] cursor-pointer font-semibold rounded-xl shrink-0 inline-flex items-center px-4">
+            Post
+          </div>
         </div>
       </div>
       {activeTab.current === "Posts" || activeTab.current === "Likes"
