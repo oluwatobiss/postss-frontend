@@ -4,7 +4,7 @@ import {
   PostsContext,
   UserTokenNDataContext,
 } from "@/app/_components/context/Contexts";
-import { BioType, PostProps } from "@/app/_types";
+import { User, PostProps } from "@/app/_types";
 import Image from "next/image";
 import getData from "@/app/_utils/getData";
 import BioCard from "@/app/_components/BioCard";
@@ -24,7 +24,7 @@ export default function Profile({
   const { posts } = useContext(PostsContext);
   const { data } = useSWR({ url, userToken }, getData);
   const [tabPosts, setTabPosts] = useState<PostProps[]>([]);
-  const [tabBios, setTabBios] = useState<BioType[]>([]);
+  const [tabBios, setTabBios] = useState<User[]>([]);
 
   function showUserPosts() {
     activeTab.current = "Posts";
@@ -41,16 +41,14 @@ export default function Profile({
   function showSubs() {
     activeTab.current = "Subs";
     const subs = userData.following;
-    const biosSubscribedTo = data?.filter((bio: BioType) =>
-      subs.includes(bio.id)
-    );
+    const biosSubscribedTo = data?.filter((bio: User) => subs.includes(bio.id));
     setTabBios(biosSubscribedTo);
   }
 
   function showFans() {
     activeTab.current = "Fans";
     const fans = userData.followers;
-    const fansBios = data?.filter((bio: BioType) => fans.includes(bio.id));
+    const fansBios = data?.filter((bio: User) => fans.includes(bio.id));
     setTabBios(fansBios);
   }
 
@@ -82,7 +80,7 @@ export default function Profile({
       </div>
       <div className="px-6 py-4 flex">
         <Image
-          src="https://avatar.iran.liara.run/public"
+          src={userData.avatar || "https://avatar.iran.liara.run/public"}
           alt={slug}
           width={36}
           height={36}
@@ -101,9 +99,7 @@ export default function Profile({
           ))
         : ""}
       {activeTab.current === "Subs" || activeTab.current === "Fans"
-        ? tabBios.map((bio: BioType) => (
-            <BioCard key={bio.id} followCand={bio} />
-          ))
+        ? tabBios.map((bio: User) => <BioCard key={bio.id} followCand={bio} />)
         : ""}
     </>
   );

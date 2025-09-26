@@ -14,7 +14,7 @@ export default function DialogReply({
     <section className="w-full px-13 pt-4 pb-1.5 grid grid-cols-[48px_minmax(0,1fr)]">
       <span className="select-none pt-1 size-9 bg-[rgb(30,30,30)] rounded-full">
         <Image
-          src="https://avatar.iran.liara.run/public"
+          src={userData.avatar || "https://avatar.iran.liara.run/public"}
           alt={userData?.username}
           width={500}
           height={500}

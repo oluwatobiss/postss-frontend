@@ -1,12 +1,12 @@
 "use client";
 import { useContext } from "react";
 import { UserTokenNDataContext } from "@/app/_components/context/Contexts";
-import { BioType } from "@/app/_types";
+import { User } from "@/app/_types";
 import Image from "next/image";
 import useSWRMutation from "swr/mutation";
 import mutateData from "../_utils/mutateData";
 
-export default function BioCard({ followCand }: { followCand: BioType }) {
+export default function BioCard({ followCand }: { followCand: User }) {
   const { userTokenNData } = useContext(UserTokenNDataContext);
   const { userToken, userData } = userTokenNData;
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/users`;
@@ -40,8 +40,8 @@ export default function BioCard({ followCand }: { followCand: BioType }) {
     <div className="w-full px-6 py-3 grid grid-cols-[48px_minmax(0,1fr)] not-first:border-t-[.5px] not-first:border-t-[rgba(243,245,247,.15)]">
       <span className="select-none pt-1 size-9 bg-[rgb(30,30,30)] rounded-full">
         <Image
-          src="https://avatar.iran.liara.run/public"
-          alt={""}
+          src={followCand.avatar || "https://avatar.iran.liara.run/public"}
+          alt={followCand.username}
           width={500}
           height={500}
           className="object-cover outline-offset-[-.5px] outline-[.5px] outline-solid outline-[rgba(243,245,247,.15)] rounded-full touch-manipulation"

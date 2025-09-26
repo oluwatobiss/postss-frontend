@@ -7,7 +7,7 @@ import Image from "next/image";
 export default function ProfileLayout({ children }: ChildrenProps) {
   const { userTokenNData } = useContext(UserTokenNDataContext);
   const { userData } = userTokenNData;
-  const { firstName, lastName, username, bio, website } = userData;
+  const { avatar, bio, firstName, lastName, username, website } = userData;
   return (
     <>
       <section>
@@ -23,7 +23,7 @@ export default function ProfileLayout({ children }: ChildrenProps) {
             </div>
             <div>
               <Image
-                src="https://avatar.iran.liara.run/public"
+                src={avatar || "https://avatar.iran.liara.run/public"}
                 alt={username}
                 width={84}
                 height={84}

@@ -6,6 +6,7 @@ import {
   CommentsContext,
   PostDialogContext,
   PostsContext,
+  UserTokenNDataContext,
 } from "@/app/_components/context/Contexts";
 import PostCard from "@/app/_components/PostCard";
 import Image from "next/image";
@@ -19,6 +20,8 @@ export default function Post({
   const { posts } = useContext(PostsContext);
   const comments = useContext(CommentsContext);
   const openPostDialog = useContext(PostDialogContext);
+  const { userTokenNData } = useContext(UserTokenNDataContext);
+  const { userData } = userTokenNData;
   const post = posts.find((post) => post.id === +slug);
   const postComments = comments.filter((comment) => comment.postId === +slug);
 
@@ -44,8 +47,8 @@ export default function Post({
         <div className="flex items-center border-[.5px] border-[rgba(0,0,0,0.4)] rounded-3xl mx-6 p-1 bg-[rgb(30,30,30)] cursor-pointer">
           <span className="select-none p-2 bg-[rgb(30,30,30)] rounded-full">
             <Image
-              src="https://avatar.iran.liara.run/public"
-              alt="codesweetly's profile picture"
+              src={userData.avatar || "https://avatar.iran.liara.run/public"}
+              alt={userData.username}
               width={20}
               height={20}
               objectFit="cover"

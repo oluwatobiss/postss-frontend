@@ -1,7 +1,7 @@
 "use client";
 import { useContext } from "react";
 import { UserTokenNDataContext } from "../_components/context/Contexts";
-import { BioType } from "@/app/_types";
+import { User } from "@/app/_types";
 import useSWR from "swr";
 import getData from "../_utils/getData";
 import BioCard from "../_components/BioCard";
@@ -16,7 +16,7 @@ export default function Explore() {
   if (isLoading) return <div>loading...</div>;
 
   return data.map(
-    (followCand: BioType) =>
+    (followCand: User) =>
       followCand.id !== userData.id &&
       !followCand.followers?.includes(userData.id) && (
         <BioCard key={followCand.id} followCand={followCand} />

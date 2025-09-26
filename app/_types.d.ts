@@ -32,6 +32,7 @@ type PostProps = {
   views: number;
   likes: number[];
   author: string;
+  authorAvatar: string;
   comments: number;
 };
 type CommentProps = Omit<PostProps, "comments"> & { postId: number };
@@ -70,22 +71,10 @@ type PostUserArg = {
 };
 type UserTokenNDataType = {
   userToken: string;
-  userData: {
-    id: number;
-    firstName: string;
-    lastName: string;
-    username: string;
-    bio: string;
-    email: string;
-    website: string;
-    password: string;
-    status: string;
-    followers: number[];
-    following: number[];
-  };
+  userData: User;
 };
 
-type BioType = {
+type User = {
   id: number;
   firstName: string;
   lastName: string;
@@ -94,8 +83,10 @@ type BioType = {
   email: string;
   website: string;
   password: string;
+  avatar: string;
   status: string;
   followers: number[];
+  following: number[];
 };
 
 type UserTokenNDataContextType = {
@@ -106,15 +97,6 @@ type SvgProps = {
   ariaLabel: string;
   viewBox: string;
   style: CSSProperties;
-};
-type User = {
-  id: number;
-  firstName: string;
-  lastName: string;
-  username: string;
-  email: string;
-  password: string;
-  status: string;
 };
 
 export type {
@@ -137,6 +119,5 @@ export type {
   SvgProps,
   User,
   UserTokenNDataType,
-  BioType,
   UserTokenNDataContextType,
 };

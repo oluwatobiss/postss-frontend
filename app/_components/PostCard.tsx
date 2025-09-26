@@ -67,7 +67,11 @@ export default function PostCard({ comment, commentSum, post }: PostCardProps) {
     >
       <span className="select-none pt-1 size-9 bg-[rgb(30,30,30)] rounded-full">
         <Image
-          src="https://avatar.iran.liara.run/public"
+          src={
+            post?.authorAvatar ||
+            comment?.authorAvatar ||
+            "https://avatar.iran.liara.run/public"
+          }
           alt={post?.author || comment?.author || ""}
           width={500}
           height={500}

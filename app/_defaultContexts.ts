@@ -9,6 +9,7 @@ export const defaultUserTokenNData = {
     email: "n/a",
     website: "n/a",
     password: "n/a",
+    avatar: "",
     status: "n/a",
     followers: [0],
     following: [0],
@@ -25,6 +26,7 @@ export const defaultComment = {
   views: 0,
   likes: [0],
   author: "",
+  authorAvatar: "",
   postId: 0,
 };
 
@@ -38,5 +40,6 @@ export const defaultPost = {
   views: 0,
   likes: [0],
   author: "",
+  authorAvatar: "",
   comments: 0,
 };
