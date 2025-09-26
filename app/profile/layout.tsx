@@ -23,7 +23,11 @@ export default function ProfileLayout({ children }: ChildrenProps) {
             </div>
             <div>
               <Image
-                src={avatar || "https://avatar.iran.liara.run/public"}
+                src={
+                  avatar
+                    ? `${avatar}?s=200&v=4`
+                    : "https://avatar.iran.liara.run/public"
+                }
                 alt={username}
                 width={84}
                 height={84}

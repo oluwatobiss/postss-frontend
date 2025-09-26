@@ -6,7 +6,11 @@ export default function DialogToReply({ post }: { post: PostProps }) {
     <section className="w-full px-6 pt-4 pb-1.5 grid grid-cols-[48px_minmax(0,1fr)]">
       <span className="select-none pt-1 size-9 bg-[rgb(30,30,30)] rounded-full">
         <Image
-          src={post.authorAvatar || "https://avatar.iran.liara.run/public"}
+          src={
+            post.authorAvatar
+              ? `${post.authorAvatar}?s=200&v=4`
+              : "https://avatar.iran.liara.run/public"
+          }
           alt={post.author}
           width={500}
           height={500}

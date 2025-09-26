@@ -40,7 +40,11 @@ export default function BioCard({ followCand }: { followCand: User }) {
     <div className="w-full px-6 py-3 grid grid-cols-[48px_minmax(0,1fr)] not-first:border-t-[.5px] not-first:border-t-[rgba(243,245,247,.15)]">
       <span className="select-none pt-1 size-9 bg-[rgb(30,30,30)] rounded-full">
         <Image
-          src={followCand.avatar || "https://avatar.iran.liara.run/public"}
+          src={
+            followCand.avatar
+              ? `${followCand.avatar}?s=200&v=4`
+              : "https://avatar.iran.liara.run/public"
+          }
           alt={followCand.username}
           width={500}
           height={500}

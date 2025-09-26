@@ -13,6 +13,7 @@ export const defaultUserTokenNData = {
     status: "n/a",
     followers: [0],
     following: [0],
+    isDemo: false,
   },
 };
 

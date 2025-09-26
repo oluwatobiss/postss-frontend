@@ -32,7 +32,10 @@ export default function LoginForm() {
       const { errors, payload, token } = result;
       if (errors?.length) return setErrors(errors);
       localStorage.setItem("postssToken", token);
-      localStorage.setItem("postssUserData", JSON.stringify(payload));
+      localStorage.setItem(
+        "postssUserData",
+        JSON.stringify({ ...payload, isDemo })
+      );
       updateUserTokenNData({ userToken: token, userData: payload });
       pathname === "/login" && router.push("/");
     } catch (error) {

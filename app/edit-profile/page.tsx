@@ -16,6 +16,7 @@ export default function EditProfile() {
   const [lastName, setLastName] = useState(userData.lastName || "");
   const [username, setUsername] = useState(userData.username);
   const [bio, setBio] = useState(userData.bio || "");
+  const [avatar, setAvatar] = useState(userData.avatar || "");
   const [email, setEmail] = useState(userData.email);
   const [website, setWebsite] = useState(userData.website || "");
   const [admin, setAdmin] = useState(userData.status === "ADMIN");
@@ -41,6 +42,7 @@ export default function EditProfile() {
         lastName,
         username,
         bio,
+        avatar,
         email,
         website,
         admin,
@@ -154,6 +156,21 @@ export default function EditProfile() {
             onChange={(e) => setBio(e.target.value)}
           />
           {showErrorFor("bio")}
+        </div>
+        <div>
+          <label className="text-input-label" htmlFor="avatar">
+            Avatar (GitHub)
+          </label>
+          <input
+            className="text-input"
+            type="url"
+            name="avatar"
+            id="avatar"
+            value={avatar}
+            placeholder="https://avatars.githubusercontent.com/u/00000000?v=4"
+            onChange={(e) => setAvatar(e.target.value)}
+          />
+          {showErrorFor("avatar")}
         </div>
         <div>
           <label className="text-input-label" htmlFor="email">

@@ -41,6 +41,7 @@ type mutateDataArg = {
   adminCode?: string;
   authorId?: number;
   bio?: string;
+  avatar?: string;
   content?: string;
   email?: string;
   firstName?: string;
@@ -87,6 +88,7 @@ type User = {
   status: string;
   followers: number[];
   following: number[];
+  isDemo: boolean;
 };
 
 type UserTokenNDataContextType = {
