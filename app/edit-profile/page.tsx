@@ -22,8 +22,10 @@ export default function EditProfile() {
   const [admin, setAdmin] = useState(userData.status === "ADMIN");
   const [adminCode, setAdminCode] = useState("");
   const [errors, setErrors] = useState<Errors[]>([]);
+  const logoutUrl = `${process.env.NEXT_PUBLIC_BACKEND_URI}/logout`;
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/users`;
   const userId = userData.id;
+  const { trigger: logout } = useSWRMutation(logoutUrl, mutateData);
   const { trigger, isMutating, error } = useSWRMutation(
     `${url}/${userId}`,
     mutateData
@@ -85,9 +87,11 @@ export default function EditProfile() {
           alert("Error: Invalid delete credentials");
           throw new Error(result.message);
         }
+        userData.isGitHub &&
+          (await logout({ method: "POST", sendCookie: true }));
         localStorage.removeItem("postssToken");
         localStorage.removeItem("postssUserData");
-        router.push("/");
+        window.location.href = "/";
       }
     } catch (error) {
       if (error instanceof Error) console.error(error.message);

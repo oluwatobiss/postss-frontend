@@ -15,7 +15,10 @@ export default function GitHub() {
       const result = await trigger();
       const { payload, token } = result;
       localStorage.setItem("postssToken", token);
-      localStorage.setItem("postssUserData", JSON.stringify(payload));
+      localStorage.setItem(
+        "postssUserData",
+        JSON.stringify({ ...payload, isGitHub: true })
+      );
       updateUserTokenNData({ userToken: token, userData: payload });
       router.push("/");
     }

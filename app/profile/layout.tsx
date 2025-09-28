@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { UserTokenNDataContext } from "@/app/_components/context/Contexts";
 import { ChildrenProps } from "@/app/_types";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function ProfileLayout({ children }: ChildrenProps) {
   const { userTokenNData } = useContext(UserTokenNDataContext);
@@ -60,11 +61,11 @@ export default function ProfileLayout({ children }: ChildrenProps) {
           </div>
         </section>
         <section className="text-center px-4 py-3">
-          <a href="/edit-profile">
+          <Link href="/edit-profile">
             <div className="border border-[rgb(45,45,45)] rounded-xl px-4 py-1.5 h-9 select-none font-semibold">
               Edit profile
             </div>
-          </a>
+          </Link>
         </section>
       </section>
       <section>{children}</section>

@@ -89,6 +89,7 @@ type User = {
   followers: number[];
   following: number[];
   isDemo: boolean;
+  isGitHub: boolean;
 };
 
 type UserTokenNDataContextType = {

@@ -14,6 +14,7 @@ export const defaultUserTokenNData = {
     followers: [0],
     following: [0],
     isDemo: false,
+    isGitHub: false,
   },
 };
 
