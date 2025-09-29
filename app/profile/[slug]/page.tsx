@@ -83,11 +83,7 @@ export default function Profile({
       </div>
       <div className="px-6 py-4 flex">
         <Image
-          src={
-            userData.avatar
-              ? `${userData.avatar}?s=200&v=4`
-              : "https://avatar.iran.liara.run/public"
-          }
+          src={`${userData.avatar}?s=200&v=4`}
           alt={slug}
           width={36}
           height={36}

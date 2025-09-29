@@ -9,7 +9,7 @@ export const defaultUserTokenNData = {
     email: "n/a",
     website: "n/a",
     password: "n/a",
-    avatar: "",
+    avatar: "https://avatar.iran.liara.run/public",
     status: "n/a",
     followers: [0],
     following: [0],
@@ -28,7 +28,7 @@ export const defaultComment = {
   views: 0,
   likes: [0],
   author: "",
-  authorAvatar: "",
+  authorAvatar: "https://avatar.iran.liara.run/public",
   postId: 0,
 };
 
@@ -42,6 +42,6 @@ export const defaultPost = {
   views: 0,
   likes: [0],
   author: "",
-  authorAvatar: "",
+  authorAvatar: "https://avatar.iran.liara.run/public",
   comments: 0,
 };

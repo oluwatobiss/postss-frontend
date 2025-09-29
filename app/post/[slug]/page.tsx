@@ -47,11 +47,7 @@ export default function Post({
         <div className="flex items-center border-[.5px] border-[rgba(0,0,0,0.4)] rounded-3xl mx-6 p-1 bg-[rgb(30,30,30)] cursor-pointer">
           <span className="select-none p-2 bg-[rgb(30,30,30)] rounded-full">
             <Image
-              src={
-                userData.avatar
-                  ? `${userData.avatar}?s=200&v=4`
-                  : "https://avatar.iran.liara.run/public"
-              }
+              src={`${userData.avatar}?s=200&v=4`}
               alt={userData.username}
               width={20}
               height={20}
