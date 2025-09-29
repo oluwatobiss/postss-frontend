@@ -56,8 +56,14 @@ export default function EditProfile() {
         alert("Error: Invalid edit credentials");
         throw new Error(result.message);
       }
-      localStorage.setItem("postssUserData", JSON.stringify(result));
-      updateUserTokenNData({ userToken, userData: result });
+      localStorage.setItem(
+        "postssUserData",
+        JSON.stringify({ ...result, isDemo: userData.isDemo })
+      );
+      updateUserTokenNData({
+        userToken,
+        userData: { ...result, isDemo: userData.isDemo },
+      });
       router.push(`/profile/@${userData.username}`);
     } catch (error) {
       if (error instanceof Error) console.error(error.message);
@@ -181,6 +187,8 @@ export default function EditProfile() {
             Email
           </label>
           <input
+            disabled={userData.isDemo}
+            style={{ color: userData.isDemo ? "gray" : "initial" }}
             className="text-input"
             type="email"
             name="email"
@@ -190,6 +198,11 @@ export default function EditProfile() {
             required
           />
           {showErrorFor("email")}
+          {userData.isDemo && (
+            <div className="mb-2 text-sm text-yellow-500">
+              <em>Demo users cannot update email</em>
+            </div>
+          )}
         </div>
         <div>
           <label className="text-input-label" htmlFor="website">

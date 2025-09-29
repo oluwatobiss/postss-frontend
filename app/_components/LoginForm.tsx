@@ -36,7 +36,10 @@ export default function LoginForm() {
         "postssUserData",
         JSON.stringify({ ...payload, isDemo })
       );
-      updateUserTokenNData({ userToken: token, userData: payload });
+      updateUserTokenNData({
+        userToken: token,
+        userData: { ...payload, isDemo },
+      });
       pathname === "/login" && router.push("/");
     } catch (error) {
       if (error instanceof Error) console.error(error.message);
