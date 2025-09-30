@@ -117,7 +117,7 @@ npm run dev
 
 ## Live Demo
 
-- https://postss.netlify.app/
+- https://postss-social.netlify.app
 
 ## Related Repos
 
