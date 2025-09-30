@@ -1,11 +1,15 @@
-import { useRef } from "react";
+"use client";
+import { useContext, useRef } from "react";
 import { PostDialogProps } from "@/app/_types";
+import { UserTokenNDataContext } from "./context/Contexts";
 import DialogHeader from "./DialogHeader";
 import DialogReply from "./DialogReply";
 import DialogSubmission from "./DialogSubmission";
 import DialogToReply from "./DialogToReply";
 
 export default function PostDialog({ dialogRef, postInfo }: PostDialogProps) {
+  const { userTokenNData } = useContext(UserTokenNDataContext);
+  const { userToken } = userTokenNData;
   const divInputRef = useRef<HTMLDivElement>(null);
   function closePostDialog(e: React.MouseEvent<HTMLDialogElement, MouseEvent>) {
     const dialogRect = dialogRef.current?.getBoundingClientRect();
@@ -28,7 +32,7 @@ export default function PostDialog({ dialogRef, postInfo }: PostDialogProps) {
     >
       <DialogHeader dialogRef={dialogRef} />
       {!postInfo.isNewPost && <DialogToReply post={postInfo.post} />}
-      {postInfo.post.id && <DialogReply divInputRef={divInputRef} />}
+      {userToken && <DialogReply divInputRef={divInputRef} />}
       <DialogSubmission
         divInputRef={divInputRef}
         dialogRef={dialogRef}
