@@ -12,10 +12,6 @@ export default function Explore() {
   const { userData, userToken } = userTokenNData;
   const { data, error, isLoading } = useSWR({ url, userToken }, getData);
 
-  console.log("=== Explore ===");
-
-  console.log(data);
-
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
 
