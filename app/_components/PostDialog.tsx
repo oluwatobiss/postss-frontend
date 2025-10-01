@@ -1,5 +1,5 @@
 "use client";
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import { PostDialogProps } from "@/app/_types";
 import { UserTokenNDataContext } from "./context/Contexts";
 import DialogHeader from "./DialogHeader";
@@ -8,9 +8,11 @@ import DialogSubmission from "./DialogSubmission";
 import DialogToReply from "./DialogToReply";
 
 export default function PostDialog({ dialogRef, postInfo }: PostDialogProps) {
+  const [mediaUrl, setMediaUrl] = useState("");
   const { userTokenNData } = useContext(UserTokenNDataContext);
   const { userToken } = userTokenNData;
   const divInputRef = useRef<HTMLDivElement>(null);
+  const uploadInputRef = useRef<HTMLInputElement>(null);
   function closePostDialog(e: React.MouseEvent<HTMLDialogElement, MouseEvent>) {
     const dialogRect = dialogRef.current?.getBoundingClientRect();
     if (dialogRect) {
@@ -32,8 +34,17 @@ export default function PostDialog({ dialogRef, postInfo }: PostDialogProps) {
     >
       <DialogHeader dialogRef={dialogRef} />
       {!postInfo.isNewPost && <DialogToReply post={postInfo.post} />}
-      {userToken && <DialogReply divInputRef={divInputRef} />}
+      {userToken && (
+        <DialogReply
+          mediaUrl={mediaUrl}
+          setMediaUrl={setMediaUrl}
+          uploadInputRef={uploadInputRef}
+          divInputRef={divInputRef}
+        />
+      )}
       <DialogSubmission
+        setMediaUrl={setMediaUrl}
+        uploadInputRef={uploadInputRef}
         divInputRef={divInputRef}
         dialogRef={dialogRef}
         postId={postInfo.isNewPost ? 0 : postInfo.post.id}

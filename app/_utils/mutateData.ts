@@ -5,16 +5,17 @@ const setBody = (obj: Omit<mutateDataArg, "method" | "sendCookie">) => ({
 });
 
 export default async function mutateData(url: string, { arg }: mutateDataOpt) {
-  const { admin, adminCode, authorId, avatar, bio, content, email } = arg;
-  const { firstName, follow, id, lastName, likePost, method } = arg;
+  const { admin, adminCode, avatar, bio, email, firstName } = arg;
+  const { follow, formData, id, lastName, likePost, method } = arg;
   const { password, sendCookie, userId, username, userToken, website } = arg;
   const uri = follow ? `${url}?follow=${follow}` : id ? `${url}/${id}` : url;
   const options = {
     method: method,
     headers: {
-      "Content-type": "application/json; charset=UTF-8",
+      ...(!formData && { "Content-type": "application/json; charset=UTF-8" }),
       ...(userToken && { Authorization: `Bearer ${userToken}` }),
     },
+    ...(formData && { encType: "multipart/form-data" }),
     ...(sendCookie && { credentials: "include" as RequestCredentials }), // logout
     ...(bio &&
       setBody({
@@ -28,7 +29,7 @@ export default async function mutateData(url: string, { arg }: mutateDataOpt) {
         avatar: avatar?.replace(/\?.*/g, ""),
         website,
       })), // update profile
-    ...(content && setBody({ authorId, content })), // write post / comment
+    ...(formData && { body: formData }), // write post / comment
     ...(email &&
       !bio &&
       setBody({ admin, adminCode, email, password, username })), // signup

@@ -173,6 +173,24 @@ export const svg = {
       />
     </Svg>
   ),
+  removeLg: (
+    <Svg
+      ariaLabel="Remove"
+      viewBox="0 0 16 16"
+      style={{ fill: "currentColor", height: "18px", width: "18px" }}
+    >
+      <path d="M2.1 2.9A.5.5 0 1 1 3 2l5 5.3L13.1 2a.5.5 0 0 1 .8.8L8.7 8l5.2 5.1a.5.5 0 0 1-.8.8L8 8.7 2.9 14a.5.5 0 0 1-.9-1l5.3-5z" />
+    </Svg>
+  ),
+  removeSm: (
+    <Svg
+      ariaLabel="Remove"
+      viewBox="0 0 16 16"
+      style={{ fill: "currentColor", height: "18px", width: "18px" }}
+    >
+      <path d="M4.6 4.6a.5.5 0 0 1 .8 0L8 7.3l2.6-2.7a.5.5 0 0 1 .8.8L8.7 8l2.7 2.6a.5.5 0 0 1-.8.8L8 8.7l-2.6 2.7a.5.5 0 0 1-.8-.8L7.3 8 4.6 5.4a.5.5 0 0 1 0-.8" />
+    </Svg>
+  ),
   search: (
     <Svg
       ariaLabel="Search"

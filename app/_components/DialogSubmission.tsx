@@ -5,10 +5,12 @@ import useSWRMutation from "swr/mutation";
 import mutateData from "../_utils/mutateData";
 
 export default function DialogSubmission({
+  setMediaUrl,
+  uploadInputRef,
   divInputRef,
   dialogRef,
   postId,
-}: DialogSubmissionProp) {
+}: Omit<DialogSubmissionProp, "mediaUrl" | "uploadInputKey">) {
   const { userTokenNData } = useContext(UserTokenNDataContext);
   const { userData, userToken } = userTokenNData;
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts${
@@ -19,10 +21,20 @@ export default function DialogSubmission({
   async function submitMessage() {
     try {
       const content = divInputRef.current?.innerText || "";
+      const media =
+        uploadInputRef.current?.files && uploadInputRef.current.files[0];
       const authorId = userData.id;
-      await trigger({ method: "POST", userToken, content, authorId });
+      const formData = new FormData();
+
+      formData.append("authorId", `${authorId}`);
+      content && formData.append("body", content);
+      media && formData.append("media", media as Blob);
+
+      await trigger({ method: "POST", userToken, formData });
       if (divInputRef.current && divInputRef.current.innerText)
         divInputRef.current.innerText = "";
+      if (uploadInputRef.current && uploadInputRef.current.files)
+        setMediaUrl("");
       dialogRef.current?.close();
     } catch (error) {
       if (error instanceof Error) console.error(error.message);

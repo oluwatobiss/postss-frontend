@@ -9,6 +9,9 @@ type ChangeEvent = React.ChangeEvent<HTMLInputElement>;
 type ChildrenProps = Readonly<{ children: React.ReactNode }>;
 type DateProps = { date: string; styles: string };
 type DialogSubmissionProp = {
+  mediaUrl: string;
+  setMediaUrl: React.Dispatch<SetStateAction<string>>;
+  uploadInputRef: React.RefObject<HTMLInputElement | null>;
   divInputRef: React.RefObject<HTMLDivElement | null>;
   dialogRef: React.RefObject<HTMLDialogElement | null>;
   postId: number;
@@ -39,13 +42,12 @@ type CommentProps = Omit<PostProps, "comments"> & { postId: number };
 type mutateDataArg = {
   admin?: boolean;
   adminCode?: string;
-  authorId?: number;
   bio?: string;
   avatar?: string;
-  content?: string;
   email?: string;
   firstName?: string;
   follow?: boolean;
+  formData?: FormData;
   id?: number;
   lastName?: string;
   likePost?: boolean;
