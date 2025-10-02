@@ -28,7 +28,7 @@ export default function Post({
   return (
     <div className="w-full py-3 not-first:border-t-[.5px] not-first:border-t-[rgba(243,245,247,.15)]">
       <div className="px-6 pt-1 pb-3">
-        <PostCard commentSum={postComments.length} post={post} />
+        {post && <PostCard commentSum={postComments.length} post={post} />}
         <div className="mt-2 pt-4 pb-1 border-t-[.5px] border-t-[rgba(243,245,247,.15)]">
           Replies
         </div>
