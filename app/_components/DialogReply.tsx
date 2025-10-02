@@ -1,16 +1,15 @@
 "use client";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { DialogSubmissionProp } from "@/app/_types";
 import { UserTokenNDataContext } from "./context/Contexts";
 import { svg } from "../_svg";
 import Image from "next/image";
 
 export default function DialogReply({
-  mediaUrl,
-  setMediaUrl,
   uploadInputRef,
   divInputRef,
-}: Omit<DialogSubmissionProp, "dialogRef" | "postId">) {
+}: Omit<DialogSubmissionProp, "setDialogReplyKey" | "dialogRef" | "postId">) {
+  const [mediaUrl, setMediaUrl] = useState("");
   const { userTokenNData } = useContext(UserTokenNDataContext);
   const { userData } = userTokenNData;
 
@@ -51,11 +50,11 @@ export default function DialogReply({
           className="mt-1 w-full px-2 overflow-hidden wrap-anywhere whitespace-pre-wrap text-[.9375rem] leading-[140%] empty:before:content-[attr(data-placeholder)] before:block before:text-[#aaa]"
         ></div>
         {mediaUrl && (
-          <div className="relative pt-3 cursor-text max-h-108">
+          <div className="flex relative pt-3 cursor-text max-h-108">
             <img
               src={mediaUrl}
               alt="Uploaded media"
-              className="size-full border-0 outline-1 outline-[rgba(243,245,247,0.15)] outline-offset-[-1px] rounded-xl object-scale-down"
+              className="w-full border-0 outline-1 outline-[rgba(243,245,247,0.15)] outline-offset-[-1px] rounded-xl object-scale-down"
             />
             <div
               onClick={() => setMediaUrl("")}

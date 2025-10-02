@@ -9,8 +9,7 @@ type ChangeEvent = React.ChangeEvent<HTMLInputElement>;
 type ChildrenProps = Readonly<{ children: React.ReactNode }>;
 type DateProps = { date: string; styles: string };
 type DialogSubmissionProp = {
-  mediaUrl: string;
-  setMediaUrl: React.Dispatch<SetStateAction<string>>;
+  setDialogReplyKey: React.Dispatch<SetStateAction<string>>;
   uploadInputRef: React.RefObject<HTMLInputElement | null>;
   divInputRef: React.RefObject<HTMLDivElement | null>;
   dialogRef: React.RefObject<HTMLDialogElement | null>;

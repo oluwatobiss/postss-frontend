@@ -5,7 +5,7 @@ import useSWRMutation from "swr/mutation";
 import mutateData from "../_utils/mutateData";
 
 export default function DialogSubmission({
-  setMediaUrl,
+  setDialogReplyKey,
   uploadInputRef,
   divInputRef,
   dialogRef,
@@ -34,7 +34,7 @@ export default function DialogSubmission({
       if (divInputRef.current && divInputRef.current.innerText)
         divInputRef.current.innerText = "";
       if (uploadInputRef.current && uploadInputRef.current.files)
-        setMediaUrl("");
+        setDialogReplyKey(crypto.randomUUID());
       dialogRef.current?.close();
     } catch (error) {
       if (error instanceof Error) console.error(error.message);

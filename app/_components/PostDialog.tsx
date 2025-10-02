@@ -8,7 +8,7 @@ import DialogSubmission from "./DialogSubmission";
 import DialogToReply from "./DialogToReply";
 
 export default function PostDialog({ dialogRef, postInfo }: PostDialogProps) {
-  const [mediaUrl, setMediaUrl] = useState("");
+  const [dialogReplyKey, setDialogReplyKey] = useState(crypto.randomUUID());
   const { userTokenNData } = useContext(UserTokenNDataContext);
   const { userToken } = userTokenNData;
   const divInputRef = useRef<HTMLDivElement>(null);
@@ -36,14 +36,13 @@ export default function PostDialog({ dialogRef, postInfo }: PostDialogProps) {
       {!postInfo.isNewPost && <DialogToReply post={postInfo.post} />}
       {userToken && (
         <DialogReply
-          mediaUrl={mediaUrl}
-          setMediaUrl={setMediaUrl}
+          key={dialogReplyKey}
           uploadInputRef={uploadInputRef}
           divInputRef={divInputRef}
         />
       )}
       <DialogSubmission
-        setMediaUrl={setMediaUrl}
+        setDialogReplyKey={setDialogReplyKey}
         uploadInputRef={uploadInputRef}
         divInputRef={divInputRef}
         dialogRef={dialogRef}

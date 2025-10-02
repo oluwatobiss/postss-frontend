@@ -90,11 +90,11 @@ export default function PostCard({ comment, commentSum, post }: PostCardProps) {
           {post?.content || comment?.content}
         </div>
         {post?.media && (
-          <div className="mt-2 max-h-108">
+          <div className="flex mt-2 max-h-108">
             <img
               src={post.media.path}
               alt={post.media.name}
-              className="size-full border-0 outline-1 outline-[rgba(243,245,247,0.15)] outline-offset-[-1px] rounded-xl object-scale-down"
+              className="w-full border-0 outline-1 outline-[rgba(243,245,247,0.15)] outline-offset-[-1px] rounded-xl object-scale-down"
             />
           </div>
         )}
