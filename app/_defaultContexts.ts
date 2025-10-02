@@ -23,6 +23,7 @@ export const defaultComment = {
   createdAt: new Date(),
   updatedAt: new Date(),
   content: "",
+  media: { path: "", name: "" },
   published: true,
   authorId: 0,
   views: 0,
