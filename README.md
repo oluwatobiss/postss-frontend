@@ -64,14 +64,14 @@ This is the official website of the Postss Social App. Postss is a social media 
 
 ## Technologies used
 
-- Date-fns
-- ESLint
-- Next.js
-- React
-- Tailwind CSS
-- TypeScript
-- Socket IO
-- SWR
+- Date-fns: Format date
+- ESLint: Lint code
+- Next.js: Provide building blocks to create React-based web application
+- React: Create user interfaces from JavaScript components
+- Tailwind CSS: Use utility classes to write CSS directly on elements
+- TypeScript: Type check code
+- Socket IO: Enable event-based simultaneous communication between server and client
+- SWR: Use React Hooks for optimal data fetching
 
 ## Usage
 
