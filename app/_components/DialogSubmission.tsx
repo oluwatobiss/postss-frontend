@@ -27,7 +27,7 @@ export default function DialogSubmission({
       const formData = new FormData();
 
       formData.append("authorId", `${authorId}`);
-      content && formData.append("body", content);
+      content && formData.append("content", content);
       media && formData.append("media", media as Blob);
 
       await trigger({ method: "POST", userToken, formData });
