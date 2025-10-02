@@ -89,6 +89,15 @@ export default function PostCard({ comment, commentSum, post }: PostCardProps) {
         <div className="mt-1 overflow-hidden wrap-anywhere text-[.9375rem] leading-[140%] whitespace-pre-wrap">
           {post?.content || comment?.content}
         </div>
+        {post?.media && (
+          <div className="mt-2 max-h-108">
+            <img
+              src={post.media.path}
+              alt={post.media.name}
+              className="size-full border-0 outline-1 outline-[rgba(243,245,247,0.15)] outline-offset-[-1px] rounded-xl object-scale-down"
+            />
+          </div>
+        )}
         <div className="mt-2 h-9 flex text-[#ccc] [&_button]:mr-3 [&_button]:flex [&_button]:items-center [&_button]:justify-center [&_button]:px-3 [&_button]:rounded-3xl [&_button]:hover:bg-[rgba(255,255,255,0.08)]">
           <LikeBtn
             commentId={comment?.id}

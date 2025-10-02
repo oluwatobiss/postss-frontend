@@ -30,6 +30,7 @@ type PostProps = {
   createdAt: Date;
   updatedAt: Date;
   content: string;
+  media: { path: string; name: string };
   published: boolean;
   authorId: number;
   views: number;
