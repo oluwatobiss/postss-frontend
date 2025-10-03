@@ -16,7 +16,7 @@ export default function DialogSubmission({
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/posts${
     postId ? `/${postId}/comments` : ""
   }`;
-  const { trigger } = useSWRMutation(url, mutateData);
+  const { trigger, isMutating } = useSWRMutation(url, mutateData);
 
   async function submitMessage() {
     try {
@@ -47,8 +47,9 @@ export default function DialogSubmission({
         type="button"
         className="border border-[rgba(243,245,247,0.15)] rounded-xl font-semibold text-[rgb(243,245,247)] cursor-pointer px-4 py-2"
         onClick={submitMessage}
+        disabled={isMutating}
       >
-        Post
+        {isMutating ? "Posting..." : "Post"}
       </button>
     </section>
   );

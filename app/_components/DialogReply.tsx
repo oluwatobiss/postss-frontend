@@ -66,9 +66,12 @@ export default function DialogReply({
             </div>
           </div>
         )}
-        <div className="mt-2 h-9 flex pr-3 gap-x-1 text-[#ccc] [&_div]:cursor-pointer [&_div]:w-9 [&_div]:flex [&_div]:items-center [&_div]:justify-center [&_svg]:text-[rgb(119,119,119)]">
+        <div className="mt-2 h-9 flex pr-3 gap-x-1 text-[#ccc] [&_div]:w-9 [&_div]:flex [&_div]:items-center [&_div]:justify-center [&_svg]:text-[rgb(119,119,119)]">
           <div>
-            <label className="nav-btn upload-btn" htmlFor="upload">
+            <label
+              className="cursor-pointer nav-btn upload-btn"
+              htmlFor="upload"
+            >
               {svg.media}
             </label>
             <input
@@ -81,7 +84,7 @@ export default function DialogReply({
               accept="image/*"
             />
           </div>
-          <div>{svg.emoji}</div>
+          {/* <div>{svg.emoji}</div> */}
         </div>
       </span>
     </section>

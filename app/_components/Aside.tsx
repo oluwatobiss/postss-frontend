@@ -15,7 +15,7 @@ export default function Aside() {
   const openPostDialog = useContext(PostDialogContext);
   const { userTokenNData } = useContext(UserTokenNDataContext);
   const { userToken, userData } = userTokenNData;
-  const { trigger } = useSWRMutation(url, mutateData);
+  const { trigger, isMutating } = useSWRMutation(url, mutateData);
 
   async function logout() {
     try {
@@ -61,6 +61,7 @@ export default function Aside() {
               type="button"
               onClick={logout}
               className="size-15 rounded-xl flex items-center justify-center cursor-pointer hover:bg-[rgba(255,255,255,0.08)]"
+              disabled={isMutating}
             >
               {svg.boxArrowRight}
             </button>
