@@ -8,7 +8,7 @@ export default function LatestPosts() {
   const { posts } = useContext(PostsContext);
   const comments = useContext(CommentsContext);
   function getLatestPosts() {
-    return posts.map((post: PostProps) => {
+    return posts?.map((post: PostProps) => {
       const postComments = comments.filter((c) => c.postId === post.id);
       return (
         <PostCard key={post.id} commentSum={postComments.length} post={post} />
