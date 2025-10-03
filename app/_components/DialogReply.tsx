@@ -84,7 +84,6 @@ export default function DialogReply({
               accept="image/*"
             />
           </div>
-          {/* <div>{svg.emoji}</div> */}
         </div>
       </span>
     </section>
