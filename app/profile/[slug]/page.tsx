@@ -21,6 +21,7 @@ export default function Profile({
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/users`;
   const openPostDialog = useContext(PostDialogContext);
   const activeTab = useRef("");
+  const totalUserPosts = useRef(0);
   const { slug } = use(params);
   const { userTokenNData } = useContext(UserTokenNDataContext);
   const { userData, userToken } = userTokenNData;
@@ -30,28 +31,29 @@ export default function Profile({
   const [tabBios, setTabBios] = useState<User[]>([]);
 
   function showUserPosts() {
-    activeTab.current = "Posts";
     const userPosts = posts.filter((post) => post.authorId === userData.id);
+    totalUserPosts.current = userPosts.length;
+    activeTab.current = "Posts";
     setTabPosts(userPosts);
   }
 
   function showLikedPosts() {
-    activeTab.current = "Likes";
     const likedPosts = posts.filter((post) => post.likes.includes(userData.id));
+    activeTab.current = "Likes";
     setTabPosts(likedPosts);
   }
 
   function showSubs() {
-    activeTab.current = "Subs";
     const subs = userData.following;
     const biosSubscribedTo = data?.filter((bio: User) => subs.includes(bio.id));
+    activeTab.current = "Subs";
     setTabBios(biosSubscribedTo);
   }
 
   function showFans() {
-    activeTab.current = "Fans";
     const fans = userData.followers;
     const fansBios = data?.filter((bio: User) => fans.includes(bio.id));
+    activeTab.current = "Fans";
     setTabBios(fansBios);
   }
 
@@ -64,6 +66,10 @@ export default function Profile({
   }
 
   if (!activeTab.current) showUserPosts();
+  if (activeTab.current === "Posts") {
+    const userPosts = posts.filter((post) => post.authorId === userData.id);
+    if (userPosts.length > totalUserPosts.current) showUserPosts();
+  }
 
   return (
     <>
