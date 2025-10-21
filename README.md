@@ -2,6 +2,8 @@
 
 This is the official website of the Postss Social App. Postss is a social media app, similar to Threads.com, that enables users to socialize and engage in discussions with people worldwide.
 
+<img width="1920" height="1080" alt="Postss Social App desktop screenshot" src="https://github.com/user-attachments/assets/833f8f4a-c826-4218-8647-4e5b15d9817a" />
+
 ## Pages
 
 - **Homepage:**
